@@ -1,1 +1,5 @@
 A Republican ex-congressman and current Trump campaign adviser claimed President Trump, not the Obama-Biden administration
+
+This update had been done by mustafa al ogaidi to verify how to use git log for specific file
+
+thanks ...
