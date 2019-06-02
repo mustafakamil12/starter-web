@@ -1,9 +1,19 @@
-# Starter Web Repo
-# You Need Best, Mustafa is Best of The Best...
-with 19 years exp !!!
+# Starter Web Project
 
 This repository is for showing how Git and GitHub work
 
-## Purpose
+## Introduction
 
-Sample website with plenty of files for demos
+A lot of lectures are already submitted
+
+## GIT and GITHub Training
+
+This is the famous and one of the best traning course of DevOps
+
+## GIT Comparissions
+
+Adding GIT comparission lectures
+
+## GIT Content
+
+Comparission with Repo
