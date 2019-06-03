@@ -21,3 +21,7 @@ Comparission with Repo
 ## Status
 
 Working from Office...
+
+## Target
+
+Complete DevOps Course
