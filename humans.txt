@@ -3,7 +3,9 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+	Mustafa Al Ogaidi
+	godric.phoenix@gmail.com
+	Infrastructure Code Developer
 
 # THANKS
 
