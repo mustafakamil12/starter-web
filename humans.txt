@@ -16,3 +16,5 @@
 
     HTML5, CSS3, Angular
     jQuery, Modernizr, Ajax
+    Python, JavaScript, Node.js
+    PowerShell, Bash
