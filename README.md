@@ -9,6 +9,7 @@ A lot of lectures are already submitted
 ## GIT and GITHub Training
 
 This is the famous and one of the best traning course of DevOps
+Adding GIT Rebase Lectures in GIT Advance part.
 
 ## GIT Comparissions
 
