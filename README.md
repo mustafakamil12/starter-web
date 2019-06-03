@@ -17,3 +17,7 @@ Adding GIT comparission lectures
 ## GIT Content
 
 Comparission with Repo
+
+## Target
+
+Complete DevOps Course
