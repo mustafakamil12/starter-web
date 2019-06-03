@@ -3,7 +3,10 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+	Mustafa Al Ogaidi
+	godric.phoenix@gmail.com
+	Infrastructure Code Developer
+	210-712-3989
 
 # THANKS
 
@@ -14,4 +17,5 @@
     HTML5, CSS3, Angular
     jQuery, Modernizr, 
     Machine Learnign, AWS, Google Cloude.
-    
+    Python, JavaScript, Node.js
+    PowerShell, Bash
