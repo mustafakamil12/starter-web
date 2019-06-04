@@ -207,3 +207,8 @@ $ git stash apply stash@{index#}
 
 # if u decide to clean stash queue <for example not needed > use
 $ git stash clear
+
+The upcoming scenario is to use one file in stage area, two files in working area, one file untracked.
+
+# to add your stash to new branch.
+$ git stash branch <branch name>
