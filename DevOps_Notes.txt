@@ -201,3 +201,9 @@ $ git stash save "Change in simple.html - stash with message"  <--- Error: Canno
 # to see what actully in a specific stash (if we have multiple stashs) use
 $ git stash show stash@{index#}
 
+# if u wanna to apply specific stash on ur working dirctory.
+$ git stash apply stash@{index#}
+# remember to drop the specific stash # after using the command above.
+
+# if u decide to clean stash queue <for example not needed > use
+$ git stash clear
