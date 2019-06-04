@@ -212,3 +212,4 @@ The upcoming scenario is to use one file in stage area, two files in working are
 
 # to add your stash to new branch.
 $ git stash branch <branch name>
+
