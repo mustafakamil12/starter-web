@@ -145,4 +145,59 @@ $ git rebase <target branch>
 # if we have any rebase conflict, first thing u need to do is to abort the mission.
 $ git rebase --abort
 
+# to find difference between branch and another branch
+$ git diff <branch1> <branch2>
+
+# to continue rebase process
+$ git rebase --continue
+
+# to skip the current patching in rebase process
+$ git rebase --skip
+
+# if u modify anything in the remote repo and u wanna to see this modifying reflected to the local repo
+$ git fetch   <--- it will fetch out all the changes which present in the remote repo but not present in ur local machine
+
+# must likely u'll see this message <Your branch and 'origin/master' have diverged,> that's mean remote repo and local repo are not in sync.
+# now the question in the case above how we can rebase the local repo with remote repo, to pick all the changes that we have in the local repo (the local branch) and put it on the head of the changes in the remote branchs.
+$ git pull --rebase origin master.
+
+# this phrase (HEAD -> master, origin/master, origin/HEAD) mean both local and remote repo in sync.
+
+# if u wanna to stash ur work and work with another urgent thing.
+$ git stash 
+
+# stash commands , Keep in ur mind stash working on stged area only. 
+#- git stash 
+#- git stash apply
+#- git stash list
+#- git stash drop
+
+# if u wanna to know if there's any changes in the stash file
+$ git stash list
+
+# WIP = Working In Progress
+
+# if u wanna to apply stash changes to ur working directory.
+$ git stash apply
+
+# after revert changes from the stash u need to drop it, otherwise it will confuse u. 
+$ git stash drop
+
+# to list files that tracked by git
+$ git ls-files
+
+# to stash untracked files or changes
+$ git stash -u
+
+# to stash all files
+$ git stash -a
+
+# to apply all stashed use
+$ git stash pop
+
+# to do stash with message, so u can use it later.
+$ git stash save "Change in simple.html - stash with message"  <--- Error: Cannot save the current worktree state
+
+# to see what actully in a specific stash (if we have multiple stashs) use
+$ git stash show stash@{index#}
 
