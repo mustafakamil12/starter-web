@@ -15,6 +15,7 @@ Adding GIT Rebase Lectures in GIT Advance part. We have done so much of work tog
 ## GIT Comparissions
 
 Adding GIT comparission lectures
+Adding new lectures of Stash.
 
 ## GIT Content
 
