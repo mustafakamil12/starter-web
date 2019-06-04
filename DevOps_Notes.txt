@@ -1,0 +1,148 @@
+# important terms in that introduce by the Dark Lunching Technique and they lie at the heart of the devops
+# also called DevOps life cycle phases
+#- continuous monitoring	
+#- continuous development	
+#- continuous testing		
+#- continuous integration
+#- continuous deployment
+
+# git is tool and GitHub is the repository 
+
+# to change the configuration file of git
+$ git config
+
+# to set the name in configuration file of git 
+$ git config --global user.name "Al Ogaidi, Mustafa"
+
+# to set the email in configuration file of git
+$ git config --global user.email "godric.phoenix@gmail.com"
+
+# to get a list of different configuration command for git 
+$ git config --list
+
+# to get help on git
+$ git help
+
+# to get help on a specific command
+$ git help <command>
+
+# to start new project with git u need to create new folder 
+$mkdir <name>
+
+# to create new repository in the project folder
+$ git init
+
+# to view the hidden repository in a directory 
+$ ls -al
+
+# to see changes and the commits in a repo, to verify the status of git project
+$ git status
+
+# to commit the changes in any file we need first to add these changes to the git project, to add all changes (before using the command below u will see this phrase <Untracked files> and file(s) in red color)
+$ git add .
+# after using the command above u will see this phrase <Changes to be committed> and file(s) in green color.
+
+# to add changes in a specific file 
+$ git add <file name>
+
+# to commit changes, (-m  ==> message)
+$ git commit -m "any text"
+# after using the command above is u use git status u will get this message <nothing to commit, working tree clean>
+# if we do any changes to the file above like adding some text and use git status u will get this message <Changes not staged for commit>
+
+# if we need to see all the commits logs inside the git
+$ git log
+
+# if u need to see the commit log for a particular member inside the git
+$ git log --author="member name"
+
+# the git workflow is --> working area ==> staging area ==> repository
+
+
+
+
+
+# if u wanna to see the changes in ur repo area and ur working area, in another word the difference between local repo and local working area
+$ git diff
+
+# now to view the changes between staging area and repo
+$ git diff --staged
+
+# if u need to delete file in git, remove it from the working area using rm <file name>, or
+$ git rm <file name>  --> if we using this command we will skip the next command since it will be staged already, we need to commit directly. 
+$ git add .
+$ git commit -m "message" 
+
+# if u wanna to create a centralized repo in git hub
+ -create new repo in GitHub
+ -create new work area in ur computer
+ -initialize the new work are using git init
+ -copy the GitHub url using <clone>
+ $ git remote add origin "GitHub url"
+ -pull the changes from the GitHub
+ $ git pull origin <branch>
+ 
+# if there's any issue with pull related to the history u can use.
+$ git pull origin master --allow-unrelated-histories
+
+
+ -push the changes from local repo to GitHub
+ $ git push origin master
+ -we need to keep our local repo up to date with centralized repo.
+
+# to create new branch <which is only a pointer not a real repo> use the following command
+ $ git branch <branch name>
+
+# now to switch the branch <after creating new branch>
+$ git checkout <branch name>
+
+# to view branches in git
+$ git branch
+
+# file created in a branch <not master> will not been seen in master until merge.
+# after ensure that everything in the branch is ok u can merge the branch with master.
+# if u wanna to push the content of a branch to GitHub please push it to a branch, even if it's not exist in the GitHub yet.
+
+# if u wanna to merge with a specific branch for ex master, u need first to git checkout to the master and then use this command.
+$ git merge <branch name>
+$ git push origin <branch name>   <--- GitHub
+
+# to remove file from staging area and get it back to the working area
+$ git reset HEAD <file name>
+
+# to revert a commit from the local repo, changes will be back to the working area.
+$ git reset HEAD~
+
+# if u wanna to remove .git folder from ur project
+$ rm -rf .git
+
+# fork in GitHub mean create that target repo in ur private space or personal repo.
+
+# to clone project from GitHub to our local work area.
+$ git clone <url from github>
+
+
+
+====> git config core.autocrlf true
+
+The notes below is belong to Merge conflicts and resolution.
+
+# if u got this error message <CONFLICT (content): Merge conflict in file name> that's mean we have conflict issue in this file.
+# to resolve the conflict issue above u need to edit the file and update it.
+
+# git rebase is re-writing the project history by creating brand new commits for each commit, so it's move the entier feature branch to begining on the top of the master branch.
+
+# u can create new branch by using 
+$ git checkout -b <branch name>
+
+# u can do both staging and commit at the same time
+$ git commit -am "text"
+
+# to rebase branch
+$ git checkout <Feature_Branch>
+$ git rebase <target branch>
+
+# if we have any rebase conflict, first thing u need to do is to abort the mission.
+$ git rebase --abort
+
+
