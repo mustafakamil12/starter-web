@@ -211,5 +211,7 @@ $ git stash clear
 The upcoming scenario is to use one file in stage area, two files in working area, one file untracked.
 
 # to add your stash to new branch.
+$ git stash -a
+# Please delete this file <sh.exe.stackdump>
 $ git stash branch <branch name>
 
