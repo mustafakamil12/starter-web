@@ -1,3 +1,4 @@
 myTestFile.txt
-*.log
+#*.log
 myTestFolder/
+sh.exe.stackdump
