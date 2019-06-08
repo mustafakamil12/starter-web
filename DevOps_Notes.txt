@@ -149,7 +149,7 @@ $ git mv <old file name> <new file name>
 
 
 # to get more graphical and decorated view for git log we can use the command
-$ git log --oneline --graph --decorate
+$ git log --oneline --graph --decorate --all
 
 # to search log for specific date use
 $ git log --since="2 days ages"   <--- example
@@ -311,4 +311,16 @@ The upcoming scenario is to use one file in stage area, two files in working are
 $ git stash -a
 # Please delete this file <sh.exe.stackdump>
 $ git stash branch <branch name>
+
+# to use git tagging we have multiple commands
+$ git tag <tag name>
+$ git tag --list  
+$ git tag --delete <tag name>
+
+# to create tag with some kind of message, annotated, we can use.
+$ git tag -a <tag name>  ---> it will open editor to put ur message.
+
+# to view the tag notes or message,
+$ git show <tag name>
+
 
