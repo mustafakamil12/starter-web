@@ -325,3 +325,9 @@ $ git show <tag name>
 
 # to compare particular tags
 $ git diff <tag name1> <tag name2>
+
+# if u wanna to update specific commit in history
+$ git tag -a <tag name> <commit id>
+
+# if u wanna to update tag
+$ 
