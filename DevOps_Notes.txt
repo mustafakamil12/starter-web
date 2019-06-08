@@ -329,5 +329,30 @@ $ git diff <tag name1> <tag name2>
 # if u wanna to update specific commit in history
 $ git tag -a <tag name> <commit id>
 
-# if u wanna to update tag
-$ 
+# if u wanna to update tag, if by mistake u tagged the wrong commit.
+$ git tag -a <tag name> -f <new commit id>
+
+# in case u put wrong message with git commit and u wanna to fix it.
+$ git commit --amend -m <new message>
+
+# to modify the old commit message
+$ git rebase -i HEAD~3
+
+# if u wanna after the target commit ID, all the file or changes will move to staging area.
+$ git reset --soft <commit id>
+
+# if u wanna after the target commit id, all the file or changes will move to the working area.
+$ git reset <commit id>
+
+# No data will left for recover.
+$ git reset --hard <commit it>
+
+# if we use reset --hard and we wanna to recover and track the changes that had been lost because of this reset. <about 30 days>
+$ git reflog
+
+# to move the git HEAD to specific commit id
+$ git checkout <commit id>
+
+# if for any reason have a lot of files and directories that had been created at some time in the git project directory.
+# if we need to clean or git project directory.
+$ git clean -df
