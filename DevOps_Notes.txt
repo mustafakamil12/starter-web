@@ -323,4 +323,5 @@ $ git tag -a <tag name>  ---> it will open editor to put ur message.
 # to view the tag notes or message,
 $ git show <tag name>
 
-
+# to compare particular tags
+$ git diff <tag name1> <tag name2>
