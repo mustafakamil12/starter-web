@@ -81,10 +81,9 @@ $ git commit -m "message"
  $ git remote add origin "GitHub url"
  -pull the changes from the GitHub
  $ git pull origin <branch>
- 
-# if there's any issue with pull related to the history u can use.
-$ git pull origin master --allow-unrelated-histories
 
+ - if there's any issue with pull related to the history u can use this command.
+ # go pull origin master --allow-unrelated-histories 
 
  -push the changes from local repo to GitHub
  $ git push origin master
@@ -104,7 +103,7 @@ $ git branch
 # if u wanna to push the content of a branch to GitHub please push it to a branch, even if it's not exist in the GitHub yet.
 
 # if u wanna to merge with a specific branch for ex master, u need first to git checkout to the master and then use this command.
-$ git merge <branch name>
+$ git merge <branch name>  <-- if only move commits from branch to another u can see <Fast-forward just move the pointer>
 $ git push origin <branch name>   <--- GitHub
 
 # to remove file from staging area and get it back to the working area
@@ -121,11 +120,109 @@ $ rm -rf .git
 # to clone project from GitHub to our local work area.
 $ git clone <url from github>
 
+# to open commit file, it's best to connect it with text editor
+$ git commit
+
+# general notes when u use git  1. use add for any untracked files --> 2. commit them to local repo --> 3. pull the latest update from the centralize repo --> 4. use push
+
+# to discard changes in file before staging, use
+$ git checkout -- <file>
+
+# if u wanna to remove file for example after u already commit all changes and for some reason u wanna to get it back
+$ git rm <file name> ---> this will remove file from staging area as well working area !!!.
+$ git reset HEAD <file name>
+$ git checkout -- <file name>
+
+# now if we remove file directly from the system <not using git>
+$ rm <file name> 
+$ git reset HEAD <file name>
+$ git checkout -- <file name>
+
+# now if u wanna to delete a tree of folders with files included.
+$ git rm -rf <directory name>  ---> recursively delete
+# when commit the change above it can't be get back.
+
+# to rename file in git project
+$ git mv <old file name> <new file name>
+
+# there's different between using mv as os command and git mv, in the using of <mv> it will working only on the working area by delete the old named file and create new one. conversely the git mv will working on both working area and staging area as well, by rename the file from old name to the new name.
 
 
-====> git config core.autocrlf true
+# to get more graphical and decorated view for git log we can use the command
+$ git log --oneline --graph --decorate
 
-The notes below is belong to Merge conflicts and resolution.
+# to search log for specific date use
+$ git log --since="2 days ages"   <--- example
+
+# if u wanna to find changes that been done for a specific file
+$ git log -- <file name>
+
+# now if u wanna to get details about any commit
+$ git show <commit id, even the first 7 chars>
+
+# to create alias for any long command <to make long command short>s
+$ git config --global alias.<name> "command options>
+$ git <alias name>  <-- how to use alias
+$ git config --global alias.history "log --all --graph --decorate --oneline"  <== to use this alias $ git history
+
+# for example if u wanna to do some change in the alias command after u create it. let say u need to remove --graph from it.
+# u need to edit the config file 
+$ nano ~/.gitcofig
+
+# if u wanna to exclude the unwanted files in git
+#- create hidden file called <.gitignore>
+#.git ignore pattern:
+#- <file name>
+#- <*.123>
+#- <folder name/>
+$nano .gitignore
+
+
+# if u wanna to create access.log file
+$ nano access.log
+# it will contain the following:
+#- /status 200
+#- /httpaccess 200
+#- /mktsp 300
+#- /dummy 3000
+
+# if u wanna to create error.log file
+$ nano error.log
+#- Authen error response code is 400
+#- Not able to connect to server
+#- State elemnet reference
+#- Array out of bound index
+
+# now to exclude all .log file(s) from  git project
+$ nano .gitignore
+# *.log  <-- add this to .gitignore
+ 
+# to compare a specific file between working area and staging area.
+$ git diff <file name>
+
+# to compare the changes between working area and repo
+$ git diff HEAD <file name > <--- file name is optional
+
+# to compare the changes between staging area and repo
+$ git diff --staged HEAD <file name>
+
+# to compare the changes between 2 commits
+$ git diff <commit id 1> <commit id 2>
+
+# to compare the changes between the last commit and -1 the last commit <previous the last commit>
+$ git diff HEAD HEAD^
+
+# to list all branches in the git as well the remote repo and branches.
+$ git branch -a 
+
+# to delete branch from git locally, but u need to be not in this branch
+$ git branch -d <branch name>
+
+# if u wanna to rename the branch
+$ git branch -m <old branch name> <new branch name>
+
+#if u wanna to add message with merge process
+$ git merge <branch1> -m "Some Text"
 
 # if u got this error message <CONFLICT (content): Merge conflict in file name> that's mean we have conflict issue in this file.
 # to resolve the conflict issue above u need to edit the file and update it.
@@ -214,4 +311,3 @@ The upcoming scenario is to use one file in stage area, two files in working are
 $ git stash -a
 # Please delete this file <sh.exe.stackdump>
 $ git stash branch <branch name>
-
