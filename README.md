@@ -6,6 +6,7 @@ This repository is for showing how Git and GitHub work
 
 A lot of lectures are already submitted
 And a lot of lectures are still comning on 
+I hope I finally findy my way, it's to hard to decide now...
 
 ## GIT and GITHub Training
 

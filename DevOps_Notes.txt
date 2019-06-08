@@ -311,3 +311,4 @@ The upcoming scenario is to use one file in stage area, two files in working are
 $ git stash -a
 # Please delete this file <sh.exe.stackdump>
 $ git stash branch <branch name>
+
