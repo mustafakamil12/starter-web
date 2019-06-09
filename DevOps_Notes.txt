@@ -356,3 +356,5 @@ $ git checkout <commit id>
 # if for any reason have a lot of files and directories that had been created at some time in the git project directory.
 # if we need to clean or git project directory.
 $ git clean -df
+
+================================================================End Of Git Phase==================================================
