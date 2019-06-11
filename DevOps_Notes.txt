@@ -177,6 +177,10 @@ $ nano ~/.gitcofig
 #- <folder name/>
 $nano .gitignore
 
+# if u face any issue with .gitignore file like git don't ignore what u put in the .gitignore file
+$ git rm -r --cached .
+$ git add .
+$ git commit -m "fixed untracked files"
 
 # if u wanna to create access.log file
 $ nano access.log
@@ -226,6 +230,7 @@ $ git merge <branch1> -m "Some Text"
 
 # if u got this error message <CONFLICT (content): Merge conflict in file name> that's mean we have conflict issue in this file.
 # to resolve the conflict issue above u need to edit the file and update it.
+$ git merge --abort
 
 # git rebase is re-writing the project history by creating brand new commits for each commit, so it's move the entier feature branch to begining on the top of the master branch.
 
