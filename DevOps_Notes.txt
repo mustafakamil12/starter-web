@@ -362,4 +362,5 @@ $ git checkout <commit id>
 # if we need to clean or git project directory.
 $ git clean -df
 
+we only need to add how connect to editor
 ================================================================End Of Git Phase==================================================
