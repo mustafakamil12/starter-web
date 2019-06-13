@@ -232,7 +232,7 @@ $ git merge <branch1> -m "Some Text"
 # to resolve the conflict issue above u need to edit the file and update it.
 $ git merge --abort
 
-# git rebase is re-writing the project history by creating brand new commits for each commit, so it's move the entier feature branch to begining on the top of the master branch.
+# git rebase is re-writing the project history by creating brand new commits for each commit, so it's move the entire feature branch to beginning on the top of the master branch.
 
 # u can create new branch by using 
 $ git checkout -b <branch name>
@@ -268,7 +268,7 @@ $ git pull --rebase origin master.
 # if u wanna to stash ur work and work with another urgent thing.
 $ git stash 
 
-# stash commands , Keep in ur mind stash working on stged area only. 
+# stash commands , Keep in ur mind stash working on staged area only. 
 #- git stash 
 #- git stash apply
 #- git stash list
@@ -298,7 +298,7 @@ $ git stash -a
 $ git stash pop
 
 # to do stash with message, so u can use it later.
-$ git stash save "Change in simple.html - stash with message"  <--- Error: Cannot save the current worktree state
+$ git stash save "Change in simple.html - stash with message"  <--- Error: Cannot save the current work-tree state
 
 # to see what actully in a specific stash (if we have multiple stashs) use
 $ git stash show stash@{index#}
