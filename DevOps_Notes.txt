@@ -353,7 +353,7 @@ $ git reset <commit id>
 $ git reset --hard <commit it>
 
 # if we use reset --hard and we wanna to recover and track the changes that had been lost because of this reset. <about 30 days>
-$ git reflog
+$ git reflog  < by this command u can review the reference log for git and find the commit id that u need to recover :)
 
 # to move the git HEAD to specific commit id
 $ git checkout <commit id>
