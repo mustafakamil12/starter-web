@@ -358,7 +358,7 @@ $ git reflog  <--- by this command u can review the reference log for git and fi
 # to move the git HEAD to specific commit id
 $ git checkout <commit id>
 
-# if for any reason have a lot of files and directories that had been created at some time in the git project directory.
+# if for any reason have a lot of files and directories that had been created at some time in the git project directory and they are untracked files.
 # if we need to clean or git project directory.
 $ git clean -df
 
