@@ -59,7 +59,9 @@ $ git log --author="member name"
 # the git workflow is --> working area ==> staging area ==> repository
 
 
-
+# if u wanna to use sublime text as git editor use the commands below
+$ ln -s /Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl /usr/local/bin/sublime
+$ git config --global core.editor "sublime -n -w"
 
 
 # if u wanna to see the changes in ur repo area and ur working area, in another word the difference between local repo and local working area
