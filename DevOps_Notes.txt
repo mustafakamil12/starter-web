@@ -59,7 +59,7 @@ $ git log --author="member name"
 # the git workflow is --> working area ==> staging area ==> repository
 
 
-# if u wanna to use sublime text as git editor use the commands below
+# if u wanna to use sublime text as git editor use the commands below <Please advise that the commands below for mac osx>
 $ ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/.
 $ echo $PATH
 $ git config --global core.editor "subl -n -w"
