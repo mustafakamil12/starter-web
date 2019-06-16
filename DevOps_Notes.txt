@@ -60,7 +60,8 @@ $ git log --author="member name"
 
 
 # if u wanna to use sublime text as git editor use the commands below
-$ ln -s /Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl /usr/local/bin/sublime
+$ ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/.
+$ echo $PATH
 $ git config --global core.editor "sublime -n -w"
 
 
