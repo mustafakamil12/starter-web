@@ -62,7 +62,7 @@ $ git log --author="member name"
 # if u wanna to use sublime text as git editor use the commands below
 $ ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/.
 $ echo $PATH
-$ git config --global core.editor "sublime -n -w"
+$ git config --global core.editor "subl -n -w"
 
 
 # if u wanna to see the changes in ur repo area and ur working area, in another word the difference between local repo and local working area
