@@ -6,6 +6,8 @@
 #- continuous integration
 #- continuous deployment
 
+===============================================================Start Of Git Phase=================================================
+
 # git is tool and GitHub is the repository 
 
 # to change the configuration file of git
@@ -367,3 +369,8 @@ $ git clean -df
 
 we only need to add how connect to editor
 ================================================================End Of Git Phase==================================================
+
+=============================================================== Build Tool: Maven=================================================
+
+
+
