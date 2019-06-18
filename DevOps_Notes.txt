@@ -372,5 +372,31 @@ we only need to add how connect to editor
 
 =============================================================== Build Tool: Maven=================================================
 
+# to verify if the maven is already installed in ur machine.
+$ mvn -v
+# if the command return back any data that's mean it's already installed, if not that's mean it's not installed yet
+# to install maven u need to check first if the java already installed and running in ur machine.
+$ java -version
+# then go to google to download the binary type of maven <apache-maven-3.6.1-bin.tar.gz> for example.
+# unzip the file above.
+# move the unzipped file to Applications
+$ mv apache-maven-3.6.1 /Applications/
+$ cd /Applications
+# now we need to configure maven on this machine.
+#- we need to create environment variable <M2_HOME> inside the bash profile.
+$ cd /Users/mustafaalogaidi/
+$ ls -a  ---> coz the bash profile is a hidden file. we are looking for this file <.bash_profile>
+$ open -e .bash_profile
+# add the line below to the profile...
+> export M2_HOME=Applications/apache-maven-3.6.1
+> export PATH=$PATH:$M2_HOME/bin
+# now save the changes that u put in the bash profile and close it.
+# to check that all changes had been saved.
+$ cat .bash_profile
+
+
+
+
+
 
 
