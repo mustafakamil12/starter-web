@@ -403,8 +403,18 @@ $ mvn archetype:generate  <--- this command will download the templates of maven
 
 # for our example we will hit enter for the most options except the options below:
 #- groupId, Value: com.testing.sample
-#- artifactId, Value: MySampleMavenProject
+#- artifactId, Value: MySampleMavenProject  <-- project name
 #- version, Value: 1.0-SNAPSHOT
+
+# if pom.xml file deleted form the project, this project will not be compiled. it's the heart of the project.
+
+# inside the project u will see also <src> folder, in side this folder u will see 2 folders <main> and <test>
+#- main folder is dedicated for developing code.
+#- test folder is dedicated to unit test code.
+
+# now at this point it's mandatory to import this project to eclipse but before we need to do some change to make it compatible with eclipse, by fire some commands to ensure this.
+$ cd MySampleMavenProject
+$ mvn eclipse:eclipse
 
 
 
