@@ -67,6 +67,10 @@ $ echo $PATH
 $ git config --global core.editor "subl -n -w"
 
 
+# if u wanna to use Notpad++ as git editor in windows u ll use the steps below.
+
+
+
 # if u wanna to see the changes in ur repo area and ur working area, in another word the difference between local repo and local working area
 $ git diff
 
