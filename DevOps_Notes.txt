@@ -67,7 +67,7 @@ $ echo $PATH
 $ git config --global core.editor "subl -n -w"
 
 
-# if u wanna to use Notpad++ as git editor in windows u ll use the steps below.
+# if u wanna to use Notepad++ as git editor in windows u ll use the steps below.
 
 
 
