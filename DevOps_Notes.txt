@@ -420,6 +420,36 @@ $ mvn archetype:generate  <--- this command will download the templates of maven
 $ cd MySampleMavenProject
 $ mvn eclipse:eclipse
 
+# maven build life cycle
+#- validate
+$ cd /Users/mustafaalogaidi/Desktop/JavaProjectTraining/MySampleMavenProject
+$ ls
+$ mvn validate
+
+#- compile
+$ mvn compile
+
+#- test
+$ mvn test
+
+#- package
+$ mvn package
+
+# to verify that our project had been built...
+$ cd target  <-- and u will find this for ex = MySampleMavenProject-1.0-SNAPSHOT.jar
+
+#- clean
+$ mvn clean
+
+# all dependencies and support plugins are defined in the pom file.
+# all dependencies resolved during the compilation which mentioned in pom file.
+
+# if u wanna to add another dependency to ur project, u will add this in the pom file in the part of <dependency>
+
+#- install
+$
+
+
 
 
 
