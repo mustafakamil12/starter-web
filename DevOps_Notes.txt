@@ -444,7 +444,23 @@ $ mvn clean
 # all dependencies and support plugins are defined in the pom file.
 # all dependencies resolved during the compilation which mentioned in pom file.
 
-# if u wanna to add another dependency to ur project, u will add this in the pom file in the part of <dependency>
+# if u wanna to add another dependency to ur project, u will add this in the pom file in the part of <dependency> for example <log4j maven>
+# from google search about <log4j maven> 
+# go to the site and u can select for example <Apache Log4j » 1.2.16>
+# then copy the dependency. 
+# inside the dependencies in pom file paste the dependency above. :)
+
+$ mvn clean package
+
+# after the command above u need to check the Referenced libraries, if u don't see the library above no problem, u can follow the steps below to check. 
+# go to the eclipse --> <my project> --> R.C. ---> properties --> java build path --> libraries --> double click on the M2_Repo... to find the path.
+
+$ cd /Users/mustafaalogaidi/.m2/repository
+$ ls
+$ cd log4j/
+$ cd log4j/
+$ ls  --> u can see this version 1.2.16
+
 
 #- install
 $
