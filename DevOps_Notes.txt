@@ -466,7 +466,7 @@ $ mvn install
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Python with Maven +++++++++++++++++++++++++++++++++++++++++++++++++
 
-# in eclipse --> help --> install new software --> work with <http://pydev.org/updates> --> Enter --> select pyrex
+# in eclipse --> help --> install new software --> work with <http://pydev.org/updates> --> Enter --> select pydev
 # after installation and restart eclipse complete --> file --> new --> other --> pydev --> pydev project --> click on please an interpreter before proceeding
 # --> <add the path to the python> for example </anaconda3/bin/python3.6> 
 # after finish the process above select the interpreter and ok
