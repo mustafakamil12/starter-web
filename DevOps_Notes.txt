@@ -488,6 +488,8 @@ $ mvn install
 # --> <add the path to the python> for example </anaconda3/bin/python3.6> 
 # after finish the process above select the interpreter and ok
 
+# please advise that this part still under development, there's another plugin can be used!!!
+
 =============================================================== End Tool: Maven===================================================
 
 
