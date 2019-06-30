@@ -68,8 +68,26 @@ $ git config --global core.editor "subl -n -w"
 
 
 # if u wanna to use Notepad++ as git editor in windows u ll use the steps below.
+# first of all u need to add Notepad++ to the path in windows, if u didn't change the default path of the 
+# installation u will find the notepad++.exe in <C:\Program Files (x86)\Notepad++>
 
+# go to the search and look for environment variable.
+# in environment variable --> system variables --> path --> new and put this path <C:\Program Files (x86)\Notepad++>
 
+# now we need to configure notepad++ with bash, in ur project directory.
+$ notepad++ .bash_profile  <-- if this file exist, it will create it, if not it will prompt u to create it.
+
+# in the new page add the line below.
+> alias npp='notepad++.exe --multilnst --nosession'
+
+# now we need to configure notepad++ with git 
+$ git config --global core.editor "\"C:\Program Files (x86)\Notepad++\notepad++.exe""  -multiInst -notabbar -nosession -noPlugin
+# if u don't receive any error message that's mean it's good.
+
+# now to verify if our work is ok 
+$ cat ~/.gitconfig
+$ git config --global --list
+$ git config --global --e   <-- it's mean that i wanna to edit the config file.
 
 # if u wanna to see the changes in ur repo area and ur working area, in another word the difference between local repo and local working area
 $ git diff
@@ -371,7 +389,6 @@ $ git checkout <commit id>
 # if we need to clean or git project directory.
 $ git clean -df
 
-we only need to add how connect to editor
 ================================================================End Of Git Phase==================================================
 
 =============================================================== Build Tool: Maven=================================================
@@ -482,6 +499,8 @@ $ mvn install
 # after installation and restart eclipse complete --> file --> new --> other --> pydev --> pydev project --> click on please an interpreter before proceeding
 # --> <add the path to the python> for example </anaconda3/bin/python3.6> 
 # after finish the process above select the interpreter and ok
+
+# please advise that this part still under development, there's another plugin can be used!!!
 
 =============================================================== End Tool: Maven===================================================
 
