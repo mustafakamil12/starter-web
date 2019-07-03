@@ -542,6 +542,22 @@ $ sudo apt-get install oracle-java8-set-default
 # now we need to check if java exist in our machine.
 > java -version  --> it must be 1.8.x 
 
+# if u wanna to open command prompt in a specific folder 
+> target folder > address bar above put cmd and hit enter!!! :)
+> java -jar jenkins.war --httpPort=9090  --> if it's running successfully u'll get this prompt
+# <INFO: Jenkins is fully up and running>
+
+# now to access jenkins u need to use ur computer ip
+> ipconfig
+
+http://<urip>:9090
+
+# now u'll prompted to enter adminstrative password, that u get it from 
+$ cat <C:\Users\v435431\.jenkins\secrets\initialAdminPassword>  <---for example
+
+
+
+
 
 
 
