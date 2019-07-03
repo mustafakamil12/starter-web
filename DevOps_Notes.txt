@@ -513,6 +513,9 @@ $ mvn install
 
 # the only pre-request to install jenkins is java, it must be installed on the machine we will use linux ubuntu.
 
+# to check ubuntu version
+$ lsb_release -a
+
 # verify java on a machine 
 $ java --version
 
@@ -521,6 +524,9 @@ $ sudo add-apt-repository ppa:webupd8team/java
 $ sudo apt-get update
 $ sudo apt-get install oracle-java8-installer
 $ sudo apt-get install oracle-java8-set-default
+
+
+------------------------------------------------------------Install Jenkins on Windows---------------------------------------------
 
 
 
