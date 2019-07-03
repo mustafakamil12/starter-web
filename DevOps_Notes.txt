@@ -393,6 +393,8 @@ $ git clean -df
 
 =============================================================== Build Tool: Maven=================================================
 
+# there are many build tools, maven, gradle and ant. we will use maven in this course
+
 # to verify if the maven is already installed in ur machine.
 $ mvn -v
 
@@ -507,7 +509,10 @@ $ mvn install
 
 =================================================================== Jenkins ======================================================
 
+------------------------------------------------------------Install Jenkins on Linux----------------------------------------------
 
+# the only pre-request to install jenkins is java, it must be installed on the machine.
+$ java --version
 
 
 
