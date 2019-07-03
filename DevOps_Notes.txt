@@ -537,7 +537,10 @@ $ sudo apt-get install oracle-java8-set-default
 # from the LTS down load --> Generic java package (.war)
 # althogh we have a windows option but we will download (.war) file to use jenkins as a service in our machine.
 
+# copy the downloaded file <jenkins.war> to any folder u want for example <c:/jenkins_server/jenkins.war>.
 
+# now we need to check if java exist in our machine.
+> java -version  --> it must be 1.8.x 
 
 
 
