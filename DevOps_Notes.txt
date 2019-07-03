@@ -554,6 +554,10 @@ http://<urip>:9090
 
 # now u'll prompted to enter adminstrative password, that u get it from 
 $ cat <C:\Users\v435431\.jenkins\secrets\initialAdminPassword>  <---for example
+> in this project our url will be http://10.248.238.51:9090/
+
+
+------------------------------------------------------------Install Jenkins on MAC----------------------------------------------
 
 
 
