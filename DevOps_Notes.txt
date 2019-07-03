@@ -511,8 +511,17 @@ $ mvn install
 
 ------------------------------------------------------------Install Jenkins on Linux----------------------------------------------
 
-# the only pre-request to install jenkins is java, it must be installed on the machine.
+# the only pre-request to install jenkins is java, it must be installed on the machine we will use linux ubuntu.
+
+# verify java on a machine 
 $ java --version
+
+# to install java in order to execute jenkins war file we will use these commands
+$ sudo add-apt-repository ppa:webupd8team/java
+$ sudo apt-get update
+$ sudo apt-get install oracle-java8-installer
+$ sudo apt-get install oracle-java8-set-default
+
 
 
 
