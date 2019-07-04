@@ -587,8 +587,11 @@ http://<urip>:9090
 
 # now u'll prompted to enter adminstrative password, that u get it from 
 $ cat </Users/mustafaalogaidi/.jenkins/secrets/initialAdminPassword>  <---for example
+# or through the unpacking process above u will get prompt said <please use the password below> !!! :)
+> in this project our url will be http://10.120.65.233:9090/
 
 # u need to install the suggested packages.
+
 
 ----------------------------------------------------------Start Working With Jenkins--------------------------------------------
 
