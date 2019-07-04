@@ -535,7 +535,7 @@ $ sudo apt-get install oracle-java8-set-default
 #- weekly is mean not sure it's completely tested and ready.
 
 # from the LTS down load --> Generic java package (.war)
-# althogh we have a windows option but we will download (.war) file to use jenkins as a service in our machine.
+# although we have a windows option but we will download (.war) file to use jenkins as a service in our machine.
 
 # copy the downloaded file <jenkins.war> to any folder u want for example <c:/jenkins_server/jenkins.war>.
 
@@ -556,6 +556,8 @@ http://<urip>:9090
 $ cat <C:\Users\v435431\.jenkins\secrets\initialAdminPassword>  <---for example
 > in this project our url will be http://10.248.238.51:9090/
 
+# u need to install the suggested packages.
+
 
 ------------------------------------------------------------Install Jenkins on MAC----------------------------------------------
 
@@ -565,7 +567,7 @@ $ cat <C:\Users\v435431\.jenkins\secrets\initialAdminPassword>  <---for example
 #- weekly is mean not sure it's completely tested and ready.
 
 # from the LTS down load --> Generic java package (.war)
-# althogh we have a MacOs option but we will download (.war) file to use jenkins as a service in our machine.
+# although we have a MacOs option but we will download (.war) file to use jenkins as a service in our machine.
 
 # copy the downloaded file <jenkins.war> to any folder u want for example </jenkins_server/jenkins.war>.
 
@@ -574,9 +576,20 @@ $ java -version  --> it must be 1.8.x
 
 # to run jenkins u need to submit the command below
 $ java -jar /jenkins.war --httpPort=9090  --> if it's running successfully u'll get this prompt
-# it will start unpackage the war file
+# it will start unpackaged the war file
 # it will create directory <.jenkins> in user home directory
 # <INFO: Jenkins is fully up and running>
 
+# now to access jenkins u need to use ur computer ip
+$ ifconfig
+
+http://<urip>:9090
+
+# now u'll prompted to enter adminstrative password, that u get it from 
+$ cat </Users/mustafaalogaidi/.jenkins/secrets/initialAdminPassword>  <---for example
+
+# u need to install the suggested packages.
+
+----------------------------------------------------------Start Working With Jenkins--------------------------------------------
 
 
