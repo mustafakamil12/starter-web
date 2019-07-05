@@ -630,18 +630,20 @@ $ java -jar jenkins.war <--httpPort=9090>    --> port is optional default port i
  #-- Subversion, use to pull code from the SCM like apache subversion.
  # if u need to use another source code not in the list then u need to install it's plugin. :)
 #- Build Triggers
- #-- Trigger builds remotely (e.g., from scripts)
- #-- Build after other projects are built
- #-- Build periodically
- #-- GitHub hook trigger for GITScm polling
- #-- Poll SCM
+ #-- Trigger builds remotely (e.g., from scripts), by this option i can trigger build remotly from another servers, using some kind of scripts or commands.
+ #-- Build after other projects are built, this particular build will be triggered after specific build had been execution.
+ #-- Build periodically, to build project periodically for a specific given period.
+ #-- GitHub hook trigger for GITScm polling, this option will be work when u enable Git opotion, whene ever u push something it will trigger build project.
+ #-- Poll SCM, using scm to trigger build project.
 #- Build Environment
- #-- Delete workspace before build starts
+ #-- Delete workspace before build starts, it's mean clean the previous workspace.
  #-- Use secret text(s) or file(s)
  #-- Abort the build if it's stuck
  #-- Add timestamps to the Console Output
  #-- Inspect build log for published Gradle build scans
  #-- With Ant
-#- Build
-#- Post-build Actions
+#- Build, used to add build steps
+#- Post-build Actions, used to perform some actions when the build complete.
+
+--------------------------------------------------Installing Git and GitHub plugin on Jenkins-----------------------------------
 
