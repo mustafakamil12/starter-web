@@ -1,3 +1,5 @@
+================================================================= Master DevOps ==================================================
+
 # important terms in that introduce by the Dark Lunching Technique and they lie at the heart of the devops
 # also called DevOps life cycle phases
 #- continuous monitoring	
@@ -505,7 +507,8 @@ $ mvn install
 
 # please advise that this part still under development, there's another plugin can be used!!!
 
-=============================================================== End Tool: Maven===================================================
+
+=========================================================== End Build Tool: Maven ================================================
 
 =================================================================== Jenkins ======================================================
 
@@ -598,4 +601,5 @@ $ cat </Users/mustafaalogaidi/.jenkins/secrets/initialAdminPassword>  <---for ex
 
 ----------------------------------------------------------Start Working With Jenkins--------------------------------------------
 
+# FreeStyle Project is the most flexible template in the Jenkins
 
