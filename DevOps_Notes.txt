@@ -615,3 +615,33 @@ $ java -jar jenkins.war <--httpPort=9090>    --> port is optional default port i
 
 # at this poing we will select the FreeStyle Project, which is the most flexible template in the Jenkins
 
+# in the job configuration 
+#- General
+ #-- Discard old builds, it's used to discard old builds.that's mean to remove old builds of the job from build history.
+ #-- GitHub project, we need to provide github url from where we need to pull the code once we execute the job.
+ #-- This build requires lockable resources, 
+ #-- This project is parameterized, if the project accept parametrs we can provide these parametrs here.
+ #-- Throttle builds, this option will be used to set the maximum build in parallel per a specific period.
+ #-- Disable this project, if this option set, that's mean nobody will be able to execute this project.
+ #-- Execute concurrent builds if necessary, <Please keep this check box checked>, it's allow morethan one job in a paralle in the same time.
+#- Source Code Management
+ #-- None
+ #-- Git, we need to provide git url with creds as well.
+ #-- Subversion, use to pull code from the SCM like apache subversion.
+ # if u need to use another source code not in the list then u need to install it's plugin. :)
+#- Build Triggers
+ #-- Trigger builds remotely (e.g., from scripts)
+ #-- Build after other projects are built
+ #-- Build periodically
+ #-- GitHub hook trigger for GITScm polling
+ #-- Poll SCM
+#- Build Environment
+ #-- Delete workspace before build starts
+ #-- Use secret text(s) or file(s)
+ #-- Abort the build if it's stuck
+ #-- Add timestamps to the Console Output
+ #-- Inspect build log for published Gradle build scans
+ #-- With Ant
+#- Build
+#- Post-build Actions
+
