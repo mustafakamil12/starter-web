@@ -650,3 +650,10 @@ $ java -jar jenkins.war <--httpPort=9090>    --> port is optional default port i
 # --> manage jenkins --> manage plugins --> available --> in the filter put <Github> --> we will select Github integration --> install without restart
 # if u upgrade plugin please select <Download now and install after restart>, by this way it will not impact ur execution.
 # if u wanna to check if the plugin was installed, manage jenkins --> manage plugins --> installed 
+
+# now we need to configure maven with jenkins, to do this 
+--> manage jenkins --> global tool configuration --> --- JDK 
+													|   |_ name  = localJDK
+													|   |_ JAVA_HOME = C:\Program Files\Java\jdk1.8.0_201  <-- for example
+													|
+													|--- Git
