@@ -647,3 +647,6 @@ $ java -jar jenkins.war <--httpPort=9090>    --> port is optional default port i
 
 --------------------------------------------------Installing Git and GitHub plugin on Jenkins-----------------------------------
 
+# --> manage jenkins --> manage plugins --> available --> in the filter put <Github> --> we will select Github integration --> install without restart
+# if u upgrade plugin please select <Download now and install after restart>, by this way it will not impact ur execution.
+# if u wanna to check if the plugin was installed, manage jenkins --> manage plugins --> installed 
