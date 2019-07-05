@@ -601,5 +601,17 @@ $ cat </Users/mustafaalogaidi/.jenkins/secrets/initialAdminPassword>  <---for ex
 
 ----------------------------------------------------------Start Working With Jenkins--------------------------------------------
 
-# FreeStyle Project is the most flexible template in the Jenkins
+# start ur jenkins server using
+$ java -jar jenkins.war <--httpPort=9090>    --> port is optional default port is 8080
+> localhost:9090
+
+# in the jenkins menu side
+#- new item = create new job --> used to start new job.
+#- people used to configure users and groups. 
+#- Build history will be used to get build history of the job.
+#- manage jenkins is used for manage plugins and many other configuration.
+#- my viwe is used to create my own dashboard.
+#- to create new view for urself.
+
+# at this poing we will select the FreeStyle Project, which is the most flexible template in the Jenkins
 
