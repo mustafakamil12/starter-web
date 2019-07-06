@@ -671,6 +671,7 @@ $ java -jar jenkins.war <--httpPort=9090>    --> port is optional default port i
 							    |    |_ name = localMaven
 							    |	  |_ MAVEN_HOME = 
 							    | 	  |_ MAVEN_HOME = /Users/mustafaalogaidi/Downloads/apache-maven-3.5.3/ <-- Mac
-							    |
+							    
+
 
 
