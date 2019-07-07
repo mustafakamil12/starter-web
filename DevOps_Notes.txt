@@ -630,7 +630,7 @@ $ java -jar jenkins.war <--httpPort=9090>    --> port is optional default port i
  #-- Subversion, use to pull code from the SCM like apache subversion.
  # if u need to use another source code not in the list then u need to install it's plugin. :)
 #- Build Triggers
- #-- Trigger builds remotely (e.g., from scripts), by this option i can trigger build remotly from another servers, using some kind of scripts or commands.
+ #-- Trigger builds remotely (e.g., from scripts), by this option i can trigger build remotely from another servers, using some kind of scripts or commands.
  #-- Build after other projects are built, this particular build will be triggered after specific build had been execution.
  #-- Build periodically, to build project periodically for a specific given period.
  #-- GitHub hook trigger for GITScm polling, this option will be work when u enable Git opotion, whene ever u push something it will trigger build project.
@@ -677,6 +677,18 @@ $ java -jar jenkins.war <--httpPort=9090>    --> port is optional default port i
 # for our example <Sample-Maven-Project> when we run build project it's failed at first time, coz jenkins couldn't find the pom.xml file, so we provide, hard coded the pom.xml path --> </Users/mustafaalogaidi/.jenkins/workspace/Sample-Maven-Project/java-maven-junit-helloworld-master/pom.xml>
 # to resolve this issue, coz if we try to build this project from another machine like linux, it will failed also, so to resolve this issue use
 <$workspace/java-maven-junit-helloworld-master/pom.xml>
+
+# if u put this <* * * * *> in the poll scm in build triggers, this mean check the repo every minute and build if there's any change...
+
+# Trigger builds remotely, we can use any kind of string not include ? or %. for example <mustafakamil>
+# example of url --> JENKINS_URL/job/Sample-Maven-Project/build?token=TOKEN_NAME
+# u need to do some change to the url above to be --> localhost:9090/job/Sample-Maven-Project/build?token=mustafakamil
+# if ur jenkins is ldap secure it will ask for username and password to trigger the build.
+
+# Build after other projects are built, u can use project or multiple project separated by comma. 
+
+# GitHub hook trigger for GITScm polling, it's mean if any developer commit any changes that will trigger the build job asap. but we need first to setup GitHub hook!
+
 
 
 
