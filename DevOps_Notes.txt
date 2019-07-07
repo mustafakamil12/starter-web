@@ -689,6 +689,15 @@ $ java -jar jenkins.war <--httpPort=9090>    --> port is optional default port i
 
 # GitHub hook trigger for GITScm polling, it's mean if any developer commit any changes that will trigger the build job asap. but we need first to setup GitHub hook!
 
+# to check the code quality with Jenkins we will use check style report ---> used for java.
+
+# to add the check style report, we need to add this in the build section for ur project. --> goals --> clean install checkstyle:checkstyle
+# also u need to select something in the post-build Actions section --> publish checkstyle analysis result.
+
+# there's also another good plugins for code quality check for java  developer like PMD , FindBugs 
+
+# to archive artifact in jenkins --> configuration --> Post-build Actions --> archive artifact --> use **/* <which is mean all files in the workspace>  or only jar like **/*.jar
+
 
 
 
