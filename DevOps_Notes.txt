@@ -660,7 +660,7 @@ $ java -jar jenkins.war <--httpPort=9090>    --> port is optional default port i
 							    |--- Git
 							    |    |_ name = localGit
 							    |	  |_ Path to Git executable =
-							    | 	  |_ Path to Git executable = /usr/local/bin/  <-- Mac
+							    | 	  |_ Path to Git executable = /usr/local/bin/git  <-- Mac
 						           |     
 							    |___ Gradle
 							    |    |_ name = localGradle
@@ -668,10 +668,15 @@ $ java -jar jenkins.war <--httpPort=9090>    --> port is optional default port i
 							    | 	  |_ GRADLE_HOME = /usr/local/bin/  <-- Mac
 							    |
 							    |___ Maven
-							    |    |_ name = localMaven
-							    |	  |_ MAVEN_HOME = 
-							    | 	  |_ MAVEN_HOME = /Users/mustafaalogaidi/Downloads/apache-maven-3.5.3/ <-- Mac
+							         |_ name = localMaven
+							    	  |_ MAVEN_HOME = 
+							     	  |_ MAVEN_HOME = /Users/mustafaalogaidi/Downloads/apache-maven-3.5.3/ <-- Mac
 							    
+
+
+# for our example <Sample-Maven-Project> when we run build project it's failed at first time, coz jenkins couldn't find the pom.xml file, so we provide, hard coded the pom.xml path --> </Users/mustafaalogaidi/.jenkins/workspace/Sample-Maven-Project/java-maven-junit-helloworld-master/pom.xml>
+# to resolve this issue, coz if we try to build this project from another machine like linux, it will failed also, so to resolve this issue use
+<$workspace/java-maven-junit-helloworld-master/pom.xml>
 
 
 
