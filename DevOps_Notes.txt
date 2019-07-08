@@ -655,22 +655,22 @@ $ java -jar jenkins.war <--httpPort=9090>    --> port is optional default port i
 --> manage jenkins --> global tool configuration --> --- JDK 
 							    |    |_ name  = localJDK
 							    |    |_ JAVA_HOME = C:\Program Files\Java\jdk1.8.0_201  <-- Windows
-						    	    |    |_ JAVA_HOME = /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home  <-- Mac
+						    	|    |_ JAVA_HOME = /Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home  <-- Mac
 							    |
 							    |--- Git
 							    |    |_ name = localGit
-							    |	  |_ Path to Git executable =
-							    | 	  |_ Path to Git executable = /usr/local/bin/git  <-- Mac
-						           |     
+							    |	 |_ Path to Git executable =
+							    | 	 |_ Path to Git executable = /usr/local/bin/git  <-- Mac
+						        |     
 							    |___ Gradle
 							    |    |_ name = localGradle
-							    |	  |_ GRADLE_HOME = 
-							    | 	  |_ GRADLE_HOME = /usr/local/bin/  <-- Mac
+							    |	 |_ GRADLE_HOME = 
+							    | 	 |_ GRADLE_HOME = /usr/local/bin/  <-- Mac
 							    |
 							    |___ Maven
 							         |_ name = localMaven
-							    	  |_ MAVEN_HOME = 
-							     	  |_ MAVEN_HOME = /Users/mustafaalogaidi/Downloads/apache-maven-3.5.3/ <-- Mac
+							    	 |_ MAVEN_HOME = 
+							     	 |_ MAVEN_HOME = /Users/mustafaalogaidi/Downloads/apache-maven-3.5.3/ <-- Mac
 							    
 
 
