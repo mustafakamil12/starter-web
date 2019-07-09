@@ -659,7 +659,7 @@ $ java -jar jenkins.war <--httpPort=9090>    --> port is optional default port i
 							    |
 							    |--- Git
 							    |    |_ name = localGit
-							    |	 |_ Path to Git executable =
+							    |	 |_ Path to Git executable = C:\Users\v435431\AppData\Local\Programs\Git\bin\git.exe
 							    | 	 |_ Path to Git executable = /usr/local/bin/git  <-- Mac
 						        |     
 							    |___ Gradle
@@ -669,7 +669,7 @@ $ java -jar jenkins.war <--httpPort=9090>    --> port is optional default port i
 							    |
 							    |___ Maven
 							         |_ name = localMaven
-							    	 |_ MAVEN_HOME = 
+							    	 |_ MAVEN_HOME = C:\Users\v435431\Desktop\Pivotal\apache-maven-3.6.0\
 							     	 |_ MAVEN_HOME = /Users/mustafaalogaidi/Downloads/apache-maven-3.5.3/ <-- Mac
 							    
 
