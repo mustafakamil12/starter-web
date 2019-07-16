@@ -647,6 +647,7 @@ $ java -jar jenkins.war <--httpPort=9090>    --> port is optional default port i
 
 --------------------------------------------------Installing Git and GitHub plugin on Jenkins-----------------------------------
 
+
 # --> manage jenkins --> manage plugins --> available --> in the filter put <Github> --> we will select Github integration --> install without restart
 # if u upgrade plugin please select <Download now and install after restart>, by this way it will not impact ur execution.
 # if u wanna to check if the plugin was installed, manage jenkins --> manage plugins --> installed 
@@ -697,6 +698,46 @@ $ java -jar jenkins.war <--httpPort=9090>    --> port is optional default port i
 # there's also another good plugins for code quality check for java  developer like PMD , FindBugs 
 
 # to archive artifact in jenkins --> configuration --> Post-build Actions --> archive artifact --> use **/* <which is mean all files in the workspace>  or only jar like **/*.jar
+
+
+--------------------------------------------------------Installing Tomcat as staging env.---------------------------------------
+
+# Tomcat is an open source web-server and provides a pure java http web server environment in which java code can run.
+
+# we need to install Tomcat in ur computer
+
+# Tomcat default port is = 8080
+
+# cd /Users/mustafaalogaidi/Downloads/apache-tomcat-8.5.29/apache-tomcat-8.5.29-staging/bin
+
+# to start tomcat 
+
+$ ./startup.sh
+
+# to stop tomcat
+
+$ ./shutdown.sh 
+
+# to avoid the conflict of ports between jenkins and tomcat we need to do some change, go to the conf directory for the tomcat.
+# find the file name server.xml
+# in the server.xml look for <connector> under service name <catalina>
+# we used in our tomcat, port = 8081
+# now use this url <localhost:8081>
+
+# now go to ur project directory and build the project with maven. 
+
+$ mvn clean package
+
+# after build complete u need to copy the war file in the target directory to the tomcat directory in <webapps> directory.
+
+# restart tomcat again.
+
+# in the url use <http://localhost:8081/java-tomcat-maven-example/index.jsp>
+
+# if u make any change in the file index.jsp for example to test how the tomcat will behave, it will reflect nothing until u build the project again.
+# then u need to copy the war file to the tomcat ---> webapps again, also u need to restart tomcat :) and then u can see the changes...:)
+
+# now we need to get jenkins do the rest of the job here, so we need first some creds to make the 
 
 
 
