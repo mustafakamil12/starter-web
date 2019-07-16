@@ -759,6 +759,6 @@ $ subl config.xml
 # u can see the username but the password is already encrypted u can bypass this issue by modifying the <config.xml> in the <.jenkins> directory
 <useSecurity>true</useSecurity>  ==> <useSecurity>false</useSecurity>
 
-
+# keep in mind that u will create first job which is responsible for creating and deploy war file, then we need another job to deploy this war file to tomcat.
 
 
