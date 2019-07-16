@@ -737,7 +737,27 @@ $ mvn clean package
 # if u make any change in the file index.jsp for example to test how the tomcat will behave, it will reflect nothing until u build the project again.
 # then u need to copy the war file to the tomcat ---> webapps again, also u need to restart tomcat :) and then u can see the changes...:)
 
-# now we need to get jenkins do the rest of the job here, so we need first some creds to make the 
+# now we need to get jenkins do the rest of the job here, I mean to start stop and restart Tomcat, so we need first some creds to make the jenkins deploy the call.
+
+# the target file is in /tomcat/conf/tomcat-users.xml  --> go to the end of the file.
+
+# if the <role rolename  is commented please remove comment.
+
+# roles must be look like below
+
+  <role rolename="manager-script"/>
+  <role rolename="admin-gui"/>
+  <user username="tomcat" password="tomcat" roles="manager-script,admin-gui"/>
+
+# in jenkins we need to add more 2 plugins, they will be used to deploy artifacts.
+ #- copy artifact
+ #- deploy to container
+
+# if u forgot ur jenkins username and password go to 
+$ cd /Users/mustafaalogaidi/.jenkins/users/mustafa_6337081533390694085
+$ subl config.xml
+# u can see the username but the password is already encrypted u can bypass this issue by modifying the <config.xml> in the <.jenkins> directory
+<useSecurity>true</useSecurity>  ==> <useSecurity>false</useSecurity>
 
 
 
