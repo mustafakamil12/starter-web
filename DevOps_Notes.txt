@@ -768,4 +768,6 @@ $ subl config.xml
 
 --------------------------------------------------------------Pipelines as Code-------------------------------------------------
 
-
+# the target is to maintain and execute our pipeline with the help of code.
+# pipeline code use DSL <Domain Specific Language>
+# 
