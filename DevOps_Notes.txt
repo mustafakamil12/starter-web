@@ -702,6 +702,7 @@ $ java -jar jenkins.war <--httpPort=9090>    --> port is optional default port i
 
 --------------------------------------------------------Installing Tomcat as staging env.---------------------------------------
 
+
 # Tomcat is an open source web-server and provides a pure java http web server environment in which java code can run.
 
 # we need to install Tomcat in ur computer
@@ -762,3 +763,6 @@ $ subl config.xml
 # keep in mind that u will create first job which is responsible for creating and deploy war file, then we need another job to deploy this war file to tomcat.
 
 ---> Required to put all steps if needed <----
+---------------------------------------------------------------Build Pipelines--------------------------------------------------
+
+
