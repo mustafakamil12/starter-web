@@ -774,8 +774,11 @@ $ subl config.xml
 # now to create any jenkins code base file we will use the tree below for now.
 
 pipeline {
-    agent any
+    agent any 										  <-- agent mean the jenkins node, any mean any available node. <parent job>
     stages {
+
+    	agent abc 						     Optional <-- in some cases we need to define specific node for specific stage, in this one we use <abc> (this is a child job)
+
         stage ('Initialize') {
             steps {
                 echo  "Initializing the Code File"    <-- anything can be in the steps...
@@ -787,6 +790,8 @@ pipeline {
                 echo 'Hello World'				      <-- anything can be in the steps...
             }
         }
+
+        agent xyz						     Optional  <-- in some cases we need to define specific node for specific stage, in this one we use <xyz> (this is a child job)
 
          stage ('Deploy') {
             steps {
@@ -801,4 +806,12 @@ pipeline {
 # now before start working on jenkins file inside jenkins, we need to ensure that pipline plugin already installed <on installed tab> in the jenkins.
 # at this time we will not going to select <Freestyle Project> but we are going to select <Pipeline>
 # when u add new stage, at jenkins u can notice that there's no history for the new stage that had been added.
+
+# now we will going to code the pipeline for packer_servlet_project.
+# first of all the packer_servlet_project is a free style project, now we need to convert this to a pipeline project.
+# the best way to do this is create new project rather than convert the existance one. 
+
+
+
+
 
