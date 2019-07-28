@@ -769,5 +769,36 @@ $ subl config.xml
 --------------------------------------------------------------Pipelines as Code-------------------------------------------------
 
 # the target is to maintain and execute our pipeline with the help of code.
+# keep in mind the code will be used is groove and python.
 # pipeline code use DSL <Domain Specific Language>
-# 
+# now to create any jenkins code base file we will use the tree below for now.
+
+pipeline {
+    agent any
+    stages {
+        stage ('Initialize') {
+            steps {
+                echo  "Initializing the Code File"    <-- anything can be in the steps...
+            }
+        }
+
+        stage ('Build') {
+            steps {
+                echo 'Hello World'				      <-- anything can be in the steps...
+            }
+        }
+
+         stage ('Deploy') {
+            steps {
+                echo 'Deployed an Artifact'           <-- anything can be in the steps...
+            }
+        }
+    }
+}
+
+# if u see this command in the steps < sh ''' > that's mean it's a shell file.
+# after creating the new file, u need to push this file to git hub.
+# now before start working on jenkins file inside jenkins, we need to ensure that pipline plugin already installed <on installed tab> in the jenkins.
+# at this time we will not going to select <Freestyle Project> but we are going to select <Pipeline>
+
+
