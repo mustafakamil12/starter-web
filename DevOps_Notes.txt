@@ -800,5 +800,5 @@ pipeline {
 # after creating the new file, u need to push this file to git hub.
 # now before start working on jenkins file inside jenkins, we need to ensure that pipline plugin already installed <on installed tab> in the jenkins.
 # at this time we will not going to select <Freestyle Project> but we are going to select <Pipeline>
-
+# when u add new stage, at jenkins u can notice that there's no history for the new stage that had been added.
 
