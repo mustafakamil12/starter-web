@@ -811,7 +811,32 @@ pipeline {
 # first of all the packer_servlet_project is a free style project, now we need to convert this to a pipeline project.
 # the best way to do this is create new project rather than convert the existance one. 
 
+# take a look on the code below
 
+pipeline {
+    agent any
+    stages {
+        stage ('Build Servlet Project') {
+            steps {
+                /*For windows machine */
+                //bat  'mvn clean package'
 
+                /*For Mac & Linux machine */
+               sh  'mvn clean package'
+            }
 
+            post{									  <-- This line mean post-build action
+                success{							  <-- This is a condition, if the build success start execute the lines below.
+                    echo 'Now Archiving ....'
+
+                    archiveArtifacts artifacts : '**/*.war'
+                }
+            }
+        }
+
+# for more detail about the jenkins file and how u can use it please see this url <https://jenkins.io/doc/book/pipeline/jenkinsfile/>
+# 
+---> Required to put all steps if needed <----
+
+# now let's create new view 
 
