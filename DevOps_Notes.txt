@@ -840,3 +840,13 @@ pipeline {
 
 # now let's create new view 
 
+# we had been create 2 jobs one was <Deploy-Servlet-Staging-Env> and the other one was <Deploy-Servlet-Staging-Env>, now we have 2 choices here,
+# either we going to use the old jobs or create new jobs for the pipeline as code.
+# here we are going to create new jobs :)
+# when u create new job and u need this new job to be like a copy of an existin job, just use the <copy form> in the bottom of the creating page...
+# for staging job we will change only the <project name> in <build environment tab> to our pipeline project.
+# u also need to add the new job to ur pipeline view :)
+# any job in the pipeline failed, all the pipeline will be marked as failed.
+# sometime, when u do some changes to <index.jsp> for example and run the job in jenkins but u don't any changes reflected to the page, only u need to 
+# restart the tomcat.
+
