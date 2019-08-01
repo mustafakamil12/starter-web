@@ -768,6 +768,7 @@ $ subl config.xml
 
 --------------------------------------------------------------Pipelines as Code-------------------------------------------------
 
+
 # the target is to maintain and execute our pipeline with the help of code.
 # keep in mind the code will be used is groove and python.
 # pipeline code use DSL <Domain Specific Language>
@@ -850,3 +851,14 @@ pipeline {
 # sometime, when u do some changes to <index.jsp> for example and run the job in jenkins but u don't any changes reflected to the page, only u need to 
 # restart the tomcat.
 
+# to check any syntax for pipeline code check google <pipeline as code with jenkins>
+
+
+-------------------------------------------------------------Distributed Builds-------------------------------------------------
+
+# Master :
+ 1. Schedule Build Job
+ 2. Dispatches Builds to the Slave for Actual Job Execution
+ 3. Monitoring the Slave and recording the build Results.
+# Salve :
+ 1. Execute Builds Jobs dispatched by master
