@@ -862,3 +862,5 @@ pipeline {
  3. Monitoring the Slave and recording the build Results.
 # Salve :
  1. Execute Builds Jobs dispatched by master
+
+# for this lesson, we are going to use <Digital Ocean> for testing our archeticture. 
