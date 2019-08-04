@@ -875,7 +875,31 @@ pipeline {
  $   wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | apt-key add -  
  $   echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list     
  $   apt-get update     
- $   apt-get install jenkins  <-- if this command failed and the error message will be, ERROR: No Java executable found in current PATH: /bin:/usr/bin:/sbin:/usr/sbin, please use the command below..
+ $   apt-get install jenkins
+
+ #   the command above may be failed due to failed to install and start Jenkins then u need to use the command below
+ $   apt-get install jenkins=2.67 
+ 
+ #   if this command failed and the error message will be, ERROR: No Java executable found in current PATH: /bin:/usr/bin:/sbin:/usr/sbin, please use the command below.. 
  $   ps aux | grep java    <-- to verify if the java is running.
  $   systemctl status jenkins.service  <-- to ensure that the service is not startup.
- $	 apt-get install jenkins=2.67
+ $   java -version   <-- to ensure that u have java installed in the machine.
+ #   if the java is not found, then u need to install it in the cloud,
+ $   sudo apt-get install default-jre
+ $   sudo apt-get install default-jdk
+ #   again u need to check the java if it's installed or not.
+ $   java -version
+
+ #   to start jenkins 
+ $   systemctl start jenkins
+
+ #   to stop jenkins
+ $   systemctl stop jenkins
+
+ #   to check jenkins status
+ $   systemctl status jenkins
+
+ #   to restart jenkins 
+ $   systemctl restart jenkins
+
+ 
