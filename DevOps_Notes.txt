@@ -863,7 +863,7 @@ pipeline {
 # Salve :
  1. Execute Builds Jobs dispatched by master
 
-# for this lesson, we are going to use <Digital Ocean> for testing our archeticture. 
+# for this lesson, we are going to use <Digital Ocean> for testing our archeticture. we used digital ocean because it's easy to use. 
 
 # Jenkins: way to start slave
  1. the master can start the salave agents via SSH.
@@ -871,4 +871,11 @@ pipeline {
  3. install the slave agents as windows service.
  4. start the slave directly from command line on slave machine.
 
-
+# when u login to digital ocean droplet, u need to use the command below, 
+ $   wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | apt-key add -  
+ $   echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list     
+ $   apt-get update     
+ $   apt-get install jenkins  <-- if this command failed and the error message will be, ERROR: No Java executable found in current PATH: /bin:/usr/bin:/sbin:/usr/sbin, please use the command below..
+ $   ps aux | grep java    <-- to verify if the java is running.
+ $   systemctl status jenkins.service  <-- to ensure that the service is not startup.
+ $	 apt-get install jenkins=2.67
