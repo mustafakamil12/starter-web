@@ -864,3 +864,11 @@ pipeline {
  1. Execute Builds Jobs dispatched by master
 
 # for this lesson, we are going to use <Digital Ocean> for testing our archeticture. 
+
+# Jenkins: way to start slave
+ 1. the master can start the salave agents via SSH.
+ 2. start slave manually using java web-start.
+ 3. install the slave agents as windows service.
+ 4. start the slave directly from command line on slave machine.
+
+
