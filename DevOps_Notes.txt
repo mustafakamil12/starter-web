@@ -856,6 +856,9 @@ pipeline {
 
 -------------------------------------------------------------Distributed Builds-------------------------------------------------
 
+-----------------------------------------------------------Create Master on Cloud-----------------------------------------------
+
+
 # Master :
  1. Schedule Build Job
  2. Dispatches Builds to the Slave for Actual Job Execution
@@ -902,4 +905,7 @@ pipeline {
  #   to restart jenkins 
  $   systemctl restart jenkins
 
- 
+ ------------------------------------------------------------Create Slave on Cloud-----------------------------------------------
+
+ # go to digitalocean and create another droplets
+
