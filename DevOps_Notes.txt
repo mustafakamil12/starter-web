@@ -909,3 +909,50 @@ pipeline {
 
  # go to digitalocean and create another droplets
 
+ # we will use the list of commands below
+  $   sudo apt-get update
+  $   sudo apt-get install default-jre
+  $   sudo apt-get install default-jdk
+  $   java -version
+
+#  >>>>> Set-up Auto SSH Login <<<<<<<
+
+1. Log-in master Node and run command :
+
+ $ sudo -iu jenkins
+
+2. Generate Public & Private RSA Key. Command:
+
+ $ ssh-keygen -t rsa
+
+ # public key location : /var/lib/jenkins/.ssh/id_rsa.pub
+ # Private key location :  /var/lib/jenkins/.ssh/id_rsa
+
+
+3. Create .ssh directory on slave from master node
+
+ $ ssh root@<slave_ip> mkdir -p .ssh
+
+
+4. Attach master public key with slave authorized directory
+
+ $ cat .ssh/id_rsa.pub | ssh root@<slave_ip> 'cat >> .ssh/authorized_keys'
+
+
+
+#  >>>>> Download Slave Agent Program on Slave Machine <<<<<<<
+
+1. Create bin directory.
+
+ $ mkdir ~/bin
+
+2. Go to bin and download slave.jar from master
+
+ $ cd bin wget http://<master_ip>:8080/jnlpJars/slave.jar
+
+
+
+#  >>>>> Launch Command <<<<<<
+
+ $ ssh root@<slave_ip> java -jar /root/bin/slave.jar 
+
