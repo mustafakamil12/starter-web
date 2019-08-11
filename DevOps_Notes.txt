@@ -948,9 +948,15 @@ pipeline {
 
 2. Go to bin and download slave.jar from master
 
- $ cd bin wget http://<master_ip>:8080/jnlpJars/slave.jar
+ $ cd bin 
+ $ wget http://<master_ip>:8080/jnlpJars/slave.jar
 
+ $ free -h  <-- to check the free space on ur machine.
+ $ df -h    <-- to check all folders spaces..:)
 
+# Now to add nodes to the master jenkins, --> manage jenkins --> manage nodes --> new node --> <we can use the same slave machine name>
+
+# if the <Launch agent via execution of the command on the master> is not available in the launch method list that's mean <SSH plugin> not installed int the jenkins and u need to install it.
 
 #  >>>>> Launch Command <<<<<<
 
