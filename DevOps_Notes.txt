@@ -512,6 +512,7 @@ $ mvn install
 
 =================================================================== Jenkins ======================================================
 
+
 ------------------------------------------------------------Install Jenkins on Linux----------------------------------------------
 
 # the only pre-request to install jenkins is java, it must be installed on the machine we will use linux ubuntu.
@@ -973,4 +974,6 @@ pipeline {
 
 # open all ur jobs --> configure --> general --> Restrict where this project can be run --> put slave   <-- for example and it's case senstive.
 # run jobs one time and see what will happen. :)
+
+==================================================================== Docker ======================================================
 
