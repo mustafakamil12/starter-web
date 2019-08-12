@@ -962,3 +962,15 @@ pipeline {
 
  $ ssh root@<slave_ip> java -jar /root/bin/slave.jar 
 
+# btw we have only <Freestyle project> because we didn't install any plugins, so this option is by default with jenkins.
+
+# to test our works above we will create 6 jobs in each one we will use only build --> Execute shell --> sleep 10;
+
+# to use labe if needed especially when u have special work to do with slaves not with master, 
+# open master --> configure --> lable and put master.
+# open slaves --> configure --> lable and put slave
+# lable is case senstive.
+
+# open all ur jobs --> configure --> general --> Restrict where this project can be run --> put slave   <-- for example and it's case senstive.
+# run jobs one time and see what will happen. :)
+
