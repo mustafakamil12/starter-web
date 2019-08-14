@@ -975,5 +975,18 @@ pipeline {
 # open all ur jobs --> configure --> general --> Restrict where this project can be run --> put slave   <-- for example and it's case senstive.
 # run jobs one time and see what will happen. :)
 
+
+=============================================================== End of Jenkins ===================================================
+
+
+================================================================== BitBucket =====================================================
+
+# creating bitbucket account
+# creating a repository on bitbucket
+# downloading and installing a bitbucket desktop application
+# cloning your first bitbucket repo to ur computer
+# 
+============================================================== End of BitBucket ==================================================
+
 ==================================================================== Docker ======================================================
 
