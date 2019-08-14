@@ -981,11 +981,36 @@ pipeline {
 
 ================================================================== BitBucket =====================================================
 
-# creating bitbucket account
-# creating a repository on bitbucket
-# downloading and installing a bitbucket desktop application
-# cloning your first bitbucket repo to ur computer
-# 
+# Bitbucket : Bitbucket is a web-based version control repository hosting service owned by Atlassian
+
+# we will learn these points
+ # creating bitbucket account
+ # creating a repository on bitbucket
+ # downloading and installing a bitbucket desktop application
+ # cloning ur first bitbucket repo to ur computer
+ # creating ur first bitbucket commit
+ # creating ur first push to bitbucket repo
+
+# to create bitbucket account --> google --> search for bitbucket --> go to the site --> click on get start for free --> fill info
+
+# now we need to create a repo --> dashboard --> repository --> create new repo --> 
+
+# now for bitbucket app we will use <source tree> as app. u can download it from google.
+# after installing the app, u need do some configuration.
+# first thing we need is setting our account --> sourceTree tab --> prefrences --> accounts --> add --> connect account --> use ur account for bitbucket --> grant access
+# now if u click on <local> button u'll not find anything so we need to go to next step.
+
+# to clone repo from bitbucket to our computer --> click on <remote> button it will show u all repos created early. --> clone
+
+# create a text file in the bitbucket folder on ur desktop, save it
+
+# --> add file by click the check box --> click on <commit> button --> put message --> commit
+
+# to push --> click on <push> button --> ensure that all options correct --> OK
+
+
+
+
 ============================================================== End of BitBucket ==================================================
 
 ==================================================================== Docker ======================================================
