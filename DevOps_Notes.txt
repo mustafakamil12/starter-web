@@ -1022,6 +1022,8 @@ pipeline {
 # now u need to check if the packer working 
 $ packer version 
 
+# for MacOs u need to use this command <$ brew install packer>
+
 # to write a template u'll use json file.
 # we will need also <install.sh> installation script file.
 
