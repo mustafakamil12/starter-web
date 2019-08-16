@@ -1015,6 +1015,26 @@ pipeline {
 
 =================================================================== Packer =======================================================
 
+# packer by HashiCorp.
+# first we need to download packer from it's site, use google, it's a zip file, unzip the file and copy it to -->
+# c:\program files\ --> create folder for packer.
+# add packer path to the <environment variables>  
+# now u need to check if the packer working 
+$ packer version 
+
+# to write a template u'll use json file.
+# we will need also <install.sh> installation script file.
+
+# keep in mind we need <aws-access-key> and <aws-secret-key> to communicate with amazon API.
+
+# to use a specific image that u need --> AWS --> EC2 --> AMIs --> click on drop down list --> public --> images --> select one 
+# keep in mind we will use <AMI-ID>
+
+# now to build machine image
+$ packer build <path of json file>
+
+# now u need to check if the template working or not, create new EC2,
+# --> EC2 --> lunch instance --> my AMIs --> review and lunch --> be sure that traffic allowed on port 80 open --> lunch
 
 
 ================================================================= End of Packer ==================================================
