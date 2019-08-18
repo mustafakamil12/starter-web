@@ -1071,7 +1071,15 @@ $ aws configure --profile terraform-user
  3. Default region name [None]: us-east-1
  4. Default output format [None]: 
 
+# now after we done with all required setting for terraform, we need to select the folder that will be our project folder.
+ $ mkdir terraform
+ $ touch production-application.tf
 
+# go to terraform website --> docs --> provider --> in our example we are going to use shared credentials example.
+
+# in our example where we create the <production-application.tf> in this path we need to use this command
+ $ terraform init  --> to initilize the provider plugins and it will create folder with required configuration
+ 
 
 
 
