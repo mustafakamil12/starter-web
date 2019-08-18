@@ -1041,5 +1041,42 @@ $ packer build <path of json file>
 
 ================================================================= End of Packer ==================================================
 
+=================================================================== Terraform ====================================================
+
+# it's an open source tool had been developed by HashiCorp,
+# it's help you u to automate the implementation of the entire infrastructure using code.
+
+# the first thing that u need is to write the configuration terra file and it's <.tf>, which use a hcl language <HashiCorp Configuration Language>
+
+# terraform have 3 steps to do in order to build the infrastructure
+ 1. check against the current infrastructure
+ 2. what resources required 
+ 3. list out the resoureces the u need to create.
+
+# if u trying to modify the current infrastructure, terraform will use to mostly the same steps.
+ 1. compare the current infrastructure with what's new in the new configuration file.
+ 2. apply changes.
+
+# after installing terraform, u need to create a user in aws with proper authientication for terraform use.
+--> aws --> IAM --> users --> add user --> <terraform-user> --> select proper group.
+
+# next step u need to download, install and configure awscli. --> check the aws lessons :)
+
+# now u need configure the profile in aws for <terraform-user> as below.
+
+$ aws configure --profile terraform-user
+
+ 1. AWS Access Key ID [None]: AKIAUOSNT33XGOECAKVP
+ 2. AWS Secret Access Key [None]: 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
+ 3. Default region name [None]: us-east-1
+ 4. Default output format [None]: 
+
+
+
+
+
+
+=============================================================== End of Terraform =================================================
+
 ==================================================================== Docker ======================================================
 
