@@ -1066,8 +1066,8 @@ $ packer build <path of json file>
 
 $ aws configure --profile terraform-user
 
- 1. AWS Access Key ID [None]: AKIAUOSNT33XGOECAKVP
- 2. AWS Secret Access Key [None]: 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
+ 1. AWS Access Key ID [None]: 
+ 2. AWS Secret Access Key [None]: 
  3. Default region name [None]: us-east-1
  4. Default output format [None]: 
 
@@ -1079,8 +1079,22 @@ $ aws configure --profile terraform-user
 
 # in our example where we create the <production-application.tf> in this path we need to use this command
  $ terraform init  --> to initilize the provider plugins and it will create folder with required configuration
- 
 
+# in our example we are not going to create the entire infrastructure as in the diagram, but we will do some of thme.
+
+# for example for load balancer we can go to the terraform site and look into the docs for aws_alb.
+
+# btw in our example we didn't create the security group, we need to put this automatically in the code.
+# we need code to create a VPC using terraform.
+# for vlsm u can use this online calculator <http://www.vlsm-calc.net/>
+
+# we need the code to create subnets by terraform. 
+
+# we need also code to create and edit the route tables.
+
+# we need also code to create NAT Gateway.
+
+# section 2 lesson 3 and 4
 
 
 
