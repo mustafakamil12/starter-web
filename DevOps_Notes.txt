@@ -1096,7 +1096,19 @@ $ aws configure --profile terraform-user
 
 # section 2 lesson 3 and 4
 
+# we will work with an example from the youtube...
 
+# requirements:
+
+    Workspace Cleanup Plugin
+    Credentials Binding Plugin
+    AnsiColor Plugin
+    GitHub Plugin
+    Pipeline Plugin
+    CloudBees AWS Credentials Plugin
+
+
+94aecf12b9f216eea7cb7df0ff2e408326ba7bb5
 
 =============================================================== End of Terraform =================================================
 
