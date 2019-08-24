@@ -781,9 +781,76 @@ $ subl config.xml
 
 # keep in mind that u will create first job which is responsible for creating and deploy war file, then we need another job to deploy this war file to tomcat.
 
----> Required to put all steps if needed <----
+# in our example we will use <Packer_Servlet_Project> --> <Deploy-Servlet-Staging-Env> ---------> <Deploy-To-Prod>
+													  |_> <Static Analysis-Servlet Application>
+
+ <Packer_Servlet_Project> configuration:-
+ - General -- Discard old builds --> true
+ 		   |- Strategy -- Log Rotation 
+           |- Days to keep builds -- 2
+           |- Days to keep builds -- 5
+
+ - Source Code Management -- Git -- Repositories --> <https://github.com/mustafakamil12/java-tomcat-maven-example.git>
+ - Build Environment -- Delete workspace before build starts
+                     |- Add timestamps to the Console Output
+
+ - Build -- Invoke top-level maven targets -- Maven Version -- localmaven
+                                           |- Goals -- clean package
+
+ - Post-build Actions -- archive the artifacts -- Files to archive  --> **/*.war
+                      |- build other projects  -- Projects to build --> Deploy-Servlet-Staging-Env,Static Analysis-Servlet Application
+                      						   |- Trigger only if build is stable
+
+ <Deploy-Servlet-Staging-Env> configuration:
+ - General -- Discard old builds --> true
+ 		   |- Strategy -- Log Rotation 
+           |- Days to keep builds -- 2
+           |- Days to keep builds -- 5
+
+ - Build Environment -- Delete workspace before build starts
+                     |- Add timestamps to the Console Output
+
+ - Build -- copy artifacts from another project -- Project name -- Packer_Servlet_Project
+ 											    |- Which build -- Latest successfull build
+ 											    |- Stable build only
+ 											    |- Artifacts to copy -- **/*.war
+ 											    |- Fingerprint Artifacts
+
+ - Post-build Actions -- Deploy war/ear to container -- WAR/EAR files -- **/*.war
+ 					  |								 |- Containers -- Tomcat 8.x Remote -- Credentials -- tomcat/*****
+ 					  |								                                    |- Tomcat URL  -- http://localhost:8081
+ 					  |
+ 					  |- build other projects (manual steps) -- Downstream Project Names -- Deploy-To-Prod
+ 					  
+
+ 
+ <Static Analysis-Servlet Application> configuration:
+ - Source Code Management -- Git -- Repositories -- Repository URL --> https://github.com/mustafakamil12/java-tomcat-maven-example.git
+ 												  
+ - Build -- Invoke top-level maven targets -- Maven Version -- localmaven
+                                           |- Goals -- checkstyle:checkstyle
+
+ 
+ <Deploy-To-Prod> configuration:
+ - General -- Discard old builds --> true
+ 		   |- Strategy -- Log Rotation 
+           |- Days to keep builds -- 2
+           |- Days to keep builds -- 5
+
+ - Build -- copy artifacts from another project -- Project name -- Packer_Servlet_Project
+ 											    |- Which build -- Latest successfull build
+ 											    |- Artifacts to copy -- **/*.war
+ 											    |- Fingerprint Artifacts
+
+ - Post-build Actions -- Deploy war/ear to container -- WAR/EAR files -- **/*.war
+ 					    							 |- context path --> /
+ 					   								 |- Containers -- Tomcat 8.x Remote -- Credentials -- tomcat/*****
+ 					  								                                    |- Tomcat URL  -- http://localhost:9095/
+ 
+ 					  
+
 ---------------------------------------------------------------Build Pipelines--------------------------------------------------
----> Required to put all steps if needed <----
+
 
 --------------------------------------------------------------Pipelines as Code-------------------------------------------------
 
