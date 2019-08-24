@@ -646,6 +646,10 @@ $ java -jar jenkins.war <--httpPort=9090>    --> port is optional default port i
 #- Build, used to add build steps
 #- Post-build Actions, used to perform some actions when the build complete.
 
+# Example: Jenkins-Staging-First-Job
+ - General --> <Execute concurrent builds if necessary>
+ - Build --> Execute Shell <echo This is my first Jenkins job>
+
 --------------------------------------------------Installing Git and GitHub plugin on Jenkins-----------------------------------
 
 
@@ -700,6 +704,19 @@ $ java -jar jenkins.war <--httpPort=9090>    --> port is optional default port i
 
 # to archive artifact in jenkins --> configuration --> Post-build Actions --> archive artifact --> use **/* <which is mean all files in the workspace>  or only jar like **/*.jar
 
+# <Project Sample-Maven-Project> configuration:-
+
+ - General -- Discard old builds -- Strategy --> Log Rotation
+							    |- Days to keep builds --> 2
+							    |- Max # of builds to keep --> 5
+
+ - Source Code Management -- Git -- Repository URL --> https://github.com/mustafakamil12/Jenkins.git
+ - Build -- Invoke top-maven level maven projects -- Maven Version --> LocalMaven
+ 												  |- Goals --> 	clean install checkstyle:checkstyle
+
+ - Post-build Actions -- [Deprecated] Publish Checkstyle analysis results
+ 					  |- archive the artifacts <**/*.jar>
+
 
 --------------------------------------------------------Installing Tomcat as staging env.---------------------------------------
 
@@ -720,7 +737,8 @@ $ ./startup.sh
 
 $ ./shutdown.sh 
 
-# to avoid the conflict of ports between jenkins and tomcat we need to do some change, go to the conf directory for the tomcat.
+# to avoid the conflict of ports between jenkins and tomcat we need to do some change, go to the <conf> directory for the tomcat.
+# </Users/mustafaalogaidi/Downloads/apache-tomcat-8.5.29/apache-tomcat-8.5.29-staging/conf>
 # find the file name server.xml
 # in the server.xml look for <connector> under service name <catalina>
 # we used in our tomcat, port = 8081
