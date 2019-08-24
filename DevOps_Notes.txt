@@ -784,7 +784,7 @@ $ subl config.xml
 # in our example we will use <Packer_Servlet_Project> --> <Deploy-Servlet-Staging-Env> ---------> <Deploy-To-Prod>
 													  |_> <Static Analysis-Servlet Application>
 
- <Packer_Servlet_Project> configuration:-
+ <<Packer_Servlet_Project>> configuration:-
  - General -- Discard old builds --> true
  		   |- Strategy -- Log Rotation 
            |- Days to keep builds -- 2
@@ -798,10 +798,10 @@ $ subl config.xml
                                            |- Goals -- clean package
 
  - Post-build Actions -- archive the artifacts -- Files to archive  --> **/*.war
-                      |- build other projects  -- Projects to build --> Deploy-Servlet-Staging-Env,Static Analysis-Servlet Application
-                      						   |- Trigger only if build is stable
+ (parllel builds type) |- build other projects  -- Projects to build --> Deploy-Servlet-Staging-Env,Static Analysis-Servlet Application
+                      						    |- Trigger only if build is stable
 
- <Deploy-Servlet-Staging-Env> configuration:
+ <<Deploy-Servlet-Staging-Env>> configuration:
  - General -- Discard old builds --> true
  		   |- Strategy -- Log Rotation 
            |- Days to keep builds -- 2
@@ -824,14 +824,14 @@ $ subl config.xml
  					  
 
  
- <Static Analysis-Servlet Application> configuration:
+ <<Static Analysis-Servlet Application>> configuration:
  - Source Code Management -- Git -- Repositories -- Repository URL --> https://github.com/mustafakamil12/java-tomcat-maven-example.git
  												  
  - Build -- Invoke top-level maven targets -- Maven Version -- localmaven
                                            |- Goals -- checkstyle:checkstyle
 
  
- <Deploy-To-Prod> configuration:
+ <<Deploy-To-Prod>> configuration:
  - General -- Discard old builds --> true
  		   |- Strategy -- Log Rotation 
            |- Days to keep builds -- 2
@@ -850,6 +850,18 @@ $ subl config.xml
  					  
 
 ---------------------------------------------------------------Build Pipelines--------------------------------------------------
+
+# if u wanna to build a pipeline u can flow up the steps below:-
+
+# --> new view --> <PipeLine> --> Build Pipeline view --> 
+													  |- Name -- PipeLine
+													  |- Pipeline flow -- Layout -- Based on upstream/downstream relationship
+													  |                |- Upstream / downstream config -- Select Initial Job --> Packer_Servlet_project  <-- where's the parent job :)
+													  |- Trigger Options -- Build Cards -- standard build card
+													  |- Display Options -- No Of Displayed Builds --> 1
+													                     |- Row Headers --> just the pipeline number
+													                     |- Refresh frequency (in seconds) --> 3
+													                     |- Console Output Link Style --> Lightbox
 
 
 --------------------------------------------------------------Pipelines as Code-------------------------------------------------
@@ -922,8 +934,33 @@ pipeline {
         }
 
 # for more detail about the jenkins file and how u can use it please see this url <https://jenkins.io/doc/book/pipeline/jenkinsfile/>
-# 
----> Required to put all steps if needed <----
+
+# the code below is a real pipeline 
+
+pipeline {
+    agent any
+    stages {
+        stage ('Initialize') {
+            steps {
+                echo  "Initializing the Code File"
+            }
+        }
+
+        stage ('Build') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+
+         stage ('Deploy') {
+            steps {
+                echo 'Deployed an Artifact'
+            }
+        }
+
+    }
+} 
+
 
 # now let's create new view 
 
@@ -1193,7 +1230,6 @@ $ aws configure --profile terraform-user
     CloudBees AWS Credentials Plugin
 
 
-94aecf12b9f216eea7cb7df0ff2e408326ba7bb5
 
 =============================================================== End of Terraform =================================================
 
