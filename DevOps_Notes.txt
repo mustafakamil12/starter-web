@@ -1297,5 +1297,23 @@ $ aws configure --profile terraform-user
 
 =============================================================== End of Terraform =================================================
 
+
+>>>> All paths required for DevOpsd <<<<<
+
+/Users/mustafaalogaidi/Desktop/java-tomcat-maven-example
+/Users/mustafaalogaidi/Desktop/starter-web
+/Users/mustafaalogaidi/Desktop/java-tomcat-maven-example/src/main/webapp
+/Users/mustafaalogaidi/Downloads/apache-tomcat-8.5.29/apache-tomcat-8.5.29-prod/bin
+/Users/mustafaalogaidi/Downloads/apache-tomcat-8.5.29/apache-tomcat-8.5.29-staging/bin
+/Users/mustafaalogaidi/Desktop/Jenkins_Server
+
+iterm
+/Users/mustafaalogaidi/Desktop/terraform
+/Users/mustafaalogaidi/Desktop/mygitops
+
+
 ==================================================================== Docker ======================================================
+
+
+
 
