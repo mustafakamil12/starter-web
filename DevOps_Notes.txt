@@ -1329,6 +1329,8 @@ iterm
 
 ==================================================================== Docker ======================================================
 
-
+# Docker is a tool designed to make it easier to create, deploy and run applications by using containers.
+# Docker containers are lightweight alternatives to virtual machines and use the host OS.
+# You don't have to pre-allocate any RAM in containers 
 
 
