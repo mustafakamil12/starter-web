@@ -1264,25 +1264,20 @@ $ aws configure --profile terraform-user
 # go to terraform website --> docs --> provider --> in our example we are going to use shared credentials example.
 
 # in our example where we create the <production-application.tf> in this path we need to use this command
- $ terraform init  --> to initilize the provider plugins and it will create folder with required configuration
+ 
+  $ terraform init  --> to initilize the provider plugins and it will create folder with required configuration
 
-# in our example we are not going to create the entire infrastructure as in the diagram, but we will do some of thme.
+# in our example we are not going to create the entire infrastructure as in the diagram, but we will do some of them.
 
-# for example for load balancer we can go to the terraform site and look into the docs for aws_alb.
+# for example for load balancer we can go to the terraform site and look into the docs for <aws_alb>.
 
 # btw in our example we didn't create the security group, we need to put this automatically in the code.
-# we need code to create a VPC using terraform.
+
 # for vlsm u can use this online calculator <http://www.vlsm-calc.net/>
 
-# we need the code to create subnets by terraform. 
+# our example used from terraform course -- > section 2 --> lesson 3 and 4
 
-# we need also code to create and edit the route tables.
-
-# we need also code to create NAT Gateway.
-
-# section 2 lesson 3 and 4
-
-# we will work with an example from the youtube...
+# we will work with an example from the youtube to mix terraform and jenkins... :)
 
 # requirements:
 
@@ -1292,6 +1287,26 @@ $ aws configure --profile terraform-user
  - GitHub Plugin
  - Pipeline Plugin
  - CloudBees AWS Credentials Plugin
+
+
+ # we need to create some creds before start working on the project...
+ tomcat --> username/password
+ github --> secret text
+ aws    --> aws credentials
+ github --> username/password
+
+
+
+<Terraform> configuration:   <-- Multibranch Pipeline
+ - Branch Sources -- Github -- Credentials --> ur creds to login to Github in format of username/password
+ 						    |- Repository HTTPS URL -- https://github.com/mustafakamil12/mygitops.git
+ 						    |- Property strategy -- all branches get the same properties
+
+ - Build Configuration -- Mode -- by jenkins
+     				   |- script path -- Jenkinsfile
+
+ - Orphaned Item Strategy -- Discard old items -- true
+
 
 
 
