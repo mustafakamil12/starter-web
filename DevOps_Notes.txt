@@ -910,6 +910,8 @@ pipeline {
 # first of all the packer_servlet_project is a free style project, now we need to convert this to a pipeline project.
 # the best way to do this is create new project rather than convert the existance one. 
 
+# in this case we will select <Pipeline> instead of <Freestyle Project>
+
 # take a look on the code below
 
 pipeline {
@@ -960,6 +962,25 @@ pipeline {
 
     }
 } 
+
+<Packer_Servlet_Pipeline> configuration:
+ - General -- Discard old builds --> true
+ 		   |- Strategy -- Log Rotation 
+           |- Days to keep builds -- 2
+           |- Days to keep builds -- 5
+
+
+ - Pipeline -- Definition --> Pipeline script from SCM
+ 						  |-  SCM -- Git
+ 						  |-  Repositories -- Repository URL
+ 						  |                |- https://github.com/mustafakamil12/java-tomcat-maven-example.git
+ 						  |
+ 						  |- Script Path -- Jenkinsfile_test
+ 						  |- Lightweight checkout -- true
+
+
+
+
 
 
 # now let's create new view 
