@@ -847,7 +847,7 @@ $ subl config.xml
  					   								 |- Containers -- Tomcat 8.x Remote -- Credentials -- tomcat/*****
  					  								                                    |- Tomcat URL  -- http://localhost:9095/
  
- 					  
+ 	 				  
 
 ---------------------------------------------------------------Build Pipelines--------------------------------------------------
 
@@ -963,7 +963,7 @@ pipeline {
     }
 } 
 
-<Packer_Servlet_Pipeline> configuration:
+<Packer_Servlet_Pipeline> configuration:     <-- Pipeline
  - General -- Discard old builds --> true
  		   |- Strategy -- Log Rotation 
            |- Days to keep builds -- 2
@@ -980,10 +980,53 @@ pipeline {
 
 
 
+<Deploy-StagingArea-Pipeline> configuration:  <-- Freestyle project
+ - General -- Discard old builds --> true
+ 		   |- Strategy -- Log Rotation 
+           |- Days to keep builds -- 2
+           |- Days to keep builds -- 5
+
+ - Build Environment -- Delete workspace before build starts
+ 					 |- Add timestamps to the Console Output
+
+ - Build -- copy artifacts from another project -- Project name -- Packer_Servlet_Pipeline
+ 											    |- Which build -- Latest successfull build
+ 											    |- Stable build only
+ 											    |- Artifacts to copy -- **/*.war
+ 											    |- Fingerprint Artifacts
+
+ - Post-build Actions -- Deploy war/ear to container -- WAR/EAR files -- **/*.war
+ 					  |								 |- Containers -- Tomcat 8.x Remote -- Credentials -- tomcat/*****
+ 					  |								                                    |- Tomcat URL  -- http://localhost:8081
+ 					  |
+ 					  |- build other projects (manual steps) -- Downstream Project Names -- Deploy-To-Prod   <-- may be need to remove
+ 					  
 
 
+ <Deploy-To-Prod> configuration:
+ - General -- Discard old builds --> true
+ 		   |- Strategy -- Log Rotation 
+           |- Days to keep builds -- 2
+           |- Days to keep builds -- 5
+
+ - Build -- copy artifacts from another project -- Project name -- Packer_Servlet_Pipeline
+ 											    |- Which build -- Latest successfull build
+ 											    |- Artifacts to copy -- **/*.war
+ 											    |- Fingerprint Artifacts
+
+ - Post-build Actions -- Deploy war/ear to container -- WAR/EAR files -- **/*.war
+ 					    							 |- context path --> /
+ 					   								 |- Containers -- Tomcat 8.x Remote -- Credentials -- tomcat/*****
+ 					  								                                    |- Tomcat URL  -- http://localhost:9095/
+ 
 
 # now let's create new view 
+
+# --> new view --> <Pipeline as Code> --> List View -- jobs -- Packer_Servlet_Pipeline
+															|- Deploy-StagingArea-Pipeline
+															|- Deploy-To-Prod-Pipeline
+
+
 
 # we had been create 2 jobs one was <Deploy-Servlet-Staging-Env> and the other one was <Deploy-Servlet-Staging-Env>, now we have 2 choices here,
 # either we going to use the old jobs or create new jobs for the pipeline as code.
