@@ -1333,4 +1333,11 @@ iterm
 # Docker containers are lightweight alternatives to virtual machines and use the host OS.
 # You don't have to pre-allocate any RAM in containers 
 
+														 .- Stable
+								.- Community  --> Free --|
+# there's 2 flavor for docker --| 						 .- edge release
+								.- Enterprise --> Paied
+
+
+
 
