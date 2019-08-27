@@ -1333,11 +1333,33 @@ iterm
 # Docker containers are lightweight alternatives to virtual machines and use the host OS.
 # You don't have to pre-allocate any RAM in containers 
 
-														 .- Stable
+														 .- Stable  <-- release every quarter 
 								.- Community  --> Free --|
-# there's 2 flavor for docker --| 						 .- edge release
+# there's 2 flavor for docker --| 						 .- edge release   <-- come with lates technologies not been tested yet/monthly
 								.- Enterprise --> Paied
 
 
+# docker edition available at <store.docker.com>
+
+						.- CE = Community Edition
+# docker abbreviation --|
+						.- EE = Entrprise Edition
+
+						  .- Linux   (naitivly support docker)
+# major type of install --|- Mac/Win (set of toolbox)
+						  .- Cloud   (AWS/Azure/Google)
+
+
+# we will skip installing docker for windows for now.  <<<<<<<=========
+
+# to install docker on mac all u need just go to store.docker.com and download docker, follow up instructions.
+# to verify docker on ur terminal
+$ docker version
+
+# if u restart docker and run the command above u will see only the client info, since mac don't support docker natively.
+# client is running on ur machine
+# server is running on linux core.
+
+# 
 
 
