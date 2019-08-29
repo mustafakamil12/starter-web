@@ -1094,6 +1094,7 @@ pipeline {
 
  ------------------------------------------------------------Create Slave on Cloud-----------------------------------------------
 
+
  # go to digitalocean and create another droplets
 
  # we will use the list of commands below
@@ -1360,6 +1361,17 @@ $ docker version
 # client is running on ur machine
 # server is running on linux core.
 
-# 
+-----------------------------------------------------------Create Machine on Cloud----------------------------------------------
+
+# Digital Ocean
+# Memory: 2GB , vCPUs: 2, Disk: 60GB, Transfer: 3TB  --> Name: DockerMachine
+
+# this will be used as cloud for docker.
+# ssh to the new machine using username and password the u got by email :)
+# to double check that u r in the correct machine use
+$ hostname
+
+# we will skip installing docker for windows for now.  <<<<<<<=========
+
 
 
