@@ -1402,5 +1402,18 @@ $ docker
 # docker management commands format
 # docker <command> <sub-command> (optional)
 
+--------------------------------------------------------Start Working with Container--------------------------------------------
+
+# --> Docker --> Container --> Image
+
+# in this lec we will use open source Nginx web-server and docer central repository
+# http://hub.docker.com   --> it's a centeral repo for to push our image or get public image.
+# if u looking for official image u will see this lable on the image <official>
+
+# now u need to execute this command.
+$ docker info
+
+
+
 
 
