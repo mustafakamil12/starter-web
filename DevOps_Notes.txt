@@ -125,7 +125,7 @@ $ git commit -m "message"
 $ git checkout <branch name>
 
 # to view branches in git
-$ git branch
+$ git branch   or git branch -a
 
 # file created in a branch <not master> will not been seen in master until merge.
 # after ensure that everything in the branch is ok u can merge the branch with master.
@@ -1372,6 +1372,35 @@ $ docker version
 $ hostname
 
 # we will skip installing docker for windows for now.  <<<<<<<=========
+
+# we will skip installing docker for Linux for now.  <<<<<<<=========
+
+--------------------------------------------------------------Docker Container--------------------------------------------------
+
+# docker cli = docker client
+# docker engine = docker server
+
+* btw in this course he will use machine in cloud to run docker.
+
+# to get the machine name
+$ hostname
+
+# to find the docker version
+$ docker version
+
+# to verify docker engin setup and details
+$ docker info
+
+# to list all docker commands
+$ docker
+# the result will come up wiht 2 segments of commands 
+
+ - Management commands
+ - commands  <-- early 2017 u will get only this segment.
+# docker community relize that there's alot of commands and there's a confusion, so they split them to 2 segments. :)
+
+# docker management commands format
+# docker <command> <sub-command> (optional)
 
 
 
