@@ -1444,6 +1444,43 @@ $ docker container run --publish 8087:80 --detach nginx   <-- example
 # now if u wanna to list all running containers on ur machine.
 $ docker container ls
 
+# to stop container
+$ docker container stop <container_id>
+# after submit the command above it will return the container id that u used..
+
+# to list all running and stopped containers
+$ docker containers ls -a
+
+						   .- run    --> start a new container always.
+# run vs start container --|
+						   .- start  --> start an existing container.  > docker container start <container_id>
+
+# if we wanna to provide a meaningful name to our container
+> docker container run --publiish 80:80 --detach --name <name> <image_name>
+
+# now to see the log for a specific container 
+> docker container logs <container_name> / <container_id>
+
+# to see process running inside ur container.
+> docker container top <container_id>
+
+# to remove the unwanted containers use
+> docker container rm <container_id 1> <container_id 2> ... <container_id etc>
+
+# u can't remove running container, u will get error and ask u to stop the container.
+
+# if u r sure that u wanna to remove a running container in this case use -f --> force
+> docker container rm -f <container_id>
+
+# let's take a look on the internal process when we run a container.
+ - looks for the image in the image cache
+ - then looks in the remote docker repo <default hub.docker.com>
+ - download the latest version of the image.
+ - create new container based on the image.
+ - gives it a virtual IP on private network inside docker engine.
+ - open port 80 on host machine and rout to port 80 inside container.
+ - start container by using CMD in imager docker file.
+ 
 
 
 
