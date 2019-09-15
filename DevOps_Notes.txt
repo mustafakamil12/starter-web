@@ -1404,6 +1404,7 @@ $ docker
 
 --------------------------------------------------------Start Working with Container--------------------------------------------
 
+
 # --> Docker --> Container --> Image
 
 # in this lec we will use open source Nginx web-server and docer central repository
@@ -1480,7 +1481,20 @@ $ docker containers ls -a
  - gives it a virtual IP on private network inside docker engine.
  - open port 80 on host machine and rout to port 80 inside container.
  - start container by using CMD in imager docker file.
- 
+
+# keep in mind the containers virtualize the O.S. but the vms virtulize the hardware.
+
+# if for example we are looking for how many processors working on a host machine.
+$ ps aux
+
+# if u wanna to stop container u can use 3 or 4 first digits of container id and docker will verify the rest.
+
+# if u wanna to explor docker commands u can use the command below:
+$ docker --help
+
+
+-----------------------------------------------------------------Assignments----------------------------------------------------
+
 
 
 
