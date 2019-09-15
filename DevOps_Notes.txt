@@ -1413,6 +1413,41 @@ $ docker
 # now u need to execute this command.
 $ docker info
 
+# docker container run hello-world    <-- this command will look into local repo if the image not available it will pull the image from the docker hub.
+
+# if u repeat the command above again u wil see that the image availabe in the local repo.
+
+# now we need to run Nginx web-server in the docker 
+# > docker container run --publish <host_port:container_port> <image name>
+$ docker container run --publish 80:80 nginx
+
+# to exit out of ur container just submit CTRL+C
+
+# process behinde the sceen
+ - download the image from docker hub
+ - started new container
+ - exposed port 80 on host machine
+ - rout traffic to the container port 80
+
+# keep in mind the command above will run on the forground.
+# if u need to rung Nginx on the back ground.
+# > docker container run --publish <host_port:container_port> --detach <image name>
+$ docker container run --publish 80:80 --detach nginx 
+
+# the command above will return a container id, for ex <84136aa7c786c92bd5c08c52f45e16da9c8ddf5a35809b28cefcd950012c27df>
+# now check ur browser again to ensure that the nginx working 
+
+# if u wanna to run another server with different port u can use 
+$ docker container run --publish 8087:80 --detach nginx   <-- example
+<9d258d465b37535782716e98df07700851b26e00e8e4dd07d8fd5935090fb8e6>
+
+# now if u wanna to list all running containers on ur machine.
+$ docker container ls
+
+
+
+
+
 
 
 
