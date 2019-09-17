@@ -1495,6 +1495,30 @@ $ docker --help
 
 -----------------------------------------------------------------Assignments----------------------------------------------------
 
+# The docker assignment:- 
+ - run nginx, mysql and apache server
+ - all containers must run in background
+ - provide name to all containers
+ - start nginx on port 80:80
+ - start mysql on port 3306:3306
+ - start apache server on port 8080:80   --> u will find the search result it's name httpd :)
+
+# let's start with nginx
+$ docker container run -d -p 80:80 --name proxyserver nginx  <-- the first port will be open on the host machine and the second port on the container.
+
+# -d == --detach and -p == --port 
+
+# let's start now the apache server
+$ docker container run -d -p 8080:80 --name webserver httpd
+
+# let's start now the mysql server, there's some notes we need to take care of.
+ - use --env to pass the environment variable (MYSQL_RANDOM_ROOT_PASSWORD=yes)
+ - use docker container logs command on mysql to find the random password created on start-up
+$ docker container run -d -p 3306:3306 --name mysqldb --env MYSQL_RANDOM_ROOT_PASSWORD=yes mysql
+$ docker container logs mysqldb  --> to get the password (thiephohLahkohk6eepaweexaxohh8ea)
+
+
+
 
 
 
