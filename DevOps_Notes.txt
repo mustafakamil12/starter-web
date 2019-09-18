@@ -1519,6 +1519,46 @@ $ docker container logs mysqldb  --> to get the password (thiephohLahkohk6eepawe
 
 ---------------------------------------------------------------CLI Monitoring---------------------------------------------------
 
+# to see what's going inside the running container
+$ docker container top <continer_id/container_name> --> procees list in the container
+
+# the old fashon of <docker container ls> is <docker ps> 
+
+# to get the details about a container configuration
+$ docker container inspect <continer_id/container_name>  ==> The result will be a json file :)
+
+# to get performance states on all containers
+$ docker container stats 
+
+# if u waana to get inside a container and do so modification.
+# the first step we need to run the container in <interactive mode>
+> docker container run -it --name <container_name> <image_name> <command> --> to get more help <docker container run --help>
+$ docker container run -it --name webproxy nginx bash
+# to exit just use
+$ exit ---> and hit enter
+# as soon as u exit this kind of container, container will be stop running.
+
+# to see the interactive container use <docker container ls -a>
+
+# now the challenge is how to execute command inside a running command :)
+> docker container exec -it <continer_id/container_name>  <command> --> open running container interactivly.
+
+$ docker container exec -it proxyserver touch /tmp/mustafa
+$ docker container exec -it proxyserver bash
+# now let's run new container as ubuntu.
+$ docker container run -it ubuntu bash
+# because of the distro above is very light so we need to install the full package
+$ apt-get update
+$ apt-get install curl
+# curl https://www.facebook.com
+
+> docker exec  											  			--> run new command in a running container.
+
+
+
+
+
+
 
 
 
