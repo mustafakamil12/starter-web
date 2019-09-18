@@ -1517,7 +1517,7 @@ $ docker container run -d -p 8080:80 --name webserver httpd
 $ docker container run -d -p 3306:3306 --name mysqldb --env MYSQL_RANDOM_ROOT_PASSWORD=yes mysql
 $ docker container logs mysqldb  --> to get the password (thiephohLahkohk6eepaweexaxohh8ea)
 
-
+---------------------------------------------------------------CLI Monitoring---------------------------------------------------
 
 
 
