@@ -1554,6 +1554,42 @@ $ apt-get install curl
 
 > docker exec  											  			--> run new command in a running container.
 
+-------------------------------------------------------------Docker Networking--------------------------------------------------
+
+# it will be unusful to use docker individually. 
+# each container connect to virtual private network called "bridge".
+# bridge is a docker default network driver <software>.
+# containers on same bridge can communicate with each other without port. 
+# containers in different bridges can't talk to each other.
+# u r allow to create multiple VPN in docker.
+# u can create multiple rules for single network.
+# u can attach multiple containers to one network, u can attach one container to multiple networks and u can do no attach for a container to any network.
+
+# to start container with allowing traffic from port on host machine.
+> docker container run -p <host_port> : <docker_port> -d image
+
+# to find traffic and protocol on a container.
+> docker port <container_id>
+
+# to find docker container ip
+> docker inspect <container_id>
+
+# ex:
+$ docker container run -p 8080:80 -d nginx
+$ ifconfig en0  <-- to get host machine ip
+> copy the ip to the browser with host port --> <192.168.0.10:8080>
+$ docker container port <container_id>
+$ docker container inspect <container_id>  --> look for the "NetworkSettings" OR
+$ docker container inspect -f '{{.NetworkSettings.IPAddress}}' e87c32600469    <-- container_id
+
+
+
+
+
+
+
+
+
 
 
 
