@@ -1582,6 +1582,55 @@ $ docker container port <container_id>
 $ docker container inspect <container_id>  --> look for the "NetworkSettings" OR
 $ docker container inspect -f '{{.NetworkSettings.IPAddress}}' e87c32600469    <-- container_id
 
+# to list all available networks that the engine daemons knows about.
+$ docker network ls
+
+# to use filter for example to filter all bridges' networks
+$ docker network -f drive=bridge
+
+# to find all network IDs and drivers
+$ docker network ls format "{{.ID}}:{{.Driver}}"    <-- it will return data in format of json.
+
+# to get help on network command use
+$ docker network --help
+
+# to inspect any network
+$ docker network inspect <network_id>  <-- returns information about one or more network in the format of json
+
+# to create new network on a host machine.
+$ docker network create <network_name> --> by default it will create a "bridge" network
+
+# to create a bridge network 
+$ docker network create -d bridge <bridge_name>
+
+# now to connect a network with a container.
+> docker network connect Network1 Container1   <-- container1 can by id or name.
+
+# take a look on this example, this formula used when running container first time and we need to connect it to a network:
+$ docker container run -p 8085:80 -d --name my_nginx --network myNetwork nginx  
+
+# the next step u need to inspect both the network and then the container.
+
+# now to connect a running machine to a network
+$ docker network connect myNetwork kind_archimedes 
+$ docker network inspect myNetwork
+$ docker container inspect kind_archimedes <-- at this point u will see that this container had been connected to 2 networks
+
+# to disconnect a container from a network use
+> docker network disconnect Netowrk1 Container1
+$ docker network disconnect bridge kind_archimedes
+
+# if u disconnect a container from all networks, that's mean u will not be able to contact this container.
+
+
+
+
+
+
+
+
+
+
 
 
 
