@@ -1646,7 +1646,7 @@ $ docker container exec -it mynginx_alpine ping mynginx_alpine_1
 $ docker images
 
 # images don't contain O.S and O.S packages
-# repository name is mean image name
+# repository name is mean parent directory name ==> name of the file system u have :)
 
 # if u don't specified the image version, client will defaults to the latest.
 
@@ -1664,6 +1664,34 @@ $ docker images
 > docker pull <image_name> : <image_version> 
 $ docker pull mysql:5.7
 $ docker images
+
+# images in general consist of series of layers
+# each layer has <union file system>
+# docker use <union file systems> to combine these layers into a single image.
+# union file systems allow files and directoris of sperate file systems, known as branch.
+
+# to show image layers
+> docker history <image_name>
+$ docker history mysql
+$ docker history nginx
+
+# to get complete meta data of an image, 
+> docker inspect <image_name>
+$ docker inspect ngnix
+
+# images have no name, 
+# tag is specifing the tag of that particular repository.
+# image id is the id generated when u push ur image over the docker hub.
+# tag always associated with the latest image id.
+
+									.-- tag add to the image during building time
+# there're 2 ways to tag an image --|
+									.-- tag explicitly using the tag command 
+
+# tag command is 
+> docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+$ docker tag mysql:5.7 mysqlmustafa:test
+
 
 
 
