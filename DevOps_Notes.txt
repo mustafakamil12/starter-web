@@ -1638,7 +1638,7 @@ $ docker container exec -it mynginx_alpine ping mynginx_alpine_1
 # why containers don't use IPs to communicate with each others because IPs are static in the container.
 # and when u stop contaienr and start a new one, it may be using the same IP.
 
-
+---------------------------------------------------------------Docker Images----------------------------------------------------
 
 
 
