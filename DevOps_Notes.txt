@@ -1640,6 +1640,10 @@ $ docker container exec -it mynginx_alpine ping mynginx_alpine_1
 
 ---------------------------------------------------------------Docker Images----------------------------------------------------
 
+# image is a combination of a file system and parameters, images containe the binaries and dependencies.
+
+
+
 
 
 
