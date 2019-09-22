@@ -1642,7 +1642,28 @@ $ docker container exec -it mynginx_alpine ping mynginx_alpine_1
 
 # image is a combination of a file system and parameters, images containe the binaries and dependencies.
 
+# to list all docker images in ur machine.
+$ docker images
 
+# images don't contain O.S and O.S packages
+# repository name is mean image name
+
+# if u don't specified the image version, client will defaults to the latest.
+
+# docker images differenciation .-- Base Image: image that have no parent image --|- ubuntu
+							    |												  |- busybox
+								|                  								  |- debian
+								|
+								|-- Child Image: images that build on base images and add additional functinality 
+								|-- Official Images: images that officialy maintend and support by the folks, one word long
+								.-- User Images: images create and shared by users. user/image-name
+
+
+# if u r looking for all official images, --> docker hub --> explore tab
+# to dowanloa an image
+> docker pull <image_name> : <image_version> 
+$ docker pull mysql:5.7
+$ docker images
 
 
 
