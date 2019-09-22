@@ -1622,6 +1622,21 @@ $ docker network disconnect bridge kind_archimedes
 
 # if u disconnect a container from all networks, that's mean u will not be able to contact this container.
 
+# containers use DNS to communicate.
+# containers don't use IPs to communicate, instead they are using DNS.
+$ docker container ls
+$ docker network ls
+$ docker network inspect myNetwork  <-- <myNetwork> is the name of the bridge that we already created.
+
+# to use alpine version
+$ docker container run -d --name mynginx_alpine_1 --network myNetwork nginx:alpine
+
+# we will create 2 containers alpine and connect them both to the <myNetwork> then we will try to ping from container to another.
+$ docker container exec -it mynginx_alpine ping mynginx_alpine_1
+
+
+# why containers don't use IPs to communicate with each others because IPs are static in the container.
+# and when u stop contaienr and start a new one, it may be using the same IP.
 
 
 
