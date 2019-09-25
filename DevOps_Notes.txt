@@ -1737,6 +1737,17 @@ $ docker logout
 
 ------------------------------------------------------------Building Docker Images----------------------------------------------
 
+# dockerfile which is a file will be used to create basic images or custome images.
+# docker can build images automatically by reading the instructions from dockerfile
+
+# dockerfile is a text document that contains all commands a user could call on the command line to assemble an image.
+
+# docker image consist of read-only layers each of which represents a dockerfile instruction
+
+# to build docker image from a dockerfile
+> docker build -f <path_of_dokcerfile> 
+
+
 
 
 
