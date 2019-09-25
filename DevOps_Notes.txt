@@ -1694,8 +1694,36 @@ $ docker tag mysql:5.7 mysqlmustafa:test
 
 # if u don't define any tag, by default takes "latest" tag :)
 
+# do upload docker image to the docker hub u need account to do this
+# docker cloud using docker hub as it's native registry for storing both public and private repos.
 
+# to log into docker cloud from terminal u will use this command 
+$ docker login   --> it will ask for your creds.
+# one u enter the creds it will automatically encrypted and store in your machine.
+# to view creds use
+$ cat ~/.docker/config.json 
 
+# one the you login successfully u can push the image to the cloud.
+
+> docker image push USER(the account name)/image name
+
+$ docker image push mysqlmustafa   <-- this will not be applied it will be denied coz of the tag.
+
+# to resolve the issue above 
+$ docker image tag mysql mustafakamil/mysqlmustafa
+
+# now submit this command agin.
+$ docker image push mustafakamil/mysqlmustafa   <-- this image will be accepted because it's not a single image name
+
+# single image name allowed only for official docker image.
+
+# if u wanna to add a tag to the uploaded image
+$ docker image tag mustafakamil/mysqlmustafa  mustafakamil/mysqlmustafa:1.0.1
+$ docker images
+
+# after the command above u will see there's another image with this tag 1.0.1
+
+# although the tags are different but the <image_id> are the same coze they are just a copy. :)
 
 
 
