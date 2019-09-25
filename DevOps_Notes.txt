@@ -1725,8 +1725,17 @@ $ docker images
 
 # although the tags are different but the <image_id> are the same coze they are just a copy. :)
 
+# now we need to push the image again.
+$ docker image push mustafakamil/mysqlmustafa:1.0.1
+
+# if u notice in the case above it will not upload all the image it will upload only the changes and that was the tag
+# if there is any changes with filesystem in this case it will upload the whole image.
+
+# now after u r done with all process above u need to logout using the command below
+$ docker logout
 
 
+------------------------------------------------------------Building Docker Images----------------------------------------------
 
 
 
