@@ -1692,6 +1692,8 @@ $ docker inspect ngnix
 > docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
 $ docker tag mysql:5.7 mysqlmustafa:test
 
+# if u don't define any tag, by default takes "latest" tag :)
+
 
 
 
