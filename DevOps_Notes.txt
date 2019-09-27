@@ -1747,7 +1747,50 @@ $ docker logout
 # to build docker image from a dockerfile
 > docker build -f <path_of_dokcerfile> 
 
+# Dockerfile instructions are use to create the docker images.
 
+# FROM: this instruction is used to initilize a new build stage and sets the base image from subsequent instructions.
+# A valid dockerfile must start with a <FROM> nstruction
+# Base image can be any valid image
+
+# FROM instruction fromat 
+> FROM <image>[:<tag>]
+
+# LABEL: added to images to organize images by project, record licens information.
+# for each label need to be added the line must have key-value pair.
+# example:
+> LABEL com.example.version='0.0.1-beta'
+> LABEL vendore1='ACME Incorporated'    <-- another label.
+
+# RUN: this instruction is used to execute any commands in new layer on top of the current image and commit the result.
+# the resulting committed image will be used for the next step in the Dockerfile.
+
+# Example:
+FROM ubuntu:14.04
+RUN apt-get update
+RUN apt-get install -y curl
+
+
+# CMD: this instruction should be used to run the software contained by ur image, along with any arguments.
+# the format will be:
+CMD ["executable","param1","param2"]
+
+# can only be one CMD command in the dockerfile, if u list more than one command, the last one only will be effect.
+# the purpose of the CMD command is to provide defaults for an executing container.
+
+# EXPOSE: this instruction is used to indicates the ports on which a container listens for connection.
+# the format will be:
+EXPOSE <port>
+
+#ENV: this instruction is used to sets the environment variables 
+<Key> to the <Value>
+
+# to make new software easier to run, u can use ENV to update the PATH environment variable for the software your container installes.
+
+# ADD: this instruction is used to copies new files, directories or remote file URLs from <src> and add them to the filesystem of the image at the path <dest>.
+
+# the format will be:
+ADD hom*/mydir/   --> add all files starting with hom
 
 
 
