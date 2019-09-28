@@ -1228,6 +1228,19 @@ pipeline {
 $ brew install gitlab-runner
 $ brew services start gitlab-runner 
 
+# there's another way to use gitlab, by using docker
+
+sudo docker run --detach \
+  --hostname gitlab.example.com \
+  --publish 443:443 --publish 81:80 --publish 22:22 \
+  --name gitlab \
+  --restart always \
+  --volume /srv/gitlab/config:/etc/gitlab \
+  --volume /srv/gitlab/logs:/var/log/gitlab \
+  --volume /srv/gitlab/data:/var/opt/gitlab \
+  gitlab/gitlab-ce:latest
+
+
 
 ================================================================ End of GitLab ===================================================
 
