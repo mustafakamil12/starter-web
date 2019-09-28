@@ -1200,6 +1200,38 @@ pipeline {
 
 ============================================================== End of BitBucket ==================================================
 
+=================================================================== GitLab =======================================================
+
+# Gitlab is a service that provides remote access to Git repositories.
+# You can install the GitLab runner on different operating systems,
+
+# we will cover the installation on windows.
+ − First create a folder called 'GitLab-Runner' in your system. For instance, you can create in C drive as C:\GitLab-Runner.
+ - Now download the binary for x86 or amd64 and copy it in the folder created by you. Rename the downloaded binary to gitlab-runner.exe.
+ - Open the command prompt and navigate to your created folder. Now type the below command and press enter.
+ -> C:\GitLab-Runner> gitlab-runner.exe register
+ − After running the above command, it will ask to enter the gitlab-ci coordinator URL.
+ - Enter the gitlab-ci token for the runner.
+ - To get the token, login to your GitLab account:
+   * go to your project.
+   * Click on the CI/CD option under Settings tab and expand the Runners Settings option.
+   * Under Runners Settings section, you will get the token.
+ − Enter the gitlab-ci description for the runner.
+ − It will ask to enter the gitlab-ci tags for the runner. we are going to use tag1, tag2
+ − You can lock the Runner to current project by setting it to true value.
+ − Now enter the Runner executor for building the project. we will use ===> docker
+ − Next it will ask for default image to be set for docker selector. we will used ==> alpine:latest
+ − Now go to your project, click on the CI/CD option under Settings section and you will see the activated Runners for the project.
+ - You can see the GitLab Runner configuration in the config.toml file under the GitLab-Runner folder
+
+# for Mac we will use brew command as below
+$ brew install gitlab-runner
+$ brew services start gitlab-runner 
+
+
+================================================================ End of GitLab ===================================================
+
+
 =================================================================== Packer =======================================================
 
 # packer by HashiCorp.
@@ -1791,7 +1823,6 @@ EXPOSE <port>
 
 # the format will be:
 ADD hom*/mydir/   --> add all files starting with hom
-
 
 
 
