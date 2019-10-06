@@ -1238,6 +1238,26 @@ sudo docker run --detach --name gitlab \
 gitlab/gitlab-ce:latest
 
 
+# after building gitlab server, now we need to create ssh key so anytime we need to connect to the server we will not need to provise creds.
+$ ssh-keygen
+
+# after submit the command above it will prompt u to give the folder name, make sure that u save the key in a file
+# now go to gitlab --> setting --> SSH Keys --> copy the ssh key from the created file to the highlighted space --> add key.
+
+# to create a new project --> click on the New project button in the dashboard --> git the repo a clear name.
+# now u may or may not need all the command below, but i will list all required commands from this step till the local repo will sync with remote repo.
+
+# Create a new repository
+ - git clone ssh://git@gitlab.example.com:30022/mustafakamil/my-first-gitlab-proj.git 
+ - cd my-first-gitlab-proj 
+ - touch README.md 
+ - git add README.md 
+ - git commit -m "add README" 
+ - git push -u origin master
+
+
+
+
 ================================================================ End of GitLab ===================================================
 
 
