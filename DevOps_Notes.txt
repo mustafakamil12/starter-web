@@ -1247,7 +1247,7 @@ $ ssh-keygen
 # to create a new project --> click on the New project button in the dashboard --> git the repo a clear name.
 # now u may or may not need all the command below, but i will list all required commands from this step till the local repo will sync with remote repo.
 
-# Create a new repository
+# Create a new repository:
  - git clone ssh://git@gitlab.example.com:30022/mustafakamil/my-first-gitlab-proj.git 
  - cd my-first-gitlab-proj 
  - touch README.md 
@@ -1255,8 +1255,20 @@ $ ssh-keygen
  - git commit -m "add README" 
  - git push -u origin master
 
+# Push an existing folder:
+ - cd existing_folder 
+ - git init 
+ - git remote add origin ssh://git@gitlab.example.com:30022/mustafakamil/my-first-gitlab-proj.git 
+ - git add . 
+ - git commit -m "Initial commit" 
+ - git push -u origin master
 
-
+# Push an existing Git repository
+ - cd existing_repo 
+ - git remote rename origin old-origin 
+ - git remote add origin ssh://git@gitlab.example.com:30022/mustafakamil/my-first-gitlab-proj.git 
+ - git push -u origin --all 
+ - git push -u origin --tags
 
 ================================================================ End of GitLab ===================================================
 
