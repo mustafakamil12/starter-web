@@ -1270,6 +1270,34 @@ $ ssh-keygen
  - git push -u origin --all 
  - git push -u origin --tags
 
+# to fork a project --> go to the project --> click on fork --> add the forked project to a fork group by clicking on it.
+
+# how to Creating a Branch in gitlab:
+ - Login to your GitLab account and go to your project under Projects section
+ - To create a branch, click on the Branches option under the Repository section and click on the New branch button.
+ − In the New branch screen, enter the name for branch and click on the Create branch button
+
+# we have 2 options to add file in the gitlab
+ - web interface.
+ - command line.
+
+# let's explain how to work with web interface, coz the command line way already had been discussed early:
+ − You can create a new file, by clicking on the '+' button which is at the right side of the branch selector in the dashboard.
+ − Enter the file name, add some content in the editor section and click on the Commit changes button to create the file.
+
+# Steps for Rebase Operation:
+ − Go to your project directory and create a new branch with the name rebase-example by using the git checkout command.
+  <The flag -b indicates new branch name.>
+ - Now, create a new file and add some content to that file as shown below.
+  $ echo "Welcome to TutorilasPoint" >> rebase_file.md
+ - Add the new file to working directory and store the changes to the repository along with the message (by using the git commit command).
+ - Switch to the 'master' branch. by using the git checkout command.
+ − Next, create an another new file, add some content to that file and commit it in the master branch. 
+  $ echo "text in main branch" >> README.md
+ − Switch to the rebase-branch to have the commit of master branch.
+ - Now, you can combine the commit of master branch to rebase-branch by using the git rebase command  
+  $ git rebase master
+
 ================================================================ End of GitLab ===================================================
 
 
