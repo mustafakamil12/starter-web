@@ -1294,9 +1294,43 @@ $ ssh-keygen
  - Switch to the 'master' branch. by using the git checkout command.
  − Next, create an another new file, add some content to that file and commit it in the master branch. 
   $ echo "text in main branch" >> README.md
+
  − Switch to the rebase-branch to have the commit of master branch.
  - Now, you can combine the commit of master branch to rebase-branch by using the git rebase command  
   $ git rebase master
+
+# we'll talk about Squashing commit
+#Squashing is a way of combining all commits into one when you are obtaining a merge request.
+
+# Steps for squashing commits
+ − Go to your project directory and check out a new branch with the name squash-chapter by using the git checkout command.
+  $ git checkout -b squash-chapter
+ − Now, create a new file with two commits, add that file to working directory and store the changes to the repository along with the commit messages
+
+  $ echo "message1" >> README.md
+  $ git add .
+  $ git commit -am "message1 commited"
+
+  $ echo "message2" >> README.md
+  $ git add .
+  $ git commit -am "message2 commited"
+
+ - u can use <git history> to see the preivous commits, and u'll get the below result in my example
+
+ ~/Desktop/my-first-gitlab-proj$ git history
+ * 3c17c2d (HEAD -> squash-chapter) message2 commited
+ * 9a80a57 message1 commited
+ | * cd640d5 (rebase-example) Rebase file added
+ |/
+
+ − Now, squash the above two commits into one commit by using the below command
+  $ git rebase -i HEAD~2
+
+ - After entering the above command, it will open the editor in which you have to change the pick word to squash word in the second line (you need to squash this commit).
+ 
+
+# git rebase command is used to integrate changes from one branch to another and HEAD~2 specifies last two squashed commits and if you want to squash four commits, then you need to write as HEAD~4. One more important point is, you need atleast two commits to complete the squash operation.
+
 
 ================================================================ End of GitLab ===================================================
 
