@@ -1326,10 +1326,11 @@ $ ssh-keygen
  − Now, squash the above two commits into one commit by using the below command
   $ git rebase -i HEAD~2
 
- - After entering the above command, it will open the editor in which you have to change the pick word to squash word in the second line (you need to squash this commit).
- 
+  -> git rebase command is used to integrate changes from one branch to another and HEAD~2 specifies last two squashed commits and if you want to squash four commits, then you need to write as HEAD~4. One more important point is, you need atleast two commits to complete the squash operation.
 
-# git rebase command is used to integrate changes from one branch to another and HEAD~2 specifies last two squashed commits and if you want to squash four commits, then you need to write as HEAD~4. One more important point is, you need atleast two commits to complete the squash operation.
+ - After entering the above command, it will open the editor in which you have to change the pick word to squash word in the second line (you need to squash this commit).
+
+
 
 
 ================================================================ End of GitLab ===================================================
