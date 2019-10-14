@@ -1330,6 +1330,18 @@ $ ssh-keygen
 
  - After entering the above command, it will open the editor in which you have to change the pick word to squash word in the second line (you need to squash this commit).
 
+----------------------------------------------------------------Gitlab CI/CD----------------------------------------------------
+
+# gitlab CI is the next wave of CI/CD, early we where use sperate application like jenkins to do the CI/CD
+# we will cover the subjects below:
+ - High level architecture
+ - Docker
+ - gitlab runner
+ - gitlab registry
+ - create demo application
+ - ci/cd using plain ssh (not dockerized approach)
+ - ci/cd using runner shell executer
+ - ci/cd using runner docker executer
 
 
 
