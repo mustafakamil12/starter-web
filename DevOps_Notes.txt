@@ -1500,9 +1500,19 @@ iterm
 						  .- Cloud   (AWS/Azure/Google)
 
 
-# we will skip installing docker for windows for now.  <<<<<<<=========
+# we will start with installing docker on windows 10 Pro/Ent Edition.
+ - first u need to go to this link https://store.docker.com to download the docker image --> brows popular image. 
+ - we will use the community edition
+ - use the stable image
+ - follow the instruction.
+ 
+# now if u wann to install docker on server 2016 u need to do the following steps.
+ - go to this link https://store.docker.com
+ - use docker EE 
+ - select windows.
+ - follow the instruction.
 
-# to install docker on mac all u need just go to store.docker.com and download docker, follow up instructions.
+# to install docker on mac all u need just go to https://store.docker.com and download docker, follow up instructions.
 # to verify docker on ur terminal
 $ docker version
 
