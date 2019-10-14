@@ -1334,6 +1334,7 @@ $ ssh-keygen
 
 # gitlab CI is the next wave of CI/CD, early we where use sperate application like jenkins to do the CI/CD
 # we will cover the subjects below:
+https://www.youtube.com/watch?v=34u4wbeEYEo&list=PLaFCDlD-mVOlnL0f9rl3jyOHNdHU--vlJ
  - High level architecture
  - Docker
  - gitlab runner
