@@ -1344,6 +1344,29 @@ https://www.youtube.com/watch?v=34u4wbeEYEo&list=PLaFCDlD-mVOlnL0f9rl3jyOHNdHU--
  - ci/cd using runner shell executer
  - ci/cd using runner docker executer
 
+# let's imagin that we have 2 parts in our work environment 
+ - gitlab property
+ - personel
+
+			 						.------.
+									|GitLab|
+					.------------->	.------. <------------.
+			       /					|				   \
+			      v                     |                   v 
+			.------. 					|				  	.------.
+			|Runner|					|					|Runner|
+Personel	.------.					|					.------. shared
+			|Docker|					|					|Docker|
+			.------.					|					.------.
+				   ^                    |                   ^
+				    \                   v                  /
+					 .------------>	.--------. <----------.
+									|Registry|
+			             			.--------.
+
+# u can see there's only one way line from gitlab toward registry, that's because gitlab use registry to fetch what image that we have.
+# image built in docker / runner and pushed to registry not to gitlab.
+
 
 
 ================================================================ End of GitLab ===================================================
