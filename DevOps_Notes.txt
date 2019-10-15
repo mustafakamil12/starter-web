@@ -1336,7 +1336,7 @@ $ ssh-keygen
 # we will cover the subjects below:
 https://www.youtube.com/watch?v=34u4wbeEYEo&list=PLaFCDlD-mVOlnL0f9rl3jyOHNdHU--vlJ
  - High level architecture
- - Docker
+ - Docker  ---> already explained in docker
  - gitlab runner
  - gitlab registry
  - create demo application
@@ -1366,6 +1366,11 @@ Personel	.------.					|					.------. shared
 
 # u can see there's only one way line from gitlab toward registry, that's because gitlab use registry to fetch what image that we have.
 # image built in docker / runner and pushed to registry not to gitlab.
+
+# if u r going to run docker <pure> some time in the image document there's away to copy the content of current folder to the target docker, for ex u can create index.html and copy it to the docker image :)
+
+ > <command> + -v "$pwd":<target>
+
 
 
 
