@@ -1371,6 +1371,26 @@ Personel	.------.					|					.------. shared
 
  > <command> + -v "$pwd":<target>
 
+# example on building docker custom image 
+ FROM ubuntu:latest
+ apt-get -y update
+ apt-get -y install appache2
+ EXPOSE 80
+ CMD apachectl -D FORGROUND
+
+# to run gitlab-runner use
+ $ sudo gitlab-runner --help
+ $ sudo gitlab-runner register
+  - it will ask u about the coordinator, for ex > https://gitlab.com/
+ > get the token from the gitlab 
+ > the a description
+ > for gitlab tags, is u have these tags, 
+  stage,qa,build,deploy
+ > wether to run untagged builds  --> false
+ > executer --> shell
+
+# now to check our work go to the gitlab site --> settings --> Runners --> active runner :)
+ 
 
 
 
@@ -1882,7 +1902,7 @@ $ docker tag mysql:5.7 mysqlmustafa:test
 # if u don't define any tag, by default takes "latest" tag :)
 
 # do upload docker image to the docker hub u need account to do this
-# docker cloud using docker hub as it's native registry for storing both public and private repos.
+# docker cloud using docker hub as it's native registery for storing both public and private repos.
 
 # to log into docker cloud from terminal u will use this command 
 $ docker login   --> it will ask for your creds.
