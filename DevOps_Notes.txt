@@ -2096,6 +2096,16 @@ ADD hom*/mydir/   --> add all files starting with hom
 
 # let's say we need to update the index.html file again, do it but u need to build the image again.
 
+# now we have an assignment for the topics above.
+ - create dockerfile
+ - get the latest python image from docker repo.
+ - write down a simle python program 
+ - run python program inside the container
+ - tag and push the image to the docker hub
+ - remove image from local and again  execute it from hub.
+
+#
+
 
 
 
