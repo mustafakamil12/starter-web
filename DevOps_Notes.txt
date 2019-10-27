@@ -2068,6 +2068,34 @@ ADD hom*/mydir/   --> add all files starting with hom
 
 # now let's talk about how to extend official docker image
 
+# in our example we will going to change the official <index.html> with new custom one.
+
+# go to ur <dockerfile> and start modify it with following
+
+ FROM nginx:latest
+ 
+ LABEL version="0.0.1"
+ LABEL maintainer="godric.phoenix@gmail.com"
+ 
+ WORKDIR usr/share/nginx/html 
+ 
+ RUN apt-get install nginx -y
+ 
+ # Expose port 80
+ EXPOSE 80
+ 
+ COPY index.html  index.html
+
+# if notice that we are not providing any <CMD> command and <RUN> command, coz these commands are already present inside the image. 
+
+# now we need to build the image.
+ $ docker build -t custom-ngnix:0.0.1 ./
+
+# now u need to run this image 
+ $ docker run -d -p 8086:80 custom-ngnix:0.0.1
+
+# let's say we need to update the index.html file again, do it but u need to build the image again.
+
 
 
 
