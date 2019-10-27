@@ -2009,7 +2009,64 @@ ADD hom*/mydir/   --> add all files starting with hom
 
 # now we are ready to build our custom docker image. 
 
+# normally docker image build from a docker file.
 
+# docker build syntax:
+> docker build -t ImageName:TagName dir
+
+# <-t> is to mention a tag to ur image.
+
+# let's start to create a custom nginx image and excute it.
+
+# please use visual studio editor to build ur file.
+
+# if u wanna for example to add new extension for ur visual studio, the best one will be from the microsoft :)
+
+# to get auto complete in ur visual studio hit ctrl+space :)
+
+# now we have a samll sample of a dockerfile as below:
+
+	FROM ubuntu:latest
+	
+	LABEL version="0.0.1"
+	LABEL maintainer="godric.phoenix@gmail.com"
+	
+	RUN apt-get update && apt-get upgrade -y 
+	
+	RUN apt-get install nginx -y
+	
+	EXPOSE 90
+	
+	CMD [ "nginx","-g","daemon off;" ]
+
+# before start running the file above please be sure that's no any other container running at this time.
+ $ docker ps
+
+# now verify how many images u have in ur machine.
+ $ docker images
+
+# now let's run the dockerfile above as below:
+ ~/Desktop/build docker images$ docker build -t customngnix:0.0.1 ./
+
+# each instruction mentioned in ur dockerfile it will be a step during execution process...:)
+
+# now check ur local images 
+ $ docker images   --> u'll see the new custom image available...:)
+
+# now to run this image 
+ $ docker run -d -p 4444:90 customngnix:0.0.1
+
+# now u can modify the dockerfile by adding some comments before each instruction and change the port to 80 for example
+
+# after saving all changes that u added to the file run the same command to build it.
+ $ docker build -t customngnix:0.0.2 ./
+
+# u will see at this time it's so fast, coz the docker identified where the change present and start change it
+
+# let's run this new image.
+ $ docker run -d -p 8088:80 customngnix:0.0.2 
+
+# now let's talk about how to extend official docker image
 
 
 
