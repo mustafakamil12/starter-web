@@ -1954,6 +1954,8 @@ $ docker logout
 # to build docker image from a dockerfile
 > docker build -f <path_of_dokcerfile> 
 
+
+
 # Dockerfile instructions are use to create the docker images.
 
 # FROM: this instruction is used to initilize a new build stage and sets the base image from subsequent instructions.
@@ -1998,6 +2000,14 @@ EXPOSE <port>
 
 # the format will be:
 ADD hom*/mydir/   --> add all files starting with hom
+
+# VOLUME: this instruction should be used to expose any database storage area, configuration storage, or files/folders created by ur docker container.
+
+# WORKDIR: instruction sets working directory for any RUN, CMD and ADD instructions that follow it in the docker file.
+
+
+
+# now we are ready to build our custom docker image. 
 
 
 
