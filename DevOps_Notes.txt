@@ -2104,7 +2104,34 @@ ADD hom*/mydir/   --> add all files starting with hom
  - tag and push the image to the docker hub
  - remove image from local and again  execute it from hub.
 
-#
+# let's start to resolve the assignment above 
+ - let's build the dockerfile first:
+	# Each instruction in this file generates a new layer that gets pushed to your local image cache
+	FROM python:latest
+	
+	# Identify the maintainer of an image
+	LABEL version="0.0.1"
+	LABEL maintainer="godric.phoenix@gmail.com"
+	
+	# Add python script
+	ADD my_script.py /
+	
+	# Execute python script
+	CMD [ "python","./my_script.py" ]
+
+ - now let's create the python script file <my_script.py>:
+	n=15
+	for i in range (0,n):
+	    print(((n-(i+1))*' ')+(((2*i)+1)*'*'))
+	for i in range (1,n):
+	    print(((i)*' ')+(((((n-i)*2)-1)*'*')))
+ 
+ - let's create the index.html file:
+	<h1>Hello World, Mustafa Here</h1>
+	<h3>Please advise that this is the dockerfile assignment</h3> 	
+
+# now let's build our image:
+	$ docker build -t custom-python:0.0.1 ./
 
 
 
