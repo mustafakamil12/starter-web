@@ -2132,6 +2132,24 @@ ADD hom*/mydir/   --> add all files starting with hom
 
 # now let's build our image:
 	$ docker build -t custom-python:0.0.1 ./
+# now run the image
+ $ docker run custom-python:0.0.1
+
+# now after we ensure that our image had been build successfully and the script running successfully as well we'll remove it
+ $ docker image rm -f custom-python:0.0.1
+
+# now lets creat it again 
+ $ docker image build -t mustafakamil/python_program:0.0.1 ./
+
+# login to docker
+ $ docker login
+
+# now we need to push our image to hub.docker.com
+ $ docker push mustafakamil/python_program:0.0.1
+
+# at this point we have image in our docker hub, let's remove it from our local machine and try to run our image again.
+ $ docker image rm mustafakamil/python_program:0.0.1
+ $ docker run mustafakamil/python_program:0.0.1    ---> it will download it from hub coz we already delete it from local machine.
 
 
 
