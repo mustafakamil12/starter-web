@@ -2172,7 +2172,52 @@ ADD hom*/mydir/   --> add all files starting with hom
  - volumes
  - bind mounts
 
-# let's talk about <volumes>: volumes are stored in a part of the host filesystem which is managed by docker.
+ * let's talk about <volumes>: 
+  i. volumes are stored in a part of the host filesystem which is managed by docker.
+  ii. volumes are created and managed by containers.
+  iii. volumes can be created by volume command in docker file.
+  iv. when u create a volume it is stored within a directory on the docker host machine.
+  v. volumes can not be removed when user destroy the containers.
+
+ - now we need to pull mysql image from docker hub, search for the official one, check the image file and u can see there's 
+   VOLUME command in it :)
+   $ docker pull mysql  --> will pull the latest official image from docker hub.
+
+   $ docker inspect mysql:latest  --> inspect the image, u will find commands like <Volumes>
+
+   $ docker run -d --name mustafadb -e MYSQL_ALLOW_EMPTY_PASSWORD=TURE mysql  <-- to run container with mysql image
+
+   $ docker ps  <-- to check the container that we just spin out.
+   $ docker inspect mustafadb   <-- inspect the container and look for Volumes commands. 
+
+   # for the commands above u'll see there's Volumes command as well u'll see Mount commands. 
+   # in Mounts command u'll see "Destination": "/var/lib/mysql"
+   # as well this part "Source": "/var/lib/docker/volumes/#### etc.  <-- this mean by default this continer is writing data to this location.
+   # to check this just cd to this location above.
+   $ cd /var/lib/docker/volumes/44f60db531b5a10290f386c67f9504ccbafa8a7b494c4f65a5a3faa970f7085b/_data    <-- if available.
+
+   # to find out how many volumes had been created
+   $ docker volum ls
+
+   # let's stop the container above and see what will happen for the volumes :)
+   $ docker stop mustafadb
+
+   # u'll see the volume still exist, to inspect a particular volume use it's id.
+   $ docker inspect 1b1e402cabd441c6b6867fbc954b2ff3f59211ea5e71a07592b22ba926c1b718
+
+   # now if we decide to create a custome volume for a particular container, we will use the same run command above but we will insert volume inside it.
+
+   $ docker run -d --name mustafadb2 -e MYSQL_ALLOW_EMPTY_PASSWORD=TURE --mount source=mustafadb2,destination=/var/lib/mysql mysql
+
+   # by this approach even if u wanna to stop old container and start new version u can attach a specific volume to the new container.
+
+   $ docker run -d --name mustafadb3 -e MYSQL_ALLOW_EMPTY_PASSWORD=TURE --mount source=mustafadb2,destination=/var/lib/mysql mysql
+
+   # in the command above we start another container with the same volume :) 
+
+
+
+
 
 
 
