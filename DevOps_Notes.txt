@@ -2152,6 +2152,28 @@ ADD hom*/mydir/   --> add all files starting with hom
  $ docker run mustafakamil/python_program:0.0.1    ---> it will download it from hub coz we already delete it from local machine.
 
 
+------------------------------------------------------------Docker Data Management----------------------------------------------
+
+# we will take the topics below 
+ - contanier data management
+ - persistent data
+ - data volumes
+ - bind mount points in containers.
+
+# the first issue we will talk about is the < container persistent data problem>.
+# containers are immutable, once deploy never change, only re-deploy
+
+# configre, change or version upgrade need redeploy.
+# by default all files created inside a container are stored on a writable container layer.
+
+# regarding to the previous point ther data doesn't persisit when that container no longer exist and it can be difficult to get the data out of the container if another process needs, this problem is known as <container persistent data problem>
+
+# we have 2 solutions for this problem 
+ - volumes
+ - bind mounts
+
+# let's talk about <volumes>: volumes are stored in a part of the host filesystem which is managed by docker.
+
 
 
 
