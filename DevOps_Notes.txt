@@ -2213,7 +2213,35 @@ ADD hom*/mydir/   --> add all files starting with hom
 
    $ docker run -d --name mustafadb3 -e MYSQL_ALLOW_EMPTY_PASSWORD=TURE --mount source=mustafadb2,destination=/var/lib/mysql mysql
 
-   # in the command above we start another container with the same volume :) 
+   # in the command above we start another container with the same volume :)
+
+ * now let's talk about bind mounts
+  i. Bind Mounts: means a file or directory on the host machine is mounted into container.
+  ii. mapping of host files into a container files.
+  iii. bind mounts may be stored anywhere on the host system.
+  iv. non-docker process on the docker host or a docker container can modify them at anytime.
+  v. bind mount can't be use in dockerfile  <-- :(
+  vi. it's very useful to share configuration files from the host machine to containers.
+  vii. sharing source code or build artifacts between a development environment on the docker host and a container.
+
+ - now we need to start nginx with bind mount command
+  # docker container run -d --name nginx --mount type=bind,source=4(pwd),target=/app nginx
+  $ docker run -d --name nginxbind --mount type=bind,source=$(pwd),target=/app nginx
+
+  # to check if our work correct we need to execute some commands on the container.
+  $ docker exec -it nginxbind bash    --> it will enable us to use bash inside the contaienr.
+  $ ls  --> u'll find the app directory.
+
+  # login to the app folder and check if there's any file.
+  # now on ur host machine go to the dockerbind folder and create new file.
+  $ echo "Hi, This is customfile" > test.txt
+
+ - now we have an assignment for Volume:
+  > DataBase Upgrade with Volumes in Containers 
+  > Create mysql container with some specific version with Volume named mysql-db
+  > After Starting the Container Verify Container Status Go to Database and Create Some Data 
+  > Stop and remove the Container 
+  > Strat new MqSQL Container with existing Volume and Verify the Data.
 
 
 
