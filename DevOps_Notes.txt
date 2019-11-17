@@ -2306,7 +2306,45 @@ ADD hom*/mydir/   --> add all files starting with hom
   > Edit the Index.html File in Local System (Host Machine) 
   > Verify the the change on Running Container
 
+ - bind assignment answers:
+  > check if there's any running containers
+   $ docker ps
+  > check ur machine IPs
+   $ ifconfig
+  > spin nginx container
+   $ docker container run -d --name nginx-test -p 80:80 nginx
+  > go to browser and use
+    > 192.168.0.6/index.html
+  > now stop the container and run it again
+   $ docker container stop nginx-test
+   $ docker container start nginx-test
+  > now we need to find where's the index.html file
+   $ docker exec -it ngnix-test bash
+   # path is: /usr/share/nginx/html
+  > now stop the container and remove it
+   $ docker container stop ngnix-test
+   $ docker container rm ngnix-test
+  > run new container 
+   $ docker container run -d --name nginx-bind -p 80:80 --mount type=bind,source="$(pwd)",target=/usr/share/nginx/html nginx
+   $ docker ps
+  > now login to the container
+   $ docker exec -it nginx-bind bash
+  > cd cd /usr/share/nginx/html/
+  > now in the folder on ur computer create new file
+   $ touch testindex.html
+   # add the content below:
 
+	<!DOCTYPE html>
+	<html>
+	<head>
+	<title>Nginx Sample File</title>
+	</head>
+	<body>
+	
+	<h1>My NGINX File</h1>
+	<p>See I am using Bind Mount in Running Container</p>
+	
+	</body>
 
 
 
