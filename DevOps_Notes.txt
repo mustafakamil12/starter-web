@@ -2300,6 +2300,12 @@ ADD hom*/mydir/   --> add all files starting with hom
     $ docker inspect test-mysql-2
 
 
+ - assignment for bind:
+  > Start Nginx Container 
+  > Bind Mount the Nginx Container
+  > Edit the Index.html File in Local System (Host Machine) 
+  > Verify the the change on Running Container
+
 
 
 
