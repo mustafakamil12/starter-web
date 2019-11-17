@@ -2154,6 +2154,7 @@ ADD hom*/mydir/   --> add all files starting with hom
 
 ------------------------------------------------------------Docker Data Management----------------------------------------------
 
+
 # we will take the topics below 
  - contanier data management
  - persistent data
@@ -2345,6 +2346,9 @@ ADD hom*/mydir/   --> add all files starting with hom
 	<p>See I am using Bind Mount in Running Container</p>
 	
 	</body>
+
+
+--------------------------------------------------------------Docker Compose----------------------------------------------------
 
 
 
