@@ -2196,7 +2196,7 @@ ADD hom*/mydir/   --> add all files starting with hom
    # to check this just cd to this location above.
    $ cd /var/lib/docker/volumes/44f60db531b5a10290f386c67f9504ccbafa8a7b494c4f65a5a3faa970f7085b/_data    <-- if available.
 
-   # to find out how many volumes had been created
+   # to list all volumes had been created
    $ docker volum ls
 
    # let's stop the container above and see what will happen for the volumes :)
@@ -2244,6 +2244,60 @@ ADD hom*/mydir/   --> add all files starting with hom
   > Strat new MqSQL Container with existing Volume and Verify the Data.
 
 
+ - assignment answers: 
+  > check how many containers we have
+   $ docker ps -a  --> must we see at STATUS --> Exited
+  > to remove all unused containers, Images and networks
+   $ docker system prune
+  > to remove all unused volumes
+   $ docker system prune --volumes
+  > to remove all unused images 
+   $ docker system prune -a
+
+  > create new sql container
+   $ docker run --name=test-mysql --env="MYSQL_ROOT_PASSWORD=mypassword" mysql:8.0  
+   # the line above will not work in detach mode
+
+  > the above command will run the container but not with not a user defined volume, we need to use defined volume
+   $  docker run -d --name=test-mysql -env="MYSQL_ROOT_PASSWORD=mypassword" --mount source:mysqldb,target:/var/lib/mysql mysql:8.0
+   # by the way the target that we provide in the command is the same that in the docker file at VOULUME :)
+
+  > verify mysql container
+   $ docker ps
+   $ docker inspect test-mysql
+
+  > now we need to create a database server :)
+   1. inspect the container to find the IP
+   2. Get the running port
+   3. install mysql client package
+    $ apt-get install mysql-client  OR in my Mac am using $ brew install mysql
+   4. execute command to login mysql db
+    mysql -u root -p<password> -h <hostIP> -P <port>
+    $ mysql -u root -p mypassword -h 172.17.0.2 -P 3306  ---> for mac it's littel different
+    $ mysql -u root -pmypassword -hlocalhost --protocol=TCP -P 3306
+
+   5. now we need to create the data base:
+    - CREATE DATABASE databasename;
+    - show databases;  --> to show all available databases
+    - use databasename;  --> to start insert data in our database
+    # Create Table in DataBase 
+    - CREATE TABLE Persons ( PersonID int, LastName varchar(255), FirstName varchar(255), Address varchar(255), City varchar(255) );
+    - show tables;
+	# Insert Some Data into the Table  
+	- INSERT INTO Persons (PersonID, LastName, FirstName, Address, City) VALUES (14, 'B. Erichsen', 'Tom', 'Skagen 216', 'Norway'); 
+	- INSERT INTO Persons (PersonID, LastName, FirstName, Address, City) VALUES (17, 'Zbyszek', 'Wolski', 'Keskuskatu 45', 'Finland');
+    # Verify DataBase 
+    - Select * From Persons;
+    # to exit from mysql
+    - exit;
+
+   > now we are ready to stop and remove the container, after that we will create new one with old volume
+    $ docker container stop test-mysql		--> stop container
+    $ docker container rm test-mysql		--> remove container
+    $ docker ps -a
+
+    $ docker run -d --name=test-mysql-2 -p 3306:3306 --env="MYSQL_ROOT_PASSWORD=mypassword" --mount source=mysqldb,target=/var/lib/mysql mysql:latest
+    $ docker inspect test-mysql-2
 
 
 
