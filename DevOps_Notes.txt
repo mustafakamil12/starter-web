@@ -2350,8 +2350,91 @@ ADD hom*/mydir/   --> add all files starting with hom
 
 --------------------------------------------------------------Docker Compose----------------------------------------------------
 
+# docker compse is like cluster used to run multiple containers as on service.
+# example for above, when user wanna to run mysql and tomcat in one yaml file with out starting spreatly.
+
+# we need 3 steps to work with docker compose
+ - define app's env with a dockerfile so it can be reproduce anywhere
+ - define services that make up ur app in docker-compse.yaml so they can run together in an isolated env.
+ - run docker-compose up and compose starts and run ur entire app.
+
+# now to work run the docker compose on linux only we need:
+ - download the neccessary files from github.
+  $ sudo curl -L "https://github.com/docker/compose/releases/ download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+ - apply executable permissions to to the file
+  $ sudo chmod +x /usr/local/bin/docker-compose
+ - verify syntax.
+  $ docker-compose —version
+
+# per docker documents we don't need to install it speratly on machine since it's already installed :)
+
+# let's talking about docker-compose yaml file, it's a yaml formated file used to explain
+ - containers
+ - networks
+ - volumes
+
+# Docker Compose yml file :
+ - Yml file can be versioned.
+ - Version statement should be the FirstLine of File YML can be used with docker-compose command. Docker-compose.yml if default name of YAML file.
+ - Custom name can be used by command docker-compose -f   docker-compose -f xxx.yml
+
+# let's take a look on docker-compose yaml template
+
+	version: '3' #Specifies the Compose file syntax version. 
+	
+	services: #service is the name for a “Container in production”
+	  servicename: #container service name
+	    image: #optional, specify if build specific
+	    command: #optional, relmand CMD specified in image
+	    environment: #optional, similar to -e in Docker run command
+	    volumes: #optional, similar to --mount in docker run
+	  servicename2:
+	
+	volumes: #Optional, Mounts a linked path on the host machine that can be used by the container.
+	
+	networks: #Optional, Same as Docker Network
+
+# now we will start building yaml file: 
+
+	version: '3' #Version of YML file
+	
+	services:
+	  db:
+	    image: mysql:5.7
+	    volumes:
+	      - db_data:/var/lib/mysql
+	    restart: always
+	    environment:
+	      MYSQL_ROOT_PASSWORD: mypassword
+	      MYSQL_DATABASE: wordpress
+	      MYSQL_USER: wordpressuser
+	      MYSQL_PASSWORD: wordpress
+	
+	  wordpress:
+	    image: wordpress:latest
+	    depends_on:
+	      - db
+	    ports:
+	      - "8098:80"
+	    restart: always
+	    environment:
+	      WORDPRESS_DB_HOST: db:3306
+	      WORDPRESS_DB_USER: wordpressuser
+	      WORDPRESS_DB_PASSWORD: wordpress
+	
+	volumes:
+	  db_data:
 
 
+# now we need tochange the privilage for the file
+ $ chmod 777 docker-compose-yaml.yml 
+
+# now run the yaml file
+ $ docker-compose up -d
+ $ docker ps
+
+# to see the wordpress page
+ > https://localhost:8098/wordpress
 
 
 
