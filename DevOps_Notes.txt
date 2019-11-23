@@ -2535,7 +2535,40 @@ ADD hom*/mydir/   --> add all files starting with hom
   - that's mean if any container go down, another one will be spin up.
   - example: if in the plan we need 3 replicas for a service and one go down the responsibility to spin up a new container.
  2. load balancing: master will serve the traffic as well manage workers, workers serve the traffic with master.
- 3. Rolling update: if we have a bug or issue with containers, swarm will help us to patch update for the running continaers, user not impacting, if u wanna to patch update, so if u have 10 containers then 2 for ex will go down and new 2 with upate will spin up, and finally u have 8 with old update and 2 with new update and so on till all updated.
+ 3. Rolling update: if we have a bug or issue with containers, swarm will help us to patch update for the running continaers, user not impacting, if u wanna to patch update, so if u have 10 containers (one service) then 2 for ex will go down and new 2 with upate will spin up, and finally u have 8 with old update and 2 with new update and so on till all updated.
 
  4. security: when a node joins the swarm it will be used a token that had been encrypted by the swarm itself.
+
+# swarmkit: it's the cluster management and orchestration features embedded in the docker.
+
+# Host: docker host can be:
+ - manager
+ - worker
+ - both manager and worker at the sametime.
+
+# Service: when u create a service, u define:-
+ - it's optimal state
+ - number of replicas.
+ - network
+ - storage resources available
+ - ports
+ - and more :)
+
+# Task: it's a running container which is part of a swarm service and managed by a swarm manager, in another word (Task is a part of service), it's carried docker container and the commands to run inside the container.
+ - once task is assigned to a node, it cannot move to another node.
+
+# Nodes: it's an instance of the docker engine participating in the swarm.
+
+# usually in production swarm it's include nodes distributed across multiple physical and cloud machines.
+
+# to deploy ur application to a swarm --> submit service defenition to --> manager node --> dispaches units of work (tasks) to --> worker noeds
+
+# manager node also perform the orchestration and cluster management functions required to maintain the desired state of the swarm. 
+# the manager node elect a single leader to conduct orchestration tasks.
+
+# worker nodes: they receive and execute tasks dispatched from manager nodes.
+
+# services: it is the definition of the tasks to execute on the manager or worker nodes.
+
+
 
