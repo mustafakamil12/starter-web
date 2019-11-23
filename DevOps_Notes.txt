@@ -2498,4 +2498,5 @@ ADD hom*/mydir/   --> add all files starting with hom
 	  data:
 	    external: true #tells Docker Compose to use a pre-existing external volume
 	
+--------------------------------------------------------------Docker Swarm------------------------------------------------------
 
