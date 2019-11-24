@@ -2656,3 +2656,16 @@ $ docker service --help
 
 ------------------------------------------------------- Create Docker Swarm Cluster --------------------------------------------
 
+# Create Docker Swarm Cluster mean create new docker nodes, create docker swarm service on single node which's called master and then we'll attached other nodes to the master.
+
+# we have multiple options to build cluster: 
+ 1. go to this url <https://labs.play-with-docker.com/> , this site provide run machine on demand. but they will be available only for 4 hours.
+
+ 2. docker machine + virtualbox
+ 3. digital machine + docker install.
+ 4. rollout machine on cloud like aws, google, azure, do ...etc.
+
+
+ 
+
+
