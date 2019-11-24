@@ -2571,4 +2571,6 @@ ADD hom*/mydir/   --> add all files starting with hom
 # services: it is the definition of the tasks to execute on the manager or worker nodes.
 
 
+------------------------------------------------------Create service on Docker Swarm -------------------------------------------
+
 
