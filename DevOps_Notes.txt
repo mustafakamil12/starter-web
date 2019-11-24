@@ -1580,7 +1580,7 @@ $ hostname
 
 # we will skip installing docker for windows for now.  <<<<<<<=========
 
-# we will skip installing docker for Linux for now.  <<<<<<<=========
+# we will skip installing docker for Linux for now.  <------- and we will use it in docker swarm cluster
 
 --------------------------------------------------------------Docker Container--------------------------------------------------
 
@@ -2665,7 +2665,45 @@ $ docker service --help
  3. digital machine + docker install.
  4. rollout machine on cloud like aws, google, azure, do ...etc.
 
+# we will go with digital ocean
+ - create --> droplets --> ubuntu 18.04.3 64  --> create
+ 					  |- starter: standard
+ 					  |- $5 plan
+ 					  |- DC: san francisco
+ 					  |- 3 droplets
 
+ - now to access any of these machines copy the ip, for example we're going to access the second machine.
+  $ ssh root@167.99.166.36  u'll get the password on ur email
+ - then u'll need to reset the password
+ - repeat the process above with other machines.
+ - if u wanna to check in which device u r use
+  $ hostname.
+ - now we need to install docker on all 3 machines.
+  1. sudo apt-get update
+ 
+  2. sudo apt-get install \
+  	 apt-transport-https \
+  	 ca-certificates \
+  	 curl \
+  	 software-properties-common
+   
+  3. curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+   
+  4. sudo add-apt-repository \
+     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+     $(lsb_release -cs) \
+     stable"
+  5. sudo apt-get update
+  6. sudo apt-get install docker-ce
+  7. docker version
+ - commands to install docker machine
+    1. base=https://github.com/docker/machine/releases/download/v0.14.0 && curl -L $base/docker-machine-$(uname -s)-$(uname -m) >/tmp/docker-machine &&
+    2. sudo install /tmp/docker-machine /usr/local/bin/docker-machine
+    3. docker-machine version
+ - to install docker compose
+    1. sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+    2. sudo chmod +x /usr/local/bin/docker-compose
+    3. docker-compose --version
  
 
 
