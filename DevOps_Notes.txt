@@ -2602,8 +2602,57 @@ $ docker swarm init    <-- in dome cased it will work and sometimes it's failed,
 # for any help required for swarm
 $ docker swarm --help
 
+# if u wanna help with service command for example
+$ docker service --help
+
+# so let's make a small list of some commands that we work with:
+ > initilize docker swarm
+  $ docker swarm init
+ > docker swarm commands
+  $ docker swarm --help
+ > docker service commands 
+  $ docker service --help
+ > create docker service
+  $ docker service create <image>
+ > list all running services in docker Host
+  $ docker service ls
+
+# ex: suppose we wanna to create a service and in that service we need to ping google.
+ $ ping www.google.com
+
+# now to create service that ping a website 
+ 1. we need to setup O.S. in that particular service.
+  $ docker service create alpine ping www.google.com
+  # so the command above will create a service which will install the alpine latest image and execute ping command on this particular service.
+ 2. to list all services running 
+  $ docker service ls
+  # u will see in this command the ID is different from the container id that u got, yes this is the service id.
+  # Replicas 1/1 --> the right side show how many replicas was configured and the left side show how many repl. running
+ 3. to inspect the service.
+  $ docker service inspect <service name/service id>
+ 4. to see which container exactly running ur service on docker machine.
+  $ docker service ls  <-- to get the name of the service or the id
+  $ docker service ps <service name/id>
+  $ docker container inspect <container name/id>
+  # u will see in the json result this output
+  	"Cmd": [
+  	              "ping",
+  	              "www.google.com"
  
+ 5. so what we do is we start a service --> this service start container --> container run Task (ping)
 
+# let's now working on how to scal up the services
+ $ docker service update <service_name> --replicas <number of service>
+ $ docker service update interesting_proskuriakova --replicas 4
+ $ docker service ps <service name>
+ $ docker service ps interesting_proskuriakova
 
+# let's now try to stop one of the containers 
+ $ docker container rm -f <container name/id>
+ $ docker container ls
+ $ docker container rm -f interesting_proskuriakova.3.jqvja4v134t9crav635lwvgiy
+ $ docker service ls
+ $ docker service ps interesting_proskuriakova
 
+------------------------------------------------------- Create Docker Swarm Cluster --------------------------------------------
 
