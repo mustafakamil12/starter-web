@@ -2573,4 +2573,37 @@ ADD hom*/mydir/   --> add all files starting with hom
 
 ------------------------------------------------------Create service on Docker Swarm -------------------------------------------
 
+# check if there's any docker running
+$ docker container ls
+
+# now check docker information, this command will display all information about ur docker engin 
+$ docker info
+
+# check the info u got and u'll find this field <Swarm: inactive> that's mean swarm need to be initilized :)
+
+# to initilize docker swarm on a machine u need to apply
+$ docker swarm init    <-- in dome cased it will work and sometimes it's failed, in my laptop it's working and got:
+
+	Swarm initialized: current node (q16zevxite4c0u5ex6y9yscrs) is now a manager.
+	
+	To add a worker to this swarm, run the following command:
+	
+	    docker swarm join --token SWMTKN-1-5gbw9s5q26oq5t45qu4e7s7eziomvc9srtiny6o996sa9hn9zn-7r3cy9qkaqsgpq3sn0cfly55z 192.168.65.3:2377
+	
+	To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+
+# if u run the command above on a cloud machine and that cloud have multiple IP layers on eth0
+ 1. check the ip using: $ ifconfig  --> to get the ip u can use --> X.X.X.X
+ 2. use initilize command again 
+  $ docker swarm init --advertise-addr X.X.X.X 
+
+# all the information u got after initilizing the swarm available in < docker info > except the token :)
+
+# for any help required for swarm
+$ docker swarm --help
+
+ 
+
+
+
 
