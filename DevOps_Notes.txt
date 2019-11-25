@@ -2704,6 +2704,40 @@ $ docker service --help
     1. sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
     2. sudo chmod +x /usr/local/bin/docker-compose
     3. docker-compose --version
+
+ - we need to check the docker swarm if it's active in the new nodes
+  $ docker info
+
+ - to initilize swarm in the new nodes
+  $ docker swarm init --advertise-addr <ip of the eth0>
+
+ - now our task is:
+  i. create for node docker swarm cluster
+   > we need to find the token for the node we wanna to make it a manager.
+    $ docker swarm join-token manager
+   > copy the result and past it in the other 3 nodes, that they will serve as worker.
+    $ docker swarm join --token SWMTKN-1-5gbw9s5q26oq5t45qu4e7s7eziomvc9srtiny6o996sa9hn9zn-dpnp7c7v6p5v39gx08d3gf00k 192.168.65.3:2377
+   > docker node ls   
+    # the one that we copy the token from will be the leader. :)
+
+   > sometime u'll get this error: 
+    Error response from daemon: This node is already part of a swarm. Use "docker swarm leave" to leave this swarm and join another one.
+    # this message mean u need to leave from the old swarm, that had been created when initilizing the swarm.
+     $ docker swarm leave -f
+     $ docker node ls
+   > now check the worker nodes, u can see there's no any container running.
+   > now we need to create a service in the manager
+    $ docker service create --replicas 8 alpine ping www.google.com
+    $ docker service ls
+    $ docker service ps <service name>
+    $ docker service ps sleepy_easley
+
+   > check ur nodes now :) 
+
+  ii. switch manager node in docker
+   $ docker node update --role manager <node_name>
+  iii. get token at run time
+   $ docker swarm join-token manager
  
 
 
