@@ -1580,7 +1580,7 @@ $ hostname
 
 # we will skip installing docker for windows for now.  <<<<<<<=========
 
-# we will skip installing docker for Linux for now.  <<<<<<<=========
+# we will skip installing docker for Linux for now.  <------- and we will use it in docker swarm cluster
 
 --------------------------------------------------------------Docker Container--------------------------------------------------
 
@@ -2498,4 +2498,246 @@ ADD hom*/mydir/   --> add all files starting with hom
 	  data:
 	    external: true #tells Docker Compose to use a pre-existing external volume
 	
+--------------------------------------------------------------Docker Swarm------------------------------------------------------
+
+# Swarm is used to cluster our containers
+# why we need to cluster our containers? 
+ - used to scale up our infrastructure when needed.
+ - manage containers and re-create containers if they failed/crushed
+ - upgrade services with zero down time.
+ - manage containers on vms. nodes.
+
+# docker swarm: is clustering and scheduling tool for docker contaienr.
+# swarm is docker's native support for orchestrating clusters of docker engins.
+# orchestrator: define nodes, define services, set how many nodes you run and where.
+# so at high level swarm take multiple docker engins running on different hosts and let's you use them together.
+
+# docker swarm have 2 types of nodes
+ 1. master (manager)
+ 2. worker
+
+# every swarm start with one manager designated as leader
+# swarm is highly available - using Raft algorthim
+
+# Raft algorthim is simple if we have 3 nodes A, B and C. 
+# A will be the master node, it's constantly check in with it's fellowers' nodes and syncing thier states. 
+# if A go down, then B will be the master
+# if A after while get back online, it will be down grade to be a worker (fellower) and B stay master
+
+# swarm features:
+ 1. Task scheduling: 
+    suppose we have a service we need to deploy it on a stack on swarm, we will cerate a stack of services in a swarm and u'll provide swarm with important information about:
+  - how actually u want service to be run this include parmeters like:
+   i. how many replicas u wanna on each service.
+   ii. how the replicas should be distributed.
+   iii. when should be run on certain node and mode.
+  - when the services deploy now it's job of manager to ensure deployment requirements u set continue to meet.
+  - that's mean if any container go down, another one will be spin up.
+  - example: if in the plan we need 3 replicas for a service and one go down the responsibility to spin up a new container.
+ 2. load balancing: master will serve the traffic as well manage workers, workers serve the traffic with master.
+ 3. Rolling update: if we have a bug or issue with containers, swarm will help us to patch update for the running continaers, user not impacting, if u wanna to patch update, so if u have 10 containers (one service) then 2 for ex will go down and new 2 with upate will spin up, and finally u have 8 with old update and 2 with new update and so on till all updated.
+
+ 4. security: when a node joins the swarm it will be used a token that had been encrypted by the swarm itself.
+
+# swarmkit: it's the cluster management and orchestration features embedded in the docker.
+
+# Host: docker host can be:
+ - manager
+ - worker
+ - both manager and worker at the sametime.
+
+# Service: when u create a service, u define:-
+ - it's optimal state
+ - number of replicas.
+ - network
+ - storage resources available
+ - ports
+ - and more :)
+
+# Task: it's a running container which is part of a swarm service and managed by a swarm manager, in another word (Task is a part of service), it's carried docker container and the commands to run inside the container.
+ - once task is assigned to a node, it cannot move to another node.
+
+# Nodes: it's an instance of the docker engine participating in the swarm.
+
+# usually in production swarm it's include nodes distributed across multiple physical and cloud machines.
+
+# to deploy ur application to a swarm --> submit service defenition to --> manager node --> dispaches units of work (tasks) to --> worker noeds
+
+# manager node also perform the orchestration and cluster management functions required to maintain the desired state of the swarm. 
+# the manager node elect a single leader to conduct orchestration tasks.
+
+# worker nodes: they receive and execute tasks dispatched from manager nodes.
+
+# services: it is the definition of the tasks to execute on the manager or worker nodes.
+
+
+------------------------------------------------------Create service on Docker Swarm -------------------------------------------
+
+# check if there's any docker running
+$ docker container ls
+
+# now check docker information, this command will display all information about ur docker engin 
+$ docker info
+
+# check the info u got and u'll find this field <Swarm: inactive> that's mean swarm need to be initilized :)
+
+# to initilize docker swarm on a machine u need to apply
+$ docker swarm init    <-- in dome cased it will work and sometimes it's failed, in my laptop it's working and got:
+
+	Swarm initialized: current node (q16zevxite4c0u5ex6y9yscrs) is now a manager.
+	
+	To add a worker to this swarm, run the following command:
+	
+	    docker swarm join --token SWMTKN-1-5gbw9s5q26oq5t45qu4e7s7eziomvc9srtiny6o996sa9hn9zn-7r3cy9qkaqsgpq3sn0cfly55z 192.168.65.3:2377
+	
+	To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+
+# if u run the command above on a cloud machine and that cloud have multiple IP layers on eth0
+ 1. check the ip using: $ ifconfig  --> to get the ip u can use --> X.X.X.X
+ 2. use initilize command again 
+  $ docker swarm init --advertise-addr X.X.X.X 
+
+# all the information u got after initilizing the swarm available in < docker info > except the token :)
+
+# for any help required for swarm
+$ docker swarm --help
+
+# if u wanna help with service command for example
+$ docker service --help
+
+# so let's make a small list of some commands that we work with:
+ > initilize docker swarm
+  $ docker swarm init
+ > docker swarm commands
+  $ docker swarm --help
+ > docker service commands 
+  $ docker service --help
+ > create docker service
+  $ docker service create <image>
+ > list all running services in docker Host
+  $ docker service ls
+
+# ex: suppose we wanna to create a service and in that service we need to ping google.
+ $ ping www.google.com
+
+# now to create service that ping a website 
+ 1. we need to setup O.S. in that particular service.
+  $ docker service create alpine ping www.google.com
+  # so the command above will create a service which will install the alpine latest image and execute ping command on this particular service.
+ 2. to list all services running 
+  $ docker service ls
+  # u will see in this command the ID is different from the container id that u got, yes this is the service id.
+  # Replicas 1/1 --> the right side show how many replicas was configured and the left side show how many repl. running
+ 3. to inspect the service.
+  $ docker service inspect <service name/service id>
+ 4. to see which container exactly running ur service on docker machine.
+  $ docker service ls  <-- to get the name of the service or the id
+  $ docker service ps <service name/id>
+  $ docker container inspect <container name/id>
+  # u will see in the json result this output
+  	"Cmd": [
+  	              "ping",
+  	              "www.google.com"
+ 
+ 5. so what we do is we start a service --> this service start container --> container run Task (ping)
+
+# let's now working on how to scal up the services
+ $ docker service update <service_name> --replicas <number of service>
+ $ docker service update interesting_proskuriakova --replicas 4
+ $ docker service ps <service name>
+ $ docker service ps interesting_proskuriakova
+
+# let's now try to stop one of the containers 
+ $ docker container rm -f <container name/id>
+ $ docker container ls
+ $ docker container rm -f interesting_proskuriakova.3.jqvja4v134t9crav635lwvgiy
+ $ docker service ls
+ $ docker service ps interesting_proskuriakova
+
+------------------------------------------------------- Create Docker Swarm Cluster --------------------------------------------
+
+# Create Docker Swarm Cluster mean create new docker nodes, create docker swarm service on single node which's called master and then we'll attached other nodes to the master.
+
+# we have multiple options to build cluster: 
+ 1. go to this url <https://labs.play-with-docker.com/> , this site provide run machine on demand. but they will be available only for 4 hours.
+
+ 2. docker machine + virtualbox
+ 3. digital machine + docker install.
+ 4. rollout machine on cloud like aws, google, azure, do ...etc.
+
+# we will go with digital ocean
+ - create --> droplets --> ubuntu 18.04.3 64  --> create
+ 					  |- starter: standard
+ 					  |- $5 plan
+ 					  |- DC: san francisco
+ 					  |- 3 droplets
+
+ - now to access any of these machines copy the ip, for example we're going to access the second machine.
+  $ ssh root@167.99.166.36  u'll get the password on ur email
+ - then u'll need to reset the password
+ - repeat the process above with other machines.
+ - if u wanna to check in which device u r use
+  $ hostname.
+ - now we need to install docker on all 3 machines.
+  1. sudo apt-get update
+ 
+  2. sudo apt-get install \
+  	 apt-transport-https \
+  	 ca-certificates \
+  	 curl \
+  	 software-properties-common
+   
+  3. curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+   
+  4. sudo add-apt-repository \
+     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+     $(lsb_release -cs) \
+     stable"
+  5. sudo apt-get update
+  6. sudo apt-get install docker-ce
+  7. docker version
+ - commands to install docker machine
+    1. base=https://github.com/docker/machine/releases/download/v0.14.0 && curl -L $base/docker-machine-$(uname -s)-$(uname -m) >/tmp/docker-machine &&
+    2. sudo install /tmp/docker-machine /usr/local/bin/docker-machine
+    3. docker-machine version
+ - to install docker compose
+    1. sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+    2. sudo chmod +x /usr/local/bin/docker-compose
+    3. docker-compose --version
+
+ - we need to check the docker swarm if it's active in the new nodes
+  $ docker info
+
+ - to initilize swarm in the new nodes
+  $ docker swarm init --advertise-addr <ip of the eth0>
+
+ - now our task is:
+  i. create for node docker swarm cluster
+   > we need to find the token for the node we wanna to make it a manager.
+    $ docker swarm join-token manager
+   > copy the result and past it in the other 3 nodes, that they will serve as worker.
+    $ docker swarm join --token SWMTKN-1-5gbw9s5q26oq5t45qu4e7s7eziomvc9srtiny6o996sa9hn9zn-dpnp7c7v6p5v39gx08d3gf00k 192.168.65.3:2377
+   > docker node ls   
+    # the one that we copy the token from will be the leader. :)
+
+   > sometime u'll get this error: 
+    Error response from daemon: This node is already part of a swarm. Use "docker swarm leave" to leave this swarm and join another one.
+    # this message mean u need to leave from the old swarm, that had been created when initilizing the swarm.
+     $ docker swarm leave -f
+     $ docker node ls
+   > now check the worker nodes, u can see there's no any container running.
+   > now we need to create a service in the manager
+    $ docker service create --replicas 8 alpine ping www.google.com
+    $ docker service ls
+    $ docker service ps <service name>
+    $ docker service ps sleepy_easley
+
+   > check ur nodes now :) 
+
+  ii. switch manager node in docker
+   $ docker node update --role manager <node_name>
+  iii. get token at run time
+   $ docker swarm join-token manager
+ 
+
 
