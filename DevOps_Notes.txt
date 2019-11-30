@@ -2740,4 +2740,32 @@ $ docker service --help
    $ docker swarm join-token manager
  
 
+----------------------------------------------------- Docker Swarm Features and App. -------------------------------------------
 
+# docker swarm has new network driver <overlay network>
+# overlay network driver creates a distributed network among multiple docker hosts.
+# overlay network is allow containers to communicate inside the single swarm < it look like vlan>
+# when u init a swarm or join a docker host to a swarm, 2 new networks will be created on that host:
+ 1. ingress: it's an overlay network, which handles control and data traffic related to swarm services.
+ 	- so all services running a single docker swarm will communicate with the help of ingress
+ 	- ingress overlay network will only work if u not attaching the service with a user defiend overlay netwok.
+
+ 2. bridge network: it's called <docker_gwbridge> which connect the individual docker node to the other node participating in the swarm
+
+# Rules to when define overlay network:
+ 1. few ports need to be empty in the docker host machine. these ports need to be open to traffic <to and from> each docker host participating on an overlay network.
+               __ TCP port 2377 for cluster management communications.
+              |
+ 	- ports ----  TCP and UDP port 7946 for communication among nodes.
+ 			  |
+ 			  .-- UDP port 4789 for overlay network traffic.
+
+ 2. before create an overlay network, docker swarm must be initilized on node or join it to an existing swarm.
+
+# to create an overlay network.
+ > docker network create -d overaly <network_name>
+ 
+ $ docker info  <-- to check if the swarm had been initilize in this host.
+ $ docker network ls  <-- to check the networks
+
+ $ docker network create -d overlay mustafa_overlay  <-- create user defined overlay netowrk.
