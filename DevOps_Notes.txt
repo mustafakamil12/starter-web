@@ -2769,3 +2769,53 @@ $ docker service --help
  $ docker network ls  <-- to check the networks
 
  $ docker network create -d overlay mustafa_overlay  <-- create user defined overlay netowrk.
+
+# let's create a service now and attached it to user-defined overlay network
+ $ docker service create --name postgress --network mustafa_overlay -e POSTGERS_PASSWORD=mypassword postgres:10
+ $ docker service ls
+
+# now we will create another service and also attache it to user defined network.
+ $ docker service create --name mydrupal --network mustafa_overlay -p 80:80 drupal
+
+# if we need to remove un-used service 
+ $ docker service rm <service name>
+
+# now let's verify where my service running
+ $ docker service ps <service name>
+ $ docker service ps new-postgress
+ $ docker service ps mydrupal
+  - u can use node ip on ur browser to see how drupal working.
+  - to setup the Drupal --> save and continue --> standard --> postgresSQL
+  														   |-  database naem: postgres  (any name)
+  														   |-  database uname: postgres
+  														   |-  database pass: mypassword (the pass when u run the service.)
+  														   |-  advanced options: --> host: new_postgress  <-- db service name
+  														   |-  configure site .- sitename: www.testme.cm
+  														   					  |- site email: godric.phoenix@gmail.com
+  														   					  |- site maintenance: .- uname: mustafakamil
+  														   					  					   |- pass: ******
+  														   					  					   |- country: usa
+  														   					  					   .- time: chicago
+ - now if u copy another ip of any droplet and use browser u will get the same result (dropal site)
+ - although it had been run on a single node but it can be accessed from another nodes :)
+
+# Routing Mesh: it's an algorthim used by swarm for global traffic management.
+# let's take a look on how the Routing mesh working: 
+ - docker swarm publish service on some ports and allow outer world to access these services, this called <ingress routing mesh>
+ - The routing mesh enables each node in the swarm to accept connections on published ports for any service running in the swarm, even if there’s no task running on the node, with the help of swarm load balancer. 
+ - The routing mesh routes all incoming requests to published ports on available nodes to an active container.
+ - the command we just executed to create drupal service :  
+  $ docker service create --name mydrupal --network mustafa_overlay -p 80:80 drupal
+
+   - if u take a look on this part of command: -p <published_port>:<container_port> 
+   
+    i. The <PUBLISHED_PORT>is the port where the swarm makes the service available.
+    ii. The <CONTAINER_PORT> is the port where the container listens.
+
+   - Routing mesh listens on the published port for any IP address assigned to the node.
+ - to verify Service Published Port :
+  > docker service inspect --format="{{json .Endpoint.Spec.Ports}}" <Service_Name>
+
+
+
+
