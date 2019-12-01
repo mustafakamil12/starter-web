@@ -2907,4 +2907,23 @@ $ docker service --help
  - now to use the app above, use any ip for the 4 droplets, and for 
   i. voting ip:5000
   ii. to see reults ip:5001
+
+----------------------------------------------------- Docker Swarm Stack Feature. ----------------------------------------------
+
+# Stack : Stack is a group of interrelated services that share dependencies, and can be orchestrated and scaled together.
+# A single stack is capable of defining and coordinating the functionality of an entire application.
+# Complex Application may have multiple Stacks as well.
+# Docker Stack uses Compose’s YAML format and complements the Swarm-specific properties for service deployments.
+# File Name could be like docker-stack.yml
+# Docker : Docker Swarm
+
+# Build Own Image: Sample_Nginx Project
+# Build Image form Dockerfile  docker build —tag=friendly_hello . 
+
+# Push image on Docker Hub 
+# docker tag <image> <username/repository:tag>  docker push <username/repository:tag>
+
+# first u need to download the zip file in the lec, to the download folder and then u need to copy content to the droplet.
+ $ scp Dockerfile docker-compose.yml app.py requirem ents.txt root@167.172.206.76:/root/sample_nginx/
+  
   
