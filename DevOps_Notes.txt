@@ -2876,5 +2876,27 @@ $ docker service --help
 	    - Publish on back_end_ntw network
 	    - Publish on port 5001, Container port 80
 	    - Publish 1+ replicas
-	  
+	 
+
+# now we will resolve the assignment:
+ - let's first check how many nodes we have in this swarm <we build it already in the previous lecs>
+  $ docker node ls
+ - now let's identify how many networks we have.
+  $ docker network ls
+ - now we going to create 2 overlay networks
+  $ docker network create -d overlay front_end_ntw
+  $ docker network create -d overlay back_end_ntw
+ - now we need to work on Vote App:
+  $ docker service create --name vote -p 5000:80 --network front_end_ntw --replicas 5 dockersamples/examplevotingapp_vote:before
+  $ docker service ps vote
+
+ - now we will work with Redis:
+  $ docker service create --name redis --network front_end_ntw --replicas 5 redis:3.2
+  $ docker service ps redis
+
+ - now we will work with worker:
+  $ docker service create --name worker --network front_end_ntw --network back_end_ntw dockersamples/examplevotingapp_worker:latest
+  # we have issue here image not available
+
+
   
