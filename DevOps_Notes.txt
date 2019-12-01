@@ -2896,7 +2896,15 @@ $ docker service --help
 
  - now we will work with worker:
   $ docker service create --name worker --network front_end_ntw --network back_end_ntw dockersamples/examplevotingapp_worker:latest
-  # we have issue here image not available
+  
 
+ - now we will work with DB:
+  $ docker service create --name db --network back_end_ntw --mount type=volume,source=db-data,target=/var/lib/postgresql/data postgres:9.4
 
+ - now let's working with result service:
+  $ docker service create --name result --network back_end_ntw -p 5001:80 dockersamples/examplevotingapp_result:before
+
+ - now to use the app above, use any ip for the 4 droplets, and for 
+  i. voting ip:5000
+  ii. to see reults ip:5001
   
