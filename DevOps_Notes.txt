@@ -2808,7 +2808,7 @@ $ docker service --help
   $ docker service create --name mydrupal --network mustafa_overlay -p 80:80 drupal
 
    - if u take a look on this part of command: -p <published_port>:<container_port> 
-   
+
     i. The <PUBLISHED_PORT>is the port where the swarm makes the service available.
     ii. The <CONTAINER_PORT> is the port where the container listens.
 
@@ -2816,6 +2816,65 @@ $ docker service --help
  - to verify Service Published Port :
   > docker service inspect --format="{{json .Endpoint.Spec.Ports}}" <Service_Name>
 
+# assignement: deploy multi node service
+ 1. we will use distribute voting app.
+ 2. the archetict of the app as below:
+
+   .------------.      .------------. 
+   | voting-app |  	   | result-app |
+   |   Python   |  	   |   Node.js  |
+   .------------.  	   .------------.
+		 /			 	   ^
+		/			 	    \
+	   v                     \
+.------------.  	 	.------------.
+|    redis   |  	 	|     db     |
+|    Redis   |  	 	| PostgreSQL |
+.------------.  	 	.------------.
+		   \               ^
+		    \             /
+		     v	         /
+    	    .------------.
+		    |    worker  |
+		    |     .NET   |
+		    .------------.
 
 
-
+ 3. Service Parts:
+	i. This is 5 Service combination App.
+	ii. vote: front-end that enables a user to choose between a cat and dog
+	iii. redis: database where votes are stored
+	iv. worker: service that get votes from redis and store the results in a postgres database
+	v. db: the postgres database in which vote’s results are stored 
+	vi. result: front-end displaying the results of the vote
+	 
+	- So this is combination of Several docker and compose file. 
+	- Code can view at below location:  https://github.com/dockersamples/example-voting-app
+	- App is designed by Docker community and available on Docker Hub for Public use.
+	- The minimum requirements:
+	  > This service need 1 Mount Volume, 2 Network and 5 Stack Services
+	  > Two overlay network you can call front_end_ntw and back_end_ntw is needed.
+	  > Voting App:
+	    - Image : dockersamples/examplevotingapp_vote:before Web front app
+	  	- Publish this on port 5000, Listner Container Port 80 Publish 5+ replicas
+	  	- Publish on front_end_ntw overlay Network
+	 	   
+	  > Redis:
+	  	- Image : redis:3.2
+	  	- Redis is used to Store the Data from Front End Service Publish 5+ replicas
+	  
+	  > Worker:
+	    - Image : dockersamples/examplevotingapp_worker:latest This will process on redis and Store Data in postgres Publish 1+ replicas
+	  
+	  > DB Service:
+	  	- Image : Postgres:9.4
+	  	- Mount Volume and mount to /var/lib/postgresql/data Publish on back_end_ntw network
+	  	- Publish 1+ replicas
+	  
+	  > Result Service:
+	    - Image : dockersamples/examplevotingapp_result:bfore Will display the Voting result
+	    - Publish on back_end_ntw network
+	    - Publish on port 5001, Container port 80
+	    - Publish 1+ replicas
+	  
+  
