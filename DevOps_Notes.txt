@@ -2823,21 +2823,21 @@ $ docker service --help
    .------------.      .------------. 
    | voting-app |  	   | result-app |
    |   Python   |  	   |   Node.js  |
-   .------------.  	   .------------.
+   '------------'  	   '------------'
 		 /			 	   ^
 		/			 	    \
 	   v                     \
 .------------.  	 	.------------.
 |    redis   |  	 	|     db     |
 |    Redis   |  	 	| PostgreSQL |
-.------------.  	 	.------------.
+'------------'  	 	'------------'
 		   \               ^
 		    \             /
 		     v	         /
     	    .------------.
 		    |    worker  |
 		    |     .NET   |
-		    .------------.
+		    '------------'
 
 
  3. Service Parts:
@@ -2924,6 +2924,86 @@ $ docker service --help
 # docker tag <image> <username/repository:tag>  docker push <username/repository:tag>
 
 # first u need to download the zip file in the lec, to the download folder and then u need to copy content to the droplet.
- $ scp Dockerfile docker-compose.yml app.py requirem ents.txt root@167.172.206.76:/root/sample_nginx/
-  
+ $ scp Dockerfile docker-compose.yml app.py requirements.txt root@167.172.206.76:/root/sample_nginx/
+ 
+ $ docker build --tag=friendly_hello:v1.0.1 .
+
+ # when applying the command above, u'll get the message <Successfully tagged friendly_hello:v1.0.1>
+
+ # now we need to push image to the docker hub, so login to docker
+  $ docker login
+  $ docker tag <image> <username/repository:tag>
+  $ docker tag friendly_hello:v1.0.1 mustafakamil/friendly_hello
+  $ docker push mustafakamil/hello_friendly
+
+ # now we will go through docker compose Yaml:
+ # first let's Explore the docker-compose.yml file.
+  i. Pull the Image from Repository.
+  ii. Run 5 instances of that image as a service called web
+  iii. Limiting each one to use, at most, 10% of a single core of CPU time and 50MB of RAM.
+  iv. Immediately restart containers if one fails. Map port 4000 on the host to web’s port 80.
+  v. Instruct web’s containers to share port 80 via a load-balanced network called webnet.
+  vi. Define the webnet network with the default settings, which is a load- balanced overlay network.
+
+	version: "3"
+	services:
+	  # Service Name Defined as web
+	  web:
+	    # Pull the Image from Repository.
+	    # replace username/repo:tag with your name and image details
+	    image: mustafakamil/friendly_hello:latest 
+	    # Command used to deploy the Service
+	    deploy:
+	      # Run 5 instances of that image as a service called web
+	      replicas: 5
+	      resources:
+	        # Limiting each one to use, at most, 10% of a single core of CPU time and 50MB of RAM.
+	        limits:
+	          cpus: "0.1"
+	          memory: 50M
+	      # Immediately restart containers if one fails.     
+	      restart_policy:
+	        condition: on-failure
+	    # Map port 4000 on the host to web’s port 80.    
+	    ports:
+	      - "4000:80"
+	    # Define default network, the overlay network 
+	    networks:
+	      - webnet
+	      
+	  visualizer:
+	    image: dockersamples/visualizer:stable
+	    ports:
+	      - "8080:8080"
+	    volumes:
+	      - "/var/run/docker.sock:/var/run/docker.sock"
+	    deploy:
+	      placement:
+	        constraints: [node.role == manager]
+	    networks:
+	      - webnet
+	networks:
+	  webnet:
+
+# now we need to deploy the service in docker swarm.
+ $ docker stack deploy -c docker-compose.yml nginx_start
+ 
+ - we don't have the network named <webnet> but when we run the yaml file we got these messages
+	Creating network nginx_start_webnet
+	Creating service nginx_start_web 	
+	# if u notice that it used the service name as prefix :)
+ $ docker network ls
+
+# now to check our stack, 
+ $ docker stack ls
+
+# to list all services for a specific stack
+ $ docker stack services nginx_start  
+
+# A single container running in this Service is called Task. So Single Service can execute multiple Tasks.
+ $ docker service ls
+ $ docker service ps nginx_start_web
+
+# go to digital ocean and copy any ip 
+# use ur browser and > ip:4000
   
