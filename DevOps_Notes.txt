@@ -3115,6 +3115,177 @@ version: "3"
 # save update.
  $ docker stack deploy -c docker-compose.yml nginx_start
  > u will get this message <Creating service nginx_start_redis>
+ 
+ $ docker service ls
+ # u can see under replicas <0/1> that's mean it's tryin to start redis but it is not uble to create it.
+ > this issue because in the yaml file we define the mount point of redis /home/docker  <-- this directory is not present in the host machine.
+ - so to resolve this issue we will replace:
+   volumes:
+    - "/home/docker/data:/data"
+
+   with:
+
+   volumes:
+    - "./data:/data"     <-- access the data from the current directory, where am executing the command.
+
+ # create a data directory 
+  $ mkdir ./data/
+ # update service now.
+ # u'll get messages some how like below:
+  Updating service nginx_start_web (id: 0g56lphw0t6xzc0cfavhjbzpu)
+  Updating service nginx_start_visualizer (id: xraykcwlgtmaqpneienllhlg4)
+  Updating service nginx_start_redis (id: kdh0hzqdwz61jk13g3qwfz8nd)
+
+ # in ur browser try to use <ip>:4000 --> u can see there's something different, it's Vistors with # :) before was 
+  > Visits: cannot connect to Redis, counter disabled
+
+ # let's do a test by stop redis service 
+  $ docker service rm nginx_start_redis
+ # check ur visualizer :)
+ # let's see what inside data folder , u will see this file <appendonly.aof>
+ # let's try to see the vistors again by refreshing the page. 
+  > Visits: cannot connect to Redis, counter disabled
+ # let's start the service again.
+ # check the stite again :)
+ 
+
+ # Now we will see how we can deploy distributed application
+ # as u know to distribute any stack the basic thing u need is the YAML file.
+ # this YAML file could be --> compose yaml file
+ 						   |-> stack yaml file 
+
+ # to get the distributed voting app yaml file 
+  > https://github.com/dockersamples/example-voting-app 
+
+ # to Get List of Stack running in Swarm  
+  $ docker swarm ls 
+ # to Get List of Task Running in Stack  
+  > docker stack ps <Stack_Name> 
+ # to Get List of Replicas Running in Service  
+  > docker stack services <Stack_Name>
+
+ # now we will get a copy of the stack yaml file from the link above:
+
+  version: "3"
+  services:
+  
+    redis:
+      image: redis:alpine
+      networks:
+        - frontend
+      deploy:
+        replicas: 1
+        update_config:
+          parallelism: 2
+          delay: 10s
+        restart_policy:
+          condition: on-failure
+  
+    db:
+      image: postgres:9.4
+      volumes:
+        - db-data:/var/lib/postgresql/data
+      networks:
+        - backend
+      deploy:
+        placement:
+          constraints: [node.role == manager]
+  
+    vote:
+      image: dockersamples/examplevotingapp_vote:before
+      ports:
+        - 5000:80
+      networks:
+        - frontend
+      depends_on:
+        - redis
+      deploy:
+        replicas: 2
+        update_config:
+          parallelism: 2
+        restart_policy:
+          condition: on-failure
+  
+    result:
+      image: dockersamples/examplevotingapp_result:before
+      ports:
+        - 5001:80
+      networks:
+        - backend
+      depends_on:
+        - db
+      deploy:
+        replicas: 1
+        update_config:
+          parallelism: 2
+          delay: 10s
+        restart_policy:
+          condition: on-failure
+  
+    worker:
+      image: dockersamples/examplevotingapp_worker
+      networks:
+        - frontend
+        - backend
+      depends_on:
+        - db
+      deploy:
+        mode: replicated
+        replicas: 1
+        labels: [APP=VOTING]
+        restart_policy:
+          condition: on-failure
+          delay: 10s
+          max_attempts: 3
+          window: 120s
+        placement:
+          constraints: [node.role == manager]
+  
+    visualizer:
+      image: dockersamples/visualizer:stable
+      ports:
+        - "8080:8080"
+      stop_grace_period: 1m30s
+      volumes:
+        - "/var/run/docker.sock:/var/run/docker.sock"
+      deploy:
+        placement:
+          constraints: [node.role == manager]
+  
+  networks:
+    frontend:
+    backend:
+  
+  volumes:
+    db-data:
+  
+# let's create file in the node, am using manager, and name it <docker-stack.yml>
+# paste the code above in it
+# run the file using:
+ $ docker stack deploy -c docker-stack.yml votingstack
+
+# now check how many stack running
+ $ docker stack ls
+
+# to see all the tasks related to a service 
+ $ docker stack ps votingstack
+ - docker name and task name are different
+
+# to get all replicas related to a sevice 
+ - docker stack services votingstack
+
+# notice: some time worker replication is not running, and if u open the log of the <worker> u can find some error message
+ $ docker service logs votingstack_worker
+ > errors related to socket exeption sometime. 
+ - this error is related to the .NET framework running inside the worker, microsoft error
+ - to resolve this error go to the yaml file and define instead of 1 replica for the worker use for example 10.   
+
+# now take any ip from the digital ocean and use ur browser.
+ > voting IP:5000
+ > result IP:5001
+
+
+--------------------------------------------- Docker Swarm Secrets: Manage Senstive Data ---------------------------------------
 
 
 
