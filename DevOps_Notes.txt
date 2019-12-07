@@ -2924,6 +2924,7 @@ $ docker service --help
 # docker tag <image> <username/repository:tag>  docker push <username/repository:tag>
 
 # first u need to download the zip file in the lec, to the download folder and then u need to copy content to the droplet.
+ $ mkdir sample_nginx  <-- on the target machine.
  $ scp Dockerfile docker-compose.yml app.py requirements.txt root@167.172.206.76:/root/sample_nginx/
  
  $ docker build --tag=friendly_hello:v1.0.1 .
@@ -2970,18 +2971,7 @@ $ docker service --help
 	    # Define default network, the overlay network 
 	    networks:
 	      - webnet
-	      
-	  visualizer:
-	    image: dockersamples/visualizer:stable
-	    ports:
-	      - "8080:8080"
-	    volumes:
-	      - "/var/run/docker.sock:/var/run/docker.sock"
-	    deploy:
-	      placement:
-	        constraints: [node.role == manager]
-	    networks:
-	      - webnet
+
 	networks:
 	  webnet:
 
@@ -3006,4 +2996,127 @@ $ docker service --help
 
 # go to digital ocean and copy any ip 
 # use ur browser and > ip:4000
-  
+
+# let's see how we can scale up docker services
+# when we're talking about scale up we mean, increase or decrease services, we are going to increase or decrease the resources for the services as well.
+
+# so u can scale the number of services plus u can scale the number of resources for a partical service
+
+# if u wanna to scale services u can do it by:
+ i. changing the YAML file and redeploy it to reflect changes.
+ ii. add new service in the stack (This option need to add vitulizer)
+
+# let's check how many nodes that we have 
+ $ docker node ls
+ $ pwd  ---> to see in which directory we are
+
+# we need to know how many services are running:
+ $ docker service ls
+
+# let's start new stack
+ $ docker stack deploy -c docker-compose.yml nginx_start
+ $ docker stack ls 
+
+# now let's for example trying to scale the service by increasing the  replicas #, cpus usage percentage and memory in the docker-compose.yml, to be like this:
+
+version: "3"
+	services:
+	  # Service Name Defined as web
+	  web:
+	    # Pull the Image from Repository.
+	    # replace username/repo:tag with your name and image details
+	    image: mustafakamil/friendly_hello:latest 
+	    # Command used to deploy the Service
+	    deploy:
+	      # Run 5 instances of that image as a service called web, we will scale it up to 6
+	      replicas: 6
+	      resources:
+	        # Limiting each one to use, at most, 10% of a single core of CPU time and 50MB of RAM. scale up to 30% cpu and 100MB
+	        limits:
+	          cpus: "0.3"
+	          memory: 100M
+	      # Immediately restart containers if one fails.     
+	      restart_policy:
+	        condition: on-failure
+	    # Map port 4000 on the host to web’s port 80.    
+	    ports:
+	      - "4000:80"
+	    # Define default network, the overlay network 
+	    networks:
+	      - webnet
+	      
+	networks:
+	  webnet:
+
+# save the change that u did to the file
+# then we need to deploy the command below again:
+ $ docker stack deploy -c docker-compose.yml nginx_start
+
+# u'll see this sentence <Updating service nginx_start_web> that's mean it's scale up the service nginx_start_web
+ $ docker service ps nginx_start_web
+
+# what happen actually is the swarm start stopping containers one by one so the service will not get any downtime and spin up the containers with new configuration one by one also
+# all the node should be able to serve the traffic and load balancer will manage the request as per on algorthim
+
+# now we will test how we can add new service to the stack, but first need to add visualizer, this is a new application which will dispaly you containers running in the docker swarm, manager and the worker node, it's already in the docker hub
+
+# we will modify the yaml code and visualizer and align it to be the same as web.
+
+	  visualizer:
+	    image: dockersamples/visualizer:stable
+	    ports:
+	      - "8080:8080"
+	    volumes:
+	      - "/var/run/docker.sock:/var/run/docker.sock"
+	    deploy:
+	      placement:
+	        constraints: [node.role == manager]
+	    networks:
+	      - webnet
+
+# note that we use constraints , it's this service will execute in the manager node. so by using this command we can define which service will be execute in which hode.
+
+# agin update the stack
+ $ docker stack deploy -c docker-compose.yml nginx_start
+ $ docker service ls
+ $ docker service ps nginx_start_visualizer
+
+# to see what new service <visualizer> did
+ > copy ip of any container, go to ur browser and use <ip:4000> u must see ur page.
+ > now use the same ip but with different port <ip:8080>
+
+# in the visualizer u can notice that the visualizer container will be in purple color
+
+# now we will face an issue of the persist data with stack and how we will resolve it :)
+ - the issue occurred because in docker swarm ur container can be executed on any node
+ - if u wanna to make a mount point with the persistent volume, if u define a directory it may possible ur container this time will running with node1 and next time may be running with node2. in this case the persistent data volume will make issue, coz the first time it was running it, that directory that partical volume was created in node1, next time when u start the container it choose the node randomly and in that new node had been chosen there's no directory structure u need.
+ - then the container will start new brand database.
+
+# to resolve the data persistent issue:
+ 1. user can use the volume to define the mount point, user will mount the container directory with local host directory.
+ 2. restrict the service to execute on specific node.
+ 3. for our example we will add redis on existing service.
+
+# now let's add one more service to our docker-compose.yml.
+
+  redis:
+   image: redis
+   ports:
+    - "6379:6379"
+   volumes:
+    - "/home/docker/data:/data"
+   deploy:
+    placement:
+     constraints: [node.role == manager]
+    command: redis-server -- appendonly yes
+    networks:
+     - webnet  
+
+# save update.
+ $ docker stack deploy -c docker-compose.yml nginx_start
+ > u will get this message <Creating service nginx_start_redis>
+
+
+
+
+
