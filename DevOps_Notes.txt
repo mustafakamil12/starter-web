@@ -2924,6 +2924,7 @@ $ docker service --help
 # docker tag <image> <username/repository:tag>  docker push <username/repository:tag>
 
 # first u need to download the zip file in the lec, to the download folder and then u need to copy content to the droplet.
+ $ mkdir sample_nginx  <-- on the target machine.
  $ scp Dockerfile docker-compose.yml app.py requirements.txt root@167.172.206.76:/root/sample_nginx/
  
  $ docker build --tag=friendly_hello:v1.0.1 .
@@ -2970,18 +2971,7 @@ $ docker service --help
 	    # Define default network, the overlay network 
 	    networks:
 	      - webnet
-	      
-	  visualizer:
-	    image: dockersamples/visualizer:stable
-	    ports:
-	      - "8080:8080"
-	    volumes:
-	      - "/var/run/docker.sock:/var/run/docker.sock"
-	    deploy:
-	      placement:
-	        constraints: [node.role == manager]
-	    networks:
-	      - webnet
+
 	networks:
 	  webnet:
 
@@ -3006,4 +2996,298 @@ $ docker service --help
 
 # go to digital ocean and copy any ip 
 # use ur browser and > ip:4000
+
+# let's see how we can scale up docker services
+# when we're talking about scale up we mean, increase or decrease services, we are going to increase or decrease the resources for the services as well.
+
+# so u can scale the number of services plus u can scale the number of resources for a partical service
+
+# if u wanna to scale services u can do it by:
+ i. changing the YAML file and redeploy it to reflect changes.
+ ii. add new service in the stack (This option need to add vitulizer)
+
+# let's check how many nodes that we have 
+ $ docker node ls
+ $ pwd  ---> to see in which directory we are
+
+# we need to know how many services are running:
+ $ docker service ls
+
+# let's start new stack
+ $ docker stack deploy -c docker-compose.yml nginx_start
+ $ docker stack ls 
+
+# now let's for example trying to scale the service by increasing the  replicas #, cpus usage percentage and memory in the docker-compose.yml, to be like this:
+
+version: "3"
+	services:
+	  # Service Name Defined as web
+	  web:
+	    # Pull the Image from Repository.
+	    # replace username/repo:tag with your name and image details
+	    image: mustafakamil/friendly_hello:latest 
+	    # Command used to deploy the Service
+	    deploy:
+	      # Run 5 instances of that image as a service called web, we will scale it up to 6
+	      replicas: 6
+	      resources:
+	        # Limiting each one to use, at most, 10% of a single core of CPU time and 50MB of RAM. scale up to 30% cpu and 100MB
+	        limits:
+	          cpus: "0.3"
+	          memory: 100M
+	      # Immediately restart containers if one fails.     
+	      restart_policy:
+	        condition: on-failure
+	    # Map port 4000 on the host to web’s port 80.    
+	    ports:
+	      - "4000:80"
+	    # Define default network, the overlay network 
+	    networks:
+	      - webnet
+	      
+	networks:
+	  webnet:
+
+# save the change that u did to the file
+# then we need to deploy the command below again:
+ $ docker stack deploy -c docker-compose.yml nginx_start
+
+# u'll see this sentence <Updating service nginx_start_web> that's mean it's scale up the service nginx_start_web
+ $ docker service ps nginx_start_web
+
+# what happen actually is the swarm start stopping containers one by one so the service will not get any downtime and spin up the containers with new configuration one by one also
+# all the node should be able to serve the traffic and load balancer will manage the request as per on algorthim
+
+# now we will test how we can add new service to the stack, but first need to add visualizer, this is a new application which will dispaly you containers running in the docker swarm, manager and the worker node, it's already in the docker hub
+
+# we will modify the yaml code and visualizer and align it to be the same as web.
+
+	  visualizer:
+	    image: dockersamples/visualizer:stable
+	    ports:
+	      - "8080:8080"
+	    volumes:
+	      - "/var/run/docker.sock:/var/run/docker.sock"
+	    deploy:
+	      placement:
+	        constraints: [node.role == manager]
+	    networks:
+	      - webnet
+
+# note that we use constraints , it's this service will execute in the manager node. so by using this command we can define which service will be execute in which hode.
+
+# agin update the stack
+ $ docker stack deploy -c docker-compose.yml nginx_start
+ $ docker service ls
+ $ docker service ps nginx_start_visualizer
+
+# to see what new service <visualizer> did
+ > copy ip of any container, go to ur browser and use <ip:4000> u must see ur page.
+ > now use the same ip but with different port <ip:8080>
+
+# in the visualizer u can notice that the visualizer container will be in purple color
+
+# now we will face an issue of the persist data with stack and how we will resolve it :)
+ - the issue occurred because in docker swarm ur container can be executed on any node
+ - if u wanna to make a mount point with the persistent volume, if u define a directory it may possible ur container this time will running with node1 and next time may be running with node2. in this case the persistent data volume will make issue, coz the first time it was running it, that directory that partical volume was created in node1, next time when u start the container it choose the node randomly and in that new node had been chosen there's no directory structure u need.
+ - then the container will start new brand database.
+
+# to resolve the data persistent issue:
+ 1. user can use the volume to define the mount point, user will mount the container directory with local host directory.
+ 2. restrict the service to execute on specific node.
+ 3. for our example we will add redis on existing service.
+
+# now let's add one more service to our docker-compose.yml.
+
+  redis:
+   image: redis
+   ports:
+    - "6379:6379"
+   volumes:
+    - "/home/docker/data:/data"
+   deploy:
+    placement:
+     constraints: [node.role == manager]
+    command: redis-server -- appendonly yes
+    networks:
+     - webnet  
+
+# save update.
+ $ docker stack deploy -c docker-compose.yml nginx_start
+ > u will get this message <Creating service nginx_start_redis>
+ 
+ $ docker service ls
+ # u can see under replicas <0/1> that's mean it's tryin to start redis but it is not uble to create it.
+ > this issue because in the yaml file we define the mount point of redis /home/docker  <-- this directory is not present in the host machine.
+ - so to resolve this issue we will replace:
+   volumes:
+    - "/home/docker/data:/data"
+
+   with:
+
+   volumes:
+    - "./data:/data"     <-- access the data from the current directory, where am executing the command.
+
+ # create a data directory 
+  $ mkdir ./data/
+ # update service now.
+ # u'll get messages some how like below:
+  Updating service nginx_start_web (id: 0g56lphw0t6xzc0cfavhjbzpu)
+  Updating service nginx_start_visualizer (id: xraykcwlgtmaqpneienllhlg4)
+  Updating service nginx_start_redis (id: kdh0hzqdwz61jk13g3qwfz8nd)
+
+ # in ur browser try to use <ip>:4000 --> u can see there's something different, it's Vistors with # :) before was 
+  > Visits: cannot connect to Redis, counter disabled
+
+ # let's do a test by stop redis service 
+  $ docker service rm nginx_start_redis
+ # check ur visualizer :)
+ # let's see what inside data folder , u will see this file <appendonly.aof>
+ # let's try to see the vistors again by refreshing the page. 
+  > Visits: cannot connect to Redis, counter disabled
+ # let's start the service again.
+ # check the stite again :)
+ 
+
+ # Now we will see how we can deploy distributed application
+ # as u know to distribute any stack the basic thing u need is the YAML file.
+ # this YAML file could be --> compose yaml file
+ 						   |-> stack yaml file 
+
+ # to get the distributed voting app yaml file 
+  > https://github.com/dockersamples/example-voting-app 
+
+ # to Get List of Stack running in Swarm  
+  $ docker swarm ls 
+ # to Get List of Task Running in Stack  
+  > docker stack ps <Stack_Name> 
+ # to Get List of Replicas Running in Service  
+  > docker stack services <Stack_Name>
+
+ # now we will get a copy of the stack yaml file from the link above:
+
+  version: "3"
+  services:
   
+    redis:
+      image: redis:alpine
+      networks:
+        - frontend
+      deploy:
+        replicas: 1
+        update_config:
+          parallelism: 2
+          delay: 10s
+        restart_policy:
+          condition: on-failure
+  
+    db:
+      image: postgres:9.4
+      volumes:
+        - db-data:/var/lib/postgresql/data
+      networks:
+        - backend
+      deploy:
+        placement:
+          constraints: [node.role == manager]
+  
+    vote:
+      image: dockersamples/examplevotingapp_vote:before
+      ports:
+        - 5000:80
+      networks:
+        - frontend
+      depends_on:
+        - redis
+      deploy:
+        replicas: 2
+        update_config:
+          parallelism: 2
+        restart_policy:
+          condition: on-failure
+  
+    result:
+      image: dockersamples/examplevotingapp_result:before
+      ports:
+        - 5001:80
+      networks:
+        - backend
+      depends_on:
+        - db
+      deploy:
+        replicas: 1
+        update_config:
+          parallelism: 2
+          delay: 10s
+        restart_policy:
+          condition: on-failure
+  
+    worker:
+      image: dockersamples/examplevotingapp_worker
+      networks:
+        - frontend
+        - backend
+      depends_on:
+        - db
+      deploy:
+        mode: replicated
+        replicas: 1
+        labels: [APP=VOTING]
+        restart_policy:
+          condition: on-failure
+          delay: 10s
+          max_attempts: 3
+          window: 120s
+        placement:
+          constraints: [node.role == manager]
+  
+    visualizer:
+      image: dockersamples/visualizer:stable
+      ports:
+        - "8080:8080"
+      stop_grace_period: 1m30s
+      volumes:
+        - "/var/run/docker.sock:/var/run/docker.sock"
+      deploy:
+        placement:
+          constraints: [node.role == manager]
+  
+  networks:
+    frontend:
+    backend:
+  
+  volumes:
+    db-data:
+  
+# let's create file in the node, am using manager, and name it <docker-stack.yml>
+# paste the code above in it
+# run the file using:
+ $ docker stack deploy -c docker-stack.yml votingstack
+
+# now check how many stack running
+ $ docker stack ls
+
+# to see all the tasks related to a service 
+ $ docker stack ps votingstack
+ - docker name and task name are different
+
+# to get all replicas related to a sevice 
+ - docker stack services votingstack
+
+# notice: some time worker replication is not running, and if u open the log of the <worker> u can find some error message
+ $ docker service logs votingstack_worker
+ > errors related to socket exeption sometime. 
+ - this error is related to the .NET framework running inside the worker, microsoft error
+ - to resolve this error go to the yaml file and define instead of 1 replica for the worker use for example 10.   
+
+# now take any ip from the digital ocean and use ur browser.
+ > voting IP:5000
+ > result IP:5001
+
+
+--------------------------------------------- Docker Swarm Secrets: Manage Senstive Data ---------------------------------------
+
+
+
+
+
