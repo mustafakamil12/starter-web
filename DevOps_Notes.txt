@@ -3287,7 +3287,12 @@ version: "3"
 
 --------------------------------------------- Docker Swarm Secrets: Manage Senstive Data ---------------------------------------
 
+# what is secrets: a secret is a piece of data, such as a password, SSH private key, SSL cretificate, or another piece of data that should not be transmitted over a network or stored unencrypted in a dockerfile or in your application's source code.
 
+# user can manage these senstive data with docker swarm sercrets,
+# docker centrally manage this data and send to only container that need it.
+# docker secrets is only available in the swarm mode
+# container secrets provide a layer of abstraction between container and a set of credentials
 
 
 
