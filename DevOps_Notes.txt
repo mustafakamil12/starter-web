@@ -3291,8 +3291,118 @@ version: "3"
 
 # user can manage these senstive data with docker swarm sercrets,
 # docker centrally manage this data and send to only container that need it.
-# docker secrets is only available in the swarm mode
-# container secrets provide a layer of abstraction between container and a set of credentials
+# docker secrets is only available in the swarm mode.
+# only granted service and containers access the secrets data over the network.
+# container secrets provide a layer of abstraction between container and a set of credentials.
+# when a user adds a new secret to a swarm cluster, this secret is sent to a manager using a TLS connection. 
+# TLS: is a cryptography protocol that provides communication security over a network by providing communication encryption, privacy and data intigrity.
+# when we have multiple managers, RAFT manage the secrets on all the managers.
+# containers work on mounted decrypted secrets, which store at /run/secrets/<secret_name> in containers.
+# User can update a service to grant it access to additional secrets or revoke its access to a given secret at anytime.
+# when container task stops running, the decrypted secrets shared to it are unmounted from the in-memory filesystem for that container and flshed from the node's memory.
+
+# now let's understand the secret command:
+ $ docker secret --help
+
+# there're 2 ways to create secret:
+ - by file: $ docker secret create <secret_name> <file_name>
+ - by cli:  $ echo "secret_string" | docker secret create <secret_name> -
+
+# let's first create a secret dirctory 
+ $ mkdir secretsExample
+ $ cd  secretsExample
+ $ vi dbpass.txt
+   --> for example add test@123  --> :wq
+ $ cat dbpass.txt
+
+ $ docker secret create db_password dbpass.txt   --> by file
+
+ $ echo "db_user" | docker secret create db_username - 
+
+# now to list all secret in ur machine
+ $ docker secret ls
+
+# to inspect a secret:
+ $ docker secret inspect <secret_name>  --> we will get info on the secret not the secret itself
+ 
+ $ docker secret inspect db_password
+
+# to see the history of all commands that u used in the cli use:
+ $ history
+
+# so the method above to create secret is not ideal
+# let's create Postgres service with secrets: 
+ $ docker service create --name <service_naem> --secret <username_secret> --secret <pass_secret> -e POSTGRES_PASSWORD_FILE=run/secrets/ <pass_secret> -e POSTGRES_USERS_FILE=run/secrets/ <user_secret><IMAGE>:TAG
+
+ $ docker service create --name postgress --secret db_username --secret db_password -e POSTGRES_PASSWORD_FILE=/run/secrets/db_password -e POSTGRES_USER_FILE=/run/secrets/db_username postgres
+
+ $ docker service ls
+ $ docker service ps postgress
+
+# to access the container above
+ $ docker exec -it postgress...... bash
+ $ cd /run/secrets
+ $ cat db_password
+
+# now let's take a look about how to use secret in the docker stack.
+ 
+ - docker compse yaml file:
+version: "3.1"
+services:
+  # Service Name Defined as web
+  postgresDB:
+    # Pull the Image from Repository.
+    image: postgres:latest
+    # Command to use secrects in 
+    secrets:
+      # define Secrets name
+      - db_username
+      - db_password
+    environment:
+        # Define environment varaibles
+        POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+        POSTGRES_USER_FILE: /run/secrets/db_username
+
+  centOS:
+    image: centos
+    deploy:
+      replicas: 1
+    entrypoint: /bin/sh
+    stdin_open: true
+    tty: true
+    secrets:
+      - source: my-secret
+
+
+secrets:
+  db_username:
+    file: ./postgres_user.txt
+  db_password:
+    file: ./postgres_password.txt
+  my-secret:
+    external: true
+
+
+# before implementing the command above, remove the secrets that u created early.
+# now create the required text files mention in the yaml file above
+ $ vi postgres_user.txt
+  --> tkdbowner
+
+ $ vi postgres_password.txt
+  --> tkdbpassword
+
+# now create the docker compose yaml file:
+ $ vi docker-compose.yml
+
+# now let's create the stack
+ $ docker stack deploy -c docker-compose.yml postgresdb
+
+ $ docker stack ls
+ $ docker service ls  ==> u can see under the name column postgresdb_postgresDB --> the first part come from the stack name and the second part come from service name in the yaml file.
+
+
+
+
 
 
 
