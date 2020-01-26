@@ -3415,9 +3415,17 @@ secrets:
  # keep in mind the centos image is heavy so just wait untill it been completed
 
 
+--------------------------------------------------- zero-downtime service upgrade ----------------------------------------------
 
+# this is consider a dream for software companies
 
+# Swarm Help us to Limit the Downtime in Service Update/Upgrade.
+# It’s all become possible with Rolling Upgrade Approach.
+												   .-- take a maintenance window, upgrade service
+# how to upgrade our service or software version --|
+												   .-- take any maintenance window, rolling upgrade (zero downtime upgrade)
 
+# in rolling upgrade we will down a single server upgrade service in this particular server and then attached that server to the production, repeat this process with other servers.
 
 
 
