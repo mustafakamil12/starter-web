@@ -3399,6 +3399,21 @@ secrets:
 
  $ docker stack ls
  $ docker service ls  ==> u can see under the name column postgresdb_postgresDB --> the first part come from the stack name and the second part come from service name in the yaml file.
+ $ docker stack ps postgresdb
+ $ docker service ps postgresdb_postgresDB
+
+# quick notes, if we using like what we have in centOS --> my-secret which is external (cli base secret) u need to use external : true under secrets section.
+
+ $ docker stack rm postgresdb
+ $ docker stack ls
+ $ docker service ls
+ $ docker secret ls
+ $ docker stack deploy -c docker-compose.yml postgres_os_stack   <-- at this point the stack will not been created we need to do one more thing.
+ $ echo "mytestvalue" | docker secret create my-secret -
+ $ docker secret ls
+ $ docker stack deploy -c docker-compose.yml postgres_os_stack
+ # keep in mind the centos image is heavy so just wait untill it been completed
+
 
 
 
