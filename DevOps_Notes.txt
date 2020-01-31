@@ -1507,7 +1507,126 @@ $ aws configure --profile terraform-user
 
 
 
+-----------------------------------------------------------Terraform with DigitalOcean--------------------------------------------
 
+Terraform with droplets - digitalocean
+
+# first check if terraform had been installed in ur computer
+ $ terraform
+ 
+# makie authentication with digitalocean which mean between terraform and digitalocean account
+# at this point we are looking for a token file
+# go to digitalocean --> API --> generate new token --> <give a name> --> copy ur token 
+d38f2bad15827c7d777d9dc2e5fa9709fa16ace468c2cc0e2f7ec24623d41d11
+
+# u can use terraform documents to get the right resources for digitalocean as below:
+
+	variable "do_token" {}
+	provider "digitalocean" {
+	token = "${var.do_token}"  //referencing the token you exported using var
+	}
+	
+	resource "digitalocean_droplet" "terraform" {   //terraform is a name of the droplet
+	image  = "ubuntu-18-04-x64"
+	name   = "terraform-droplet"
+	region = "SFO2"
+	size   = "1gb"
+	}
+	
+# the code after changing the token part will been
+
+	variable "digitalocean_token" {}
+	provider "digitalocean" {
+	token = "${var.digitalocean_token}"  
+	}
+	
+	resource "digitalocean_droplet" "terraform" {   
+	image  = "ubuntu-18-04-x64"
+	name   = "terraform-droplet"
+	region = "SFO2"
+	size   = "1gb"
+	}
+
+# save the content to createdroplet.tf in ur work directory
+
+# now we need to export the token that we got from APT - digitalocean 
+ $ export digitalocean_token=d38f2bad15827c7d777d9dc2e5fa9709fa16ace468c2cc0e2f7ec24623d41d11  --> Linux and Mac
+ $ set digitalocean_token=d38f2bad15827c7d777d9dc2e5fa9709fa16ace468c2cc0e2f7ec24623d41d11  --> windows
+ 
+
+# now let's start working with terraform
+ $ terraform init 
+ $ terraform plan
+	# it will ask u about the token
+ $ terraform apply
+	# enter the token 
+	# enter yes
+
+# now to destroy this droplet just use
+ $ terraform destroy
+ 
+# now if we want to install anything in the new droplet at the provisioning time, we will add some new commands.
+# The author create multiple tf files for a reason
+ 1. provider.tf
+	
+	variable "do_token" {}
+	variable "pub_key" {}
+	variable "pvt_key" {}
+	variable "ssh_fingerprint" {}
+	
+	provider "digitalocean" {
+		token = "${var.do_token}"
+	}
+
+
+ 2. web1.tf
+
+	resource "digitalocean_droplet" "web1" {
+		image = "ubuntu-16-04-x64"
+		name = "web1"
+		region = "nyc2"
+		size = "512mb"
+		private_networking = true
+		#user_data = "${file("config/webuserdata.sh")}"
+		ssh_keys = [
+			"${var.ssh_fingerprint}"
+		]
+		connection {
+			user = "root"
+			type = "ssh"
+			private_key = "${file(var.pvt_key)}"
+			timeout = "2m"
+		}
+		provisioner "remote-exec"{      #it will running after provisioning process complet.
+			inline = [ 
+				#install Docker Requirement    
+				"sudo apt-get update",          
+				"sudo apt-get -y install nginx" 
+			]  
+		}
+    }                               
+	
+# now we need to repeat export token process 
+ $ export do_token=d38f2bad15827c7d777d9dc2e5fa9709fa16ace468c2cc0e2f7ec24623d41d11  --> Linux and Mac
+ $ set do_token=d38f2bad15827c7d777d9dc2e5fa9709fa16ace468c2cc0e2f7ec24623d41d11  --> windows
+# now we need to export the SSH of digitalocean.
+ $ export ssh_fingerprint=39:85:ea:fa:6c:d2:1f:4b:db:62:45:d2:ab:53:39:25
+ $ set ssh_fingerprint=39:85:ea:fa:6c:d2:1f:4b:db:62:45:d2:ab:53:39:25
+
+# to check the variables above
+ $ echo $do_token
+ $ echo $ssh_fingerprint
+ $ terraform init
+ 
+ $ terraform plan \
+   -var "do_token"=${DO_TOKEN} \
+   -var "pub_key"=$/c/Terraform_DigitalOcean/ssh_fingerprint.pub \
+   -var "pvt_key"=$/c/Terraform_DigitalOcean/ssh_fingerprint \
+   -var "ssh_fingerprint"=$SSH_FINGERPRINT
+ 
+ $ terraform plan -var "do_token"=${DO_TOKEN} -var "pub_key"=$/c/Terraform_DigitalOcean/ssh_fingerprint.pub  -var "pvt_key"=$/c/Terraform_DigitalOcean/ssh_fingerprint -var "ssh_fingerprint"=$SSH_FINGERPRINT
+
+ 
 =============================================================== End of Terraform =================================================
 
 
