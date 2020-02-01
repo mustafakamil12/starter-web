@@ -194,6 +194,9 @@ $ git config --global alias.<name> "command options>
 $ git <alias name>  <-- how to use alias
 $ git config --global alias.history "log --all --graph --decorate --oneline"  <== to use this alias $ git history
 
+# another fantastic one:
+$ git log --pretty=format:"%h%x09%an%x09%ad%x09%s" 
+
 # for example if u wanna to do some change in the alias command after u create it. let say u need to remove --graph from it.
 # u need to edit the config file 
 $ nano ~/.gitcofig
