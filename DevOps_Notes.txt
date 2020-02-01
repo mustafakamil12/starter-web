@@ -3546,5 +3546,52 @@ secrets:
 
 # in rolling upgrade we will down a single server upgrade service in this particular server and then attached that server to the production, repeat this process with other servers.
 
+# so in reality we replaced old container with new one,
+
+# to enhance version of our deployed service
+ $ docker service update --image <imagename> <servicename>
+
+# now suppose we need to upate complete stack
+# edit the yaml file and deploy it again
+ $ dodcker stack deploy -c <yml file> <servicename>
+
+# let's start nginx service but with lower version 
+ $ docker service create -p 80:8080 --name <service_naem> <nginx image: version>
+
+ $ docker service ls   --> to check if there's any service still running.
+ $ docker stack rm <service name>
+
+ # let's build our old version nginx
+ $ docker service create -p 80:8080 --name web_server nginx:1.14.2
+ $ docker service ls
+
+ # what's the difference between vertical and horizontal scaling
+  - horizontal : it means we are increasing the number of replicas, number of containers
+  - vertical : upgrading resoureces in the current service, CPUs, RAMs, Hards etc.
+
+ # we will focus on how to scale horizontally.
+  $ docker service scale <service name>=<number of replicas>
+  $ docker service scale web_server=10
+  $ docker service ls
+
+ # all the replicas will run nginx in 1.14.2 version, now we need to upgrade this version to the newest one.
+  $ docker service update --image nginx:1.15.12 web_server
+  # u can notice the rolling upgrade, upgrade containers one by one.
+
+  # to check our work above
+  $ docker service ps web_server
+
+  # if u take a look on the command above results, u can see it's actully replacing old container by new one.
+
+ # now another example, let's say we need to change the ports from 8080 to 9090
+  $ docker service update --publish-rm 8080 --publish-add 9090:80 web_server
+  $ docker service ps web_server
+ 
+ # to stop the service above:
+  $ docker service rm web_server
+  $ docker service ls
+  $ docker service ps web_server
+
+
 
 
