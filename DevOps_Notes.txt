@@ -3595,6 +3595,22 @@ secrets:
   $ docker service ls
   $ docker service ps web_server
 
+-------------------------------------------------- health check in docker services ---------------------------------------------
 
+# checking resources health
+# health check command:
+ $ HEALTHCHECK [option] CMD <command>: the command that sets the container health check
 
+# if any failed occurred then the swarm will fail the bad container and spin up a new one :)
 
+# Options that we have with healthcheck:
+ ➤ --interval=<interval>: The time interval between two health checks. The default value is 30 seconds.
+
+ ➤ --timeout=<interval>: The timeout for running the health check command. The health check fails if the timeout is exceeded. The default value is 30 seconds.
+
+ ➤ --retries=<number of times>: The container status is regarded as unhealthy if the health check fails continuously for a specified number of times. The default value is 3.
+
+ ➤ --start-period=<interval>: The initialization time of application startup. Failed health check during the startup is not counted. The default value is 0 second.
+
+# now let's start with practical example:
+ 
