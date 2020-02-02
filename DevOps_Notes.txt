@@ -3659,4 +3659,51 @@ secrets:
 
 ------------------------------------------------- Docker swarm container placement ---------------------------------------------
 
+# Docker Swarm automatically try and place your containers to provide maximum resiliency within the service.
+# Place the Container on Specific node, for monitoring for application functionality reason. 
+# there're multiple way to achieve our goal
+ 1. service constraints
+
+ - Service constraints are used to control the nodes a service can be assigned to.
+ - Service Constraints can be added to creation time, or add/remove at update time.
+ - By Creation of Hard Coded requirement, container placement fails if not matched. (stuck in bending mode)
+ - Multiple Constraints can be assigned to a single service.
+ - It supports key or key=value pair
+
+# before starting clean service, stop any running services. 
+
+# First Let’s start the visualiser in Docker Swarm
+ $ docker run -it -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock dockersamples/visualizer
+
+ #what u see in the visualizer u can see it in the cli
+ $ docker node ls
+
+# Create Service on Manager Node Only
+ $ docker service create --constraint node.role==manager <image_name>
+ $ docker service create --constraint node.role==manager postgres
+ $ docker service ls 
+
+ # let's run another service on worker this time
+  $ docker service create --name webserver --constraint node.role==worker --replicas=5 nginx
+
+# what if we need to run a specific app on sepecific node, for ex/ one node have very high cpus and rams, so how we defined these conditions. answer by using lables, so we are tagging our nodes and our services :)
+
+# Add Label on any Node and define Constraints
+ $ docker node update --label-add=region=east-1-d <node_id>
+ $ docker node ls
+ $ docker node update --label-add=region=east-1-d c83....etc
+
+ # to check where's our lable
+ $ docker node ls
+ $ docker node ispect <node_id>
+ # take a look in the result u can find there's lable :) 
+ 
+ # now we will start a service in a specific lable (east-1-d)
+ $ docker Service create --constraint node.labels.region==east-1-d <image_name>
+ $ docker Service create --name postgres --constraint node.labels.region==east-1-d postgres
+
+# Remove Constrains and add new constrains on running service
+ $ docker service update --constraint-rm <Constraint added on service> --constraint-add <new constraint> <service_name>
+
+
 
