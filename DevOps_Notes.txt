@@ -3691,7 +3691,7 @@ secrets:
 # Add Label on any Node and define Constraints
  $ docker node update --label-add=region=east-1-d <node_id>
  $ docker node ls
- $ docker node update --label-add=region=east-1-d c83....etc
+ $ docker node update --label-add=region=east-1-d c83....etc  <-- master node id 
 
  # to check where's our lable
  $ docker node ls
@@ -3703,7 +3703,8 @@ secrets:
  $ docker Service create --name postgres --constraint node.labels.region==east-1-d postgres
 
 # Remove Constrains and add new constrains on running service
- $ docker service update --constraint-rm <Constraint added on service> --constraint-add <new constraint> <service_name>
+ $ docker service update --constraint-rm=<Constraint added on service> --constraint-add <new constraint> <service_name>
+ $ docker service update --constraint-rm=node.labels.region==east-1-d --constraint-add node.role==worker podtgres
 
-
+# now let's know how to define service constraints in dokcer stack file
 
