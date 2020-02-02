@@ -3613,4 +3613,47 @@ secrets:
  ➤ --start-period=<interval>: The initialization time of application startup. Failed health check during the startup is not counted. The default value is 0 second.
 
 # now let's start with practical example:
+ $ mkdir healthcheck
+ $ cd healthcheck 
+ $ ls
+
+ # let's run new container
+ $ docker contaienr run --name postgres1 -d postgres
+
+ # ok now we need to setup a health check inside postgres <to check if the connection to the database healthy or not>
+
+ $ docker container exec -it postgres1 bash
+  # pg_isready -U postgres   --> we must get some output here.
+  # exit
+
+ $ docker ps
  
+ # start another container
+  $ docker container run -d --name postgres2 --health-cmd="pg_isready -U postgres || exit 1" postgres
+  $ docker ps
+
+  # u can see there's new thing in the status ==> (health: starting) as we see here health at starting mode (by default)
+  							   .- starting (helthcheck starting when ever container starting) by default
+  # there are 3 health modes --|- healthy
+  							   .- un healthy
+
+ # let's start another container
+  $ docker container run -d --name postgres2 --health-cmd="pg_isready -U root || exit 1" postgres  <-- check the health of the user
+  $ docker ps
+
+  # u can see in the output the old one status (helth:starting) now changed to healthy and the new one status (health:starting) 
+
+# as long as we see helth with container but it's not useful because if there's any issue happen with the container there's nothing to do
+# so the solution is use helth with swarm, if there's any issue with container, service or task, new one will be spin up.
+
+# let's start new service
+ $ docker service create --name postgresservice1 postgres
+ $ docker service ls 
+# now we need to put helth check in our service
+ $ docker container run -d --name postgresservice2 --health-cmd="pg_isready -U postgres || exit 1" postgres 
+ # here we will see a different thing, when we will starting the service it's not comming in the running mode, it still in the starting mode and it will keep in the starting mode up to 30 sec, after this period it will switch to the running mode and then start ur service.
+
+ # why it take 30 secs?
+ # because when we running the helth check inside the docker swarm, it will not accepting the service to running until the first helth check will be passed, by default the interval is 30 sec. at the time of initilization so the next interval will be after 30 sec
+
+
