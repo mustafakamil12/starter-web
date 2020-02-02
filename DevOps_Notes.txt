@@ -3657,3 +3657,6 @@ secrets:
  # because when we running the helth check inside the docker swarm, it will not accepting the service to running until the first helth check will be passed, by default the interval is 30 sec. at the time of initilization so the next interval will be after 30 sec
 
 
+------------------------------------------------- Docker swarm container placement ---------------------------------------------
+
+
