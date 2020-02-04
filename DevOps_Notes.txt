@@ -3784,4 +3784,5 @@ secrets:
 # now apply the stack yaml file again.
  $ docker stack deploy -c docker-compose.yml mysql
  
- 
+
+============================================================= End Of Docker ======================================================
