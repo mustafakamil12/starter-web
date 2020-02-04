@@ -1517,10 +1517,11 @@ Terraform with droplets - digitalocean
 # first check if terraform had been installed in ur computer
  $ terraform
  
-# makie authentication with digitalocean which mean between terraform and digitalocean account
+# make authentication with digitalocean which mean between terraform and digitalocean account
 # at this point we are looking for a token file
 # go to digitalocean --> API --> generate new token --> <give a name> --> copy ur token 
-d38f2bad15827c7d777d9dc2e5fa9709fa16ace468c2cc0e2f7ec24623d41d11
+d38f2bad15827c7d777d9dc2e5fa9709fa16ace468c2cc0e2f7ec24623d41d11  --> work computer
+fdaf9ff9d3b4f0ce16acfd87bcee1bc1af3c00d4129885e53d470e40f465bffd  --> Mac
 
 # u can use terraform documents to get the right resources for digitalocean as below:
 
@@ -1552,7 +1553,7 @@ d38f2bad15827c7d777d9dc2e5fa9709fa16ace468c2cc0e2f7ec24623d41d11
 
 # save the content to createdroplet.tf in ur work directory
 
-# now we need to export the token that we got from APT - digitalocean 
+# now we need to export the token that we got from API - digitalocean 
  $ export digitalocean_token=d38f2bad15827c7d777d9dc2e5fa9709fa16ace468c2cc0e2f7ec24623d41d11  --> Linux and Mac
  $ set digitalocean_token=d38f2bad15827c7d777d9dc2e5fa9709fa16ace468c2cc0e2f7ec24623d41d11  --> windows
  
@@ -1584,7 +1585,7 @@ d38f2bad15827c7d777d9dc2e5fa9709fa16ace468c2cc0e2f7ec24623d41d11
 
  2. web1.tf
 
-	resource "digitalocean_droplet" "web1" {
+	resource "digitalocean_droplet" "web" {
 		image = "ubuntu-16-04-x64"
 		name = "web1"
 		region = "nyc2"
@@ -1612,6 +1613,22 @@ d38f2bad15827c7d777d9dc2e5fa9709fa16ace468c2cc0e2f7ec24623d41d11
 # now we need to repeat export token process 
  $ export do_token=d38f2bad15827c7d777d9dc2e5fa9709fa16ace468c2cc0e2f7ec24623d41d11  --> Linux and Mac
  $ set do_token=d38f2bad15827c7d777d9dc2e5fa9709fa16ace468c2cc0e2f7ec24623d41d11  --> windows
+
+# now we need to generate the SSH for digital ocean:
+ $ ssh-keygen -t ecdsa
+ # password: empty
+ # confirm: empty
+ $ cd /Users/mustafaalogaidi/Desktop/DigitalOcean_Terraform_SSH/.ssh
+ $ cat dokey.pub
+ # copy the public key to --> digital ocean --> account menu --> settings --> security --> add ssh key --> giv it a name
+ # now copy the MD5 that had been calculated after creating the new ssh key in D.O.
+ # now export the ssht as below
+ # export ssh_fingerprint_mac=19:2a:bd:c7:0c:8a:fd:ac:97:42:75:15:cb:56:6f:7e
+
+ # to check our keys:
+  $ echo $digitalocean_token
+  $ echo $ssh_fingerprint_mac
+
 # now we need to export the SSH of digitalocean.
  $ export ssh_fingerprint=39:85:ea:fa:6c:d2:1f:4b:db:62:45:d2:ab:53:39:25
  $ set ssh_fingerprint=39:85:ea:fa:6c:d2:1f:4b:db:62:45:d2:ab:53:39:25
