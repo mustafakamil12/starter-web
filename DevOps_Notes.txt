@@ -1628,6 +1628,34 @@ d38f2bad15827c7d777d9dc2e5fa9709fa16ace468c2cc0e2f7ec24623d41d11
    -var "ssh_fingerprint"=$SSH_FINGERPRINT
  
  $ terraform plan -var "do_token"=${DO_TOKEN} -var "pub_key"=$/c/Terraform_DigitalOcean/ssh_fingerprint.pub  -var "pvt_key"=$/c/Terraform_DigitalOcean/ssh_fingerprint -var "ssh_fingerprint"=$SSH_FINGERPRINT
+ 
+ 
+# another way to configer the provider.tf
+
+	variable "do_token" {                                                                 
+			type = "string"                                                               
+			description = "DigitalOcean API Token"                                        
+			default = "d38f2bad15827c7d777d9dc2e5fa9709fa16ace468c2cc0e2f7ec24623d41d11"  
+	}                                                                                     
+	variable "pub_key" {                                                                  
+			type = "string"                                                               
+			description = "The Path to Your Public Key"                                   
+			default = "C:/Terraform_DigitalOcean/ssh_fingerprint_rsa.pub"                 
+	}                                                                                     
+	variable "pvt_key" {                                                                  
+	type = "string"                                                                       
+			description = "The Path to Your PrivateKey"                                   
+			default = "C:/Terraform_DigitalOcean/ssh_fingerprint_rsa"                     
+	}                                                                                     
+	variable "ssh_fingerprint" {                                                          
+			type = "string"                                                               
+			description = "SSH Key fingerprint"                                           
+			default = "39:85:ea:fa:6c:d2:1f:4b:db:62:45:d2:ab:53:39:25"                   
+	}                                                                                     
+	provider "digitalocean" {                                                             
+			token = "${var.do_token}"                                                     
+	}                                                                                     
+
 
  
 =============================================================== End of Terraform =================================================
