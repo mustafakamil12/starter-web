@@ -69,5 +69,39 @@
  - It is the network proxy which runs on each worker node and listens to the API server for each Service endpoint creation/ deletion.
 
 
+-------------------------------------------------- Kubernetes vs Docker Swarm --------------------------------------------------
+
+1. Kubernetes and Docker Swarm are leading container orchestration tools.
+2. Installation :
+ - Setting Up Docker Swarm is very easy. We need just Two CLI Commands to start with Swarm.
+ - Kubernetes Installation is complex and we need to execute few commands to Bring up the Cluster and then define the Environment, Network, and DashBoard. 
+
+3. GUI :
+ - Kubernetes have GUI, user can control the Complete Environment from Browser, No CLI commands required.
+ - Docker Swarm has no GUI, user need to user CLI for swarm management.
+4. Scalability :
+ - Both Tools scale the System efficiently. No-one win here, 
+ - Kubernetes is slightly better at maintaining the Cluster strength, whereas 
+ - Swarm is slightly faster at scaling up(5x faster than K8s). 
+
+5. Auto-Scaling :
+ - The clear winner is Kubernetes. That is because, K8s are intelligent enough to analyze your server load, and scale up or down as per the requirement.
+ - Docker Swarm doesn’t provide Auto-Scaling, When traffic pours manual intervention is the only way out.
+6. Load Balancing :
+ - Load Balancing is challenge with Kubernetes, you need to manually configure your load balancing settings.
+ - Load balancing is simple with Swarm because, Swarm does auto load-balancing. There is no concept of Pods, and hence all the containers discover each other with a network IP address.
+
+7. Rolling Upgrade & Roll-Back :
+ - Kubernetes Supports the Rolling Upgrade and Auto Roll Back if it find something is fizzy with Cluser.
+ - Swarm supports the Rolling Upgrade but no auto Roll Back feature is available.
+8. Data Volumes :
+ - Kubernetes allows us to share storage volumes between multiple containers inside the same Pod.
+ - Docker Swarm allows us to share storage volumes with any other container.
+
+9. Logging & Monitoring :
+ - Kubernetes provides in-built tools for logging and monitoring.
+ - With Swarm, you need to use third party tools like ELK.
+ - Logging helps in quickly analyzing the logs and understanding where the problem lies in case of a failure.
+ - Monitoring helps the Master to constantly be aware of the health status of nodes and the services Status.
 
 =========================================================== End Of Kubernetes ====================================================
